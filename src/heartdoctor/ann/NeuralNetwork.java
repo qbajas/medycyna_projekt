@@ -1,0 +1,133 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package heartdoctor.ann;
+
+import java.util.ArrayList;
+
+/**
+ *
+ * @author empitness
+ */
+public class NeuralNetwork {
+
+  private ArrayList<NeuronLayer> _layers;
+  private int _numInputs;
+  private int _numOutputs;
+  private int _numHiddenLayers;
+  private int _numNeuronsPerHiddenLayer;
+
+  public NeuralNetwork(int numInputs, int numOutputs, int numHiddenLayers, int numNeuronsPerHiddenLayer)
+  {
+	_numInputs = numInputs;
+	_numOutputs = numOutputs;
+	_numHiddenLayers = numHiddenLayers;
+	_numNeuronsPerHiddenLayer = numNeuronsPerHiddenLayer;
+
+	if (numHiddenLayers > 0)
+	{
+	  // utworz pierwsza warstwe ukryta (na wejsciach inputy sieci)
+	  _layers.add(new NeuronLayer(numNeuronsPerHiddenLayer, numInputs));
+
+	  // utworz posrednie warstwy ukryte
+	  for (int i = 0; i < numHiddenLayers - 1; ++i)
+	  {
+		_layers.add(new NeuronLayer(numNeuronsPerHiddenLayer, numNeuronsPerHiddenLayer));
+	  }
+
+	  // utworz warstwe wyjsciowa (na wyjsciach outputy sieci)
+	  _layers.add(new NeuronLayer(numOutputs, numNeuronsPerHiddenLayer));
+	}
+	else
+	{
+	  _layers.add(new NeuronLayer(numOutputs, numInputs));
+	}
+  }
+
+  public ArrayList<Double> getWeights()
+  {
+	ArrayList<Double> weights = new ArrayList<Double>();
+
+	for (int l = 0; l < _layers.size(); ++l)
+	{
+	  NeuronLayer layer = _layers.get(l);
+	  for (int n = 0; n < layer.getNumNeurons(); ++n)
+	  {
+		Neuron neuron = layer.neurons.get(n);
+		for (int w = 0; w < neuron.getNumInputs(); ++w)
+		{
+		  weights.add( neuron.inputWeights.get(w) );
+		}
+	  }
+	}
+
+	return weights;
+  }
+
+  public void setWeights(ArrayList<Double> weights)
+  {
+	int weightIdx = 0;
+
+	for (int l = 0; l < _layers.size(); ++l)
+	{
+	  NeuronLayer layer = _layers.get(l);
+	  for (int n = 0; n < layer.getNumNeurons(); ++n)
+	  {
+		Neuron neuron = layer.neurons.get(n);
+		for (int w = 0; w < neuron.getNumInputs(); ++w)
+		{
+		  neuron.inputWeights.set(w, weights.get(weightIdx++));
+		}
+	  }
+	}
+  }
+
+  public ArrayList<Double> Compute(ArrayList<Double> inputs)
+  {
+	assert inputs != null && inputs.size() == _numInputs;
+
+	ArrayList<Double> outputs = new ArrayList<Double>();
+
+	for (int l = 0; l < _layers.size(); ++l)
+	{
+	  NeuronLayer layer = _layers.get(l);
+
+	  if (l > 0)
+	  {
+		inputs = outputs;
+	  }
+
+	  outputs.clear();
+
+	  for (int n = 0; n < layer.getNumNeurons(); ++n)
+	  {
+		Neuron neuron = layer.neurons.get(n);
+
+		int currentInput = 0;
+		double netInput = 0;
+
+		// zsumuj iloczyny wejsc i odpowiadajych im wag
+		for (int w = 0; w < neuron.getNumInputs() - 1; ++w)
+		{
+		  netInput += neuron.inputWeights.get(w) * inputs.get(currentInput++);
+		}
+
+		// dodaj bias aktywacji neuronu
+		netInput += neuron.inputWeights.get(neuron.getNumInputs()-1) * Params.NeuronActivationBias;
+
+		// przepusc sume wazonych wejsc i biasu przez funkcje aktywacji i dodaj do wyjscia warstwy
+		outputs.add( activationFunc(netInput, Params.NeuronActivationResponse) );
+	  }
+	}
+
+	return outputs;
+  }
+
+  private double activationFunc(double input, double response)
+  {
+	// sigmoid
+	return ( 1.0 / ( 1.0 + Math.exp(-input / response)) );
+  }
+}
