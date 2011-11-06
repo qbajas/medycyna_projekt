@@ -1,0 +1,6 @@
+*.bak
+*.tmp
+*.log
+
+nbproject/**
+build.xml
