@@ -24,6 +24,7 @@ public class HeartDoctor {
         Statement stm=null;
         ResultSet rs=null;
         
+        
         try{
             stm=conn.createStatement();
              rs=stm.executeQuery("select name from test");

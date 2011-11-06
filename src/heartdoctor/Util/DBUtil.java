@@ -9,6 +9,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Klasa do pozyskiwania polaczenia z baza danych + ulatwienie zamykania
@@ -28,13 +30,13 @@ public class DBUtil {
         try {
             Class.forName(DRIVER_CLASS_NAME).newInstance();
         } catch (Exception ex) {
-            log("Nie moge wczytac drivera bazy danych: " + DRIVER_CLASS_NAME);
+            log("Nie moge wczytac drivera bazy danych: " + DRIVER_CLASS_NAME,ex);
         }
 
         try {
             result = DriverManager.getConnection(DB_CONN_STRING, USER_NAME, PASSWORD);
-        } catch (SQLException e) {
-            log("Nie mozna sie polaczyc z baza: " + DB_CONN_STRING);
+        } catch (SQLException ex) {
+            log("Nie mozna sie polaczyc z baza: " + DB_CONN_STRING,ex);
         }
         return result;
     }
@@ -74,7 +76,11 @@ public class DBUtil {
         close(stm);
     }
 
-    private static void log(Object aObject) {
-        System.out.println(aObject);
+    private static void log(Exception ex){
+        Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.SEVERE, null,ex );
+    }
+    
+    private static void log(String str, Exception aObject) {
+        Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.SEVERE, str,aObject );
     }
 }
