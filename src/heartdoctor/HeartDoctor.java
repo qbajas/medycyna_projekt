@@ -1,6 +1,7 @@
 package heartdoctor;
 
 import heartdoctor.Util.DBUtil;
+import heartdoctor.databasefiller;
 import heartdoctor.ann.DataEntry;
 import heartdoctor.ann.DataPreprocessor;
 import heartdoctor.ann.DataSet;
@@ -60,5 +61,10 @@ public class HeartDoctor {
 	  }
 	  System.out.println();
 	}
+  }
+  public static void fillDB()
+  {
+		DataBaseFiller dbf=new DataBaseFiller();
+        dbf.fillDB();
   }
 }
