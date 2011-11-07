@@ -1,7 +1,8 @@
 package heartdoctor;
 
 import heartdoctor.Util.DBUtil;
-import heartdoctor.databasefiller;
+import heartdoctor.ann.DBDataLoader;
+import heartdoctor.databasefiller.*;
 import heartdoctor.ann.DataEntry;
 import heartdoctor.ann.DataPreprocessor;
 import heartdoctor.ann.DataSet;
@@ -21,28 +22,17 @@ public class HeartDoctor {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //testDB();
+          testDB();
 	  testANN();
     }
     
     public static void testDB(){
-        Connection conn=DBUtil.getConnection();
-        Statement stm=null;
-        ResultSet rs=null;
-        
-        
-        try{
-            stm=conn.createStatement();
-             rs=stm.executeQuery("select name from test");
-            while(rs.next()){
-                System.out.println(rs.getString(1));
-            }
-        } catch (SQLException ex){
-            System.err.println(ex);
-        } finally {
-            DBUtil.close(stm, rs);
-        }
-        DBUtil.close(conn);
+        DBDataLoader loader=new DBDataLoader();
+        DataSet data=loader.loadData();
+        System.out.println("Rozmiar data: "+data.entries.size());
+        System.out.println("10 pierwszych rekordow:");
+        for(int i=0;i<10;++i)
+            System.out.println(data.entries.get(i));
     }
 
   public static void testANN()

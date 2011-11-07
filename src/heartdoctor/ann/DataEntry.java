@@ -14,6 +14,21 @@ import java.util.ArrayList;
 public class DataEntry {
 
   public ArrayList<Double> patterns = new ArrayList<Double>();
-  public ArrayList<Double> targets = new ArrayList<Double>();
+  public ArrayList<Double> targets = new ArrayList<Double>(14);
 
+    @Override
+    public String toString() {
+        StringBuilder builder=new StringBuilder();
+        builder.append("patterns:\n");
+        for(Double d:patterns)
+            builder.append(d).append(" ");
+        builder.append("\nTargets: ");
+        
+        for(Double d:targets)
+            builder.append(d).append(" ");
+        
+        return builder.toString();
+    }
+
+  
 }
