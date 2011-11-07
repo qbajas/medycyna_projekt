@@ -21,6 +21,43 @@ public class NeuralNetworkEvaluator {
   public NeuralNetworkEvaluator(NeuralNetwork network)
   {
 	_network = network;
+
+	int numWeights = network.getNumInputs() * network.getNumNeuronsPerHiddenLayer() +
+			network.getNumOutputs() * network.getNumNeuronsPerHiddenLayer();
+	if (network.getNumHiddenLayers() > 1)
+	{
+	  numWeights += (network.getNumHiddenLayers() - 1) *
+			  network.getNumNeuronsPerHiddenLayer() * network.getNumNeuronsPerHiddenLayer();
+	  }
+	_weights = new double[numWeights];
+
+	_errorGradients = new double[network.getNumHiddenLayers() + 1][];
+	for (int i = 0; i < network.getNumHiddenLayers(); ++i)
+	  _errorGradients[i] = new double[network.getNumNeuronsPerHiddenLayer()];
+	_errorGradients[network.getNumHiddenLayers()] = new double[network.getNumOutputs()];
+
+	_neuronValues = new double[network.getNumHiddenLayers() + 1][];
+	for (int i = 0; i < network.getNumHiddenLayers(); ++i)
+	  _neuronValues[i] = new double[network.getNumNeuronsPerHiddenLayer()];
+	_neuronValues[network.getNumHiddenLayers()] = new double[network.getNumOutputs()];
+  }
+
+  /*
+   * Uaktualnia wewnetrzne struktury potrzebne do poprawnego obliczania
+   * skutecznosci sieci. Nalezy wywolac po kazdym przepuszczenie danych
+   * przez siec, przed pobieraniem informacji o skutecznosci dla tych danych.
+   */
+  public void update()
+  {
+	// zczytaj wagi
+
+
+
+	// zczytaj wartosci neuronow
+
+	// oblicz gradienty
+
+
   }
 
   // oblicza blad sredniokwardatowy sieci na podanych danych wejsciowych
@@ -74,7 +111,7 @@ public class NeuralNetworkEvaluator {
 	return 100 - ((double)incorrectResults / data.entries.size() * 100);
   }
 
-  private int roundOutputValue(double x)
+  public int roundOutputValue(double x)
   {
 	if (x < 0.5) return 0;
 	else if (x < 1.5) return 1;
@@ -85,9 +122,18 @@ public class NeuralNetworkEvaluator {
   }
 
   /*
+   * Zwraca wczesniej obliczony w update() gradient bledu dla
+   * neurona w konkretnej warstwie, gdzie 0 - pierwsza warstwa ukryta.
+   */
+  public double getErrorGradient(int layer, int neuron)
+  {
+	return _errorGradients[layer][neuron];
+  }
+
+  /*
    * Oblicza gradient bledu neurona wyjsciowego.
    */
-  private double errorGradientOutput(double desiredVal, double outputVal)
+  private double calcErrorGradientOutput(double desiredVal, double outputVal)
   {
 	return outputVal * (1.0 - outputVal) * (desiredVal - outputVal);
   }
@@ -95,7 +141,7 @@ public class NeuralNetworkEvaluator {
   /*
    * Oblicza gradient bledu neurona ostatniej warstwy ukrytej.
    */
-  private double errorGradientHiddenOutput(int neuron)
+  private double calcErrorGradientHiddenOutput(int neuron)
   {
 	double weightedSum = 0;
 	for (int i = 0; i < _network.getNumOutputs(); ++i)
@@ -108,7 +154,7 @@ public class NeuralNetworkEvaluator {
   /*
    * Oblicza gradient bledu neurona posredniej warstwy ukrytej.
    */
-  private double errorGradientHiddenHidden(int layer, int neuron)
+  private double calcErrorGradientHiddenHidden(int layer, int neuron)
   {
 	double weightedSum = 0;
 	for (int i = 0; i < _network.getNumNeuronsPerHiddenLayer(); ++i)

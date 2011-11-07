@@ -19,10 +19,14 @@ public class NeuralNetwork {
   private int _numHiddenLayers;
   private int _numNeuronsPerHiddenLayer;
 
+  private ArrayList<ArrayList<Double> > _neuronValues;
+
   public int getNumInputs() { return _numInputs; }
   public int getNumOutputs() { return _numOutputs; }
   public int getNumHiddenLayers() { return _numHiddenLayers; }
   public int getNumNeuronsPerHiddenLayer() { return _numNeuronsPerHiddenLayer; }
+
+  public ArrayList<ArrayList<Double> > getNeuronValues() { return _neuronValues; }
 
   public NeuralNetwork(int numInputs, int numOutputs, int numHiddenLayers, int numNeuronsPerHiddenLayer)
   {
@@ -95,6 +99,9 @@ public class NeuralNetwork {
 
 	ArrayList<Double> outputs = new ArrayList<Double>();
 
+	_neuronValues.clear();
+	_neuronValues.add(inputs);
+
 	for (int l = 0; l < _layers.size(); ++l)
 	{
 	  NeuronLayer layer = _layers.get(l);
@@ -125,6 +132,8 @@ public class NeuralNetwork {
 		// przepusc sume wazonych wejsc i biasu przez funkcje aktywacji i dodaj do wyjscia warstwy
 		outputs.add( activationFunc(netInput, Params.NeuronActivationResponse) );
 	  }
+
+	  _neuronValues.add( (ArrayList<Double>)outputs.clone() );
 	}
 
 	return outputs;
