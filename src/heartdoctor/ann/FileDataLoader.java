@@ -45,15 +45,18 @@ public class FileDataLoader implements DataLoader {
 		for (int i = 0; i < fields.length; ++i)
 		{
 		  String f = fields[i].trim();
-
-		  Double fVal = null;
-		  if (!f.equals("?"))
-			fVal = Double.parseDouble(f);
 		  
 		  if (i == 13)
-			entry.targets.add(fVal);
+		  {
+			entry.targets.add((double)Integer.parseInt(f));
+		  }
 		  else
+		  {
+			Double fVal = null;
+			if (!f.equals("?"))
+			  fVal = Double.parseDouble(f);
 			entry.patterns.add(fVal);
+		  }
 		}
 
 		data.entries.add(entry);

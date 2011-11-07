@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 public class DataEntry {
 
-  public ArrayList<Double> patterns = new ArrayList<Double>();
-  public ArrayList<Double> targets = new ArrayList<Double>(14);
+  public ArrayList<Double> patterns = new ArrayList<Double>(14);
+  public ArrayList<Double> targets = new ArrayList<Double>(1);
 
     @Override
     public String toString() {
