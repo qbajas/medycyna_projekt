@@ -80,6 +80,15 @@ public class DBUtil {
         Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.SEVERE, null,ex );
     }
     
+    public static void rollBack(Connection conn){
+        System.err.println("ROLLBACK");
+        try{
+            conn.rollback();
+        } catch (SQLException ex){
+            //nie mozna nic zrobic
+        }
+    }
+    
     private static void log(String str, Exception aObject) {
         Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.SEVERE, str,aObject );
     }
