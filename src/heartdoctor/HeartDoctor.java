@@ -7,6 +7,7 @@ import heartdoctor.ann.DataEntry;
 import heartdoctor.ann.DataPreprocessor;
 import heartdoctor.ann.DataSet;
 import heartdoctor.ann.FileDataLoader;
+import heartdoctor.application.Application;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,8 +23,9 @@ public class HeartDoctor {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-          testDB();
-	  testANN();
+          new Application();
+          //testDB();
+	  //testANN();
     }
     
     public static void testDB(){
