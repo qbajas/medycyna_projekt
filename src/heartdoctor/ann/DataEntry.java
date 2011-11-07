@@ -14,6 +14,6 @@ import java.util.ArrayList;
 public class DataEntry {
 
   public ArrayList<Double> patterns = new ArrayList<Double>();
-  public ArrayList<Double> targets = new ArrayList<Double>();
+  public ArrayList<Integer> targets = new ArrayList<Integer>();
 
 }

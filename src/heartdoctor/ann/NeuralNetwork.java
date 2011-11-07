@@ -19,6 +19,11 @@ public class NeuralNetwork {
   private int _numHiddenLayers;
   private int _numNeuronsPerHiddenLayer;
 
+  public int getNumInputs() { return _numInputs; }
+  public int getNumOutputs() { return _numOutputs; }
+  public int getNumHiddenLayers() { return _numHiddenLayers; }
+  public int getNumNeuronsPerHiddenLayer() { return _numNeuronsPerHiddenLayer; }
+
   public NeuralNetwork(int numInputs, int numOutputs, int numHiddenLayers, int numNeuronsPerHiddenLayer)
   {
 	_numInputs = numInputs;
@@ -84,7 +89,7 @@ public class NeuralNetwork {
 	}
   }
 
-  public ArrayList<Double> Compute(ArrayList<Double> inputs)
+  public ArrayList<Double> feedForward(ArrayList<Double> inputs)
   {
 	assert inputs != null && inputs.size() == _numInputs;
 
