@@ -48,7 +48,7 @@ public class FileDataLoader implements DataLoader {
 		  
 		  if (i == 13)
 		  {
-			entry.targets.add(Integer.parseInt(f));
+			entry.targets.add((double)Integer.parseInt(f));
 		  }
 		  else
 		  {
