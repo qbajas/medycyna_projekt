@@ -18,10 +18,10 @@ public class Neuron {
   public Neuron(int numInputs)
   {
 	// jedna dodatkowa waga na bias
-	inputWeights = new ArrayList<Double>(numInputs + 1);
-	for (int i = 0; i < inputWeights.size(); ++i)
+	inputWeights = new ArrayList<Double>();
+	for (int i = 0; i < numInputs + 1; ++i)
 	{
-	  inputWeights.set(i, Utils.random());
+	  inputWeights.add(Utils.random());
 	}
   }
 

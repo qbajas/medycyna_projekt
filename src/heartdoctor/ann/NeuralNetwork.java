@@ -35,6 +35,9 @@ public class NeuralNetwork {
 	_numHiddenLayers = numHiddenLayers;
 	_numNeuronsPerHiddenLayer = numNeuronsPerHiddenLayer;
 
+	_layers = new ArrayList<NeuronLayer>();
+	_neuronValues = new  ArrayList<ArrayList<Double>>();
+
 	if (numHiddenLayers > 0)
 	{
 	  // utworz pierwsza warstwe ukryta (na wejsciach inputy sieci)
@@ -108,7 +111,7 @@ public class NeuralNetwork {
 
 	  if (l > 0)
 	  {
-		inputs = outputs;
+		inputs = (ArrayList<Double>)outputs.clone();
 	  }
 
 	  outputs.clear();

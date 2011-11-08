@@ -120,9 +120,9 @@ public class NeuralNetworkTrainer {
 
   private void backpropagate(double[] desiredOutputValues)
   {
-	for (int i = 0; i < _errorGradients.length; ++i)
-	  for (int j = 0; j < _errorGradients[i].length; ++j)
-		_prevErrorGradients[i][j] = _errorGradients[i][j];
+//	for (int i = 0; i < _errorGradients.length; ++i)
+//	  for (int j = 0; j < _errorGradients[i].length; ++j)
+//		_prevErrorGradients[i][j] = _errorGradients[i][j];
 
 	_evaluator.update(desiredOutputValues);
 	_errorGradients = _evaluator.getErrorGradients();
@@ -162,7 +162,7 @@ public class NeuralNetworkTrainer {
 		for (int w = 0; w < _deltaWeights[l][n].length; ++w)
 		{
 		  _deltaWeights[l][n][w] = 
-				  Params.PresetLearningRate * _neuronValues[l][w] * _errorGradients[l][n] +
+				  Params.PresetLearningRate * (w < _neuronValues[l].length? _neuronValues[l][w] : -1) * _errorGradients[l][n] +
 				  Params.MomentumConst * _deltaWeights[l][n][w];
 		  _weights[l][n][w] += _deltaWeights[l][n][w];
 		}

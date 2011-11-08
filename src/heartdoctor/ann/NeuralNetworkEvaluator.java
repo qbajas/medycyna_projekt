@@ -33,7 +33,8 @@ public class NeuralNetworkEvaluator {
 	_errorGradients[network.getNumHiddenLayers()] = new double[network.getNumOutputs()];
 
 	_neuronValues = new double[network.getNumHiddenLayers() + 2][];
-	for (int i = 0; i < network.getNumHiddenLayers() + 1; ++i)
+	_neuronValues[0] = new double[network.getNumInputs()];
+	for (int i = 1; i < network.getNumHiddenLayers() + 1; ++i)
 	  _neuronValues[i] = new double[network.getNumNeuronsPerHiddenLayer()];
 	_neuronValues[network.getNumHiddenLayers() + 1] = new double[network.getNumOutputs()];
   }
