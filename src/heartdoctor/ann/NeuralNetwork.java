@@ -55,19 +55,21 @@ public class NeuralNetwork {
 	}
   }
 
-  public ArrayList<Double> getWeights()
+  public double[][][] getWeights()
   {
-	ArrayList<Double> weights = new ArrayList<Double>();
+	double[][][] weights = new double[_numHiddenLayers+1][][];
 
 	for (int l = 0; l < _layers.size(); ++l)
 	{
 	  NeuronLayer layer = _layers.get(l);
+	  weights[l] = new double[layer.getNumNeurons()][];
 	  for (int n = 0; n < layer.getNumNeurons(); ++n)
 	  {
 		Neuron neuron = layer.neurons.get(n);
+		weights[l][n] = new double[neuron.getNumInputs()];
 		for (int w = 0; w < neuron.getNumInputs(); ++w)
 		{
-		  weights.add( neuron.inputWeights.get(w) );
+		  weights[l][n][w] = neuron.inputWeights.get(w);
 		}
 	  }
 	}
@@ -75,10 +77,8 @@ public class NeuralNetwork {
 	return weights;
   }
 
-  public void setWeights(ArrayList<Double> weights)
+  public void setWeights(double[][][] weights)
   {
-	int weightIdx = 0;
-
 	for (int l = 0; l < _layers.size(); ++l)
 	{
 	  NeuronLayer layer = _layers.get(l);
@@ -87,7 +87,7 @@ public class NeuralNetwork {
 		Neuron neuron = layer.neurons.get(n);
 		for (int w = 0; w < neuron.getNumInputs(); ++w)
 		{
-		  neuron.inputWeights.set(w, weights.get(weightIdx++));
+		  neuron.inputWeights.set(w, weights[l][n][w]);
 		}
 	  }
 	}

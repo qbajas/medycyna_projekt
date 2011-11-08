@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class NeuralNetworkEvaluator {
 
   private NeuralNetwork _network;
-  private double[] _weights;
+  private double[][][] _weights;
   private double[][] _errorGradients;
   private double[][] _neuronValues;
 
@@ -25,24 +25,17 @@ public class NeuralNetworkEvaluator {
   {
 	_network = network;
 
-	int numWeights = network.getNumInputs() * network.getNumNeuronsPerHiddenLayer() +
-			network.getNumOutputs() * network.getNumNeuronsPerHiddenLayer();
-	if (network.getNumHiddenLayers() > 1)
-	{
-	  numWeights += (network.getNumHiddenLayers() - 1) *
-			  network.getNumNeuronsPerHiddenLayer() * network.getNumNeuronsPerHiddenLayer();
-	  }
-	_weights = new double[numWeights];
+	_weights = _network.getWeights();
 
 	_errorGradients = new double[network.getNumHiddenLayers() + 1][];
 	for (int i = 0; i < network.getNumHiddenLayers(); ++i)
 	  _errorGradients[i] = new double[network.getNumNeuronsPerHiddenLayer()];
 	_errorGradients[network.getNumHiddenLayers()] = new double[network.getNumOutputs()];
 
-	_neuronValues = new double[network.getNumHiddenLayers() + 1][];
-	for (int i = 0; i < network.getNumHiddenLayers(); ++i)
+	_neuronValues = new double[network.getNumHiddenLayers() + 2][];
+	for (int i = 0; i < network.getNumHiddenLayers() + 1; ++i)
 	  _neuronValues[i] = new double[network.getNumNeuronsPerHiddenLayer()];
-	_neuronValues[network.getNumHiddenLayers()] = new double[network.getNumOutputs()];
+	_neuronValues[network.getNumHiddenLayers() + 1] = new double[network.getNumOutputs()];
   }
 
   /*
@@ -53,19 +46,16 @@ public class NeuralNetworkEvaluator {
   public void update(double[] desiredOutputValues)
   {
 	// zczytaj wagi
-	ArrayList<Double> weights = _network.getWeights();
-	for (int i = 0; i < weights.size(); ++i)
-	  _weights[i] = weights.get(i);
-
+	_weights = _network.getWeights();
 
 	// zczytaj wartosci neuronow
 	ArrayList<ArrayList<Double> > neurons = _network.getNeuronValues();
-	for (int l = 1; l < neurons.size(); ++l)
+	for (int l = 0; l < neurons.size(); ++l)
 	{
 	  ArrayList<Double> layer = neurons.get(l);
 	  for (int n = 0; n < layer.size(); ++n)
 	  {
-		_neuronValues[l-1][n] = layer.get(n);
+		_neuronValues[l][n] = layer.get(n);
 	  }
 	}
 
@@ -75,7 +65,7 @@ public class NeuralNetworkEvaluator {
 	for (int n = 0; n < _network.getNumOutputs(); ++n)
 	{
 	  _errorGradients[_network.getNumHiddenLayers()][n] =
-			  calcErrorGradientOutput(desiredOutputValues[n], _neuronValues[_network.getNumHiddenLayers()][n]);
+			  calcErrorGradientOutput(desiredOutputValues[n], _neuronValues[_network.getNumHiddenLayers()+1][n]);
 	}
 	// potem neuronow warstw ukrytych:
 	// najpierw ostatniej ukrytej:
@@ -132,7 +122,7 @@ public class NeuralNetworkEvaluator {
 	  // porownaj kazde wyjscie sieci z oczekiwana wartoscia
 	  for (int i = 0; i < outputs.size(); ++i)
 	  {
-		if ( roundOutputValue(outputs.get(i)) != entry.targets.get(i) )
+		if ( roundOutputValue(outputs.get(i)) != (int)(double)entry.targets.get(i) )
 		{
 		  correntResult = false;
 		  break;
@@ -182,7 +172,7 @@ public class NeuralNetworkEvaluator {
 	for (int i = 0; i < _network.getNumOutputs(); ++i)
 	  weightedSum += getWeight(_network.getNumHiddenLayers(), i, neuron) * _errorGradients[_network.getNumHiddenLayers()][i];
 
-	double neuronVal = _neuronValues[_network.getNumHiddenLayers()-1][neuron];
+	double neuronVal = _neuronValues[_network.getNumHiddenLayers()][neuron];
 	return neuronVal * (1.0 - neuronVal) * weightedSum;
   }
 
@@ -205,30 +195,32 @@ public class NeuralNetworkEvaluator {
    */
   private double getWeight(int nextLayer, int nextNeuron, int prevNeuron)
   {
-	int wIdx = 0;
+//	int wIdx = 0;
+//
+//	if (nextLayer == 0)
+//	{
+//	  // nextLayer - first hidden layer
+//	  // weights from input
+//	  wIdx = nextNeuron * _network.getNumInputs() + prevNeuron;
+//	}
+//	else
+//	{
+//	  // nextLayer - hidden/output layer
+//	  // weights from hidden
+//
+//	  // dodaj indeksy wag pomiedzy pierwsza ukryta i inputem oraz neuronem w wybranej ukrytej
+//	  wIdx = _network.getNumNeuronsPerHiddenLayer() * _network.getNumInputs() +
+//			  nextNeuron * _network.getNumNeuronsPerHiddenLayer() +
+//			  prevNeuron;
+//
+//	  // dodaj wagi posrednich warstw ukrytych
+//	  if (nextLayer > 1)
+//		wIdx += (nextLayer - 1) * _network.getNumNeuronsPerHiddenLayer() * _network.getNumNeuronsPerHiddenLayer();
+//	}
+//
+//	return _weights[wIdx];
 
-	if (nextLayer == 0)
-	{
-	  // nextLayer - first hidden layer
-	  // weights from input
-	  wIdx = nextNeuron * _network.getNumInputs() + prevNeuron;
-	}
-	else
-	{
-	  // nextLayer - hidden/output layer
-	  // weights from hidden
-
-	  // dodaj indeksy wag pomiedzy pierwsza ukryta i inputem oraz neuronem w wybranej ukrytej
-	  wIdx = _network.getNumNeuronsPerHiddenLayer() * _network.getNumInputs() +
-			  nextNeuron * _network.getNumNeuronsPerHiddenLayer() +
-			  prevNeuron;
-
-	  // dodaj wagi posrednich warstw ukrytych
-	  if (nextLayer > 1)
-		wIdx += (nextLayer - 1) * _network.getNumNeuronsPerHiddenLayer() * _network.getNumNeuronsPerHiddenLayer();
-	}
-
-	return _weights[wIdx];
+	return _weights[nextLayer][nextNeuron][prevNeuron];
   }
 
 }
