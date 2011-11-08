@@ -18,6 +18,9 @@ public class NeuralNetworkEvaluator {
   private double[][] _errorGradients;
   private double[][] _neuronValues;
 
+  public double[][] getErrorGradients() { return _errorGradients; }
+  public double[][] getNeuronValues() { return _neuronValues; }
+
   public NeuralNetworkEvaluator(NeuralNetwork network)
   {
 	_network = network;
@@ -47,16 +50,48 @@ public class NeuralNetworkEvaluator {
    * skutecznosci sieci. Nalezy wywolac po kazdym przepuszczenie danych
    * przez siec, przed pobieraniem informacji o skutecznosci dla tych danych.
    */
-  public void update()
+  public void update(double[] desiredOutputValues)
   {
 	// zczytaj wagi
-
+	ArrayList<Double> weights = _network.getWeights();
+	for (int i = 0; i < weights.size(); ++i)
+	  _weights[i] = weights.get(i);
 
 
 	// zczytaj wartosci neuronow
+	ArrayList<ArrayList<Double> > neurons = _network.getNeuronValues();
+	for (int l = 1; l < neurons.size(); ++l)
+	{
+	  ArrayList<Double> layer = neurons.get(l);
+	  for (int n = 0; n < layer.size(); ++n)
+	  {
+		_neuronValues[l-1][n] = layer.get(n);
+	  }
+	}
+
 
 	// oblicz gradienty
-
+	// najpierw neuronow outputu:
+	for (int n = 0; n < _network.getNumOutputs(); ++n)
+	{
+	  _errorGradients[_network.getNumHiddenLayers()][n] =
+			  calcErrorGradientOutput(desiredOutputValues[n], _neuronValues[_network.getNumHiddenLayers()][n]);
+	}
+	// potem neuronow warstw ukrytych:
+	// najpierw ostatniej ukrytej:
+	for (int n = 0; n < _network.getNumNeuronsPerHiddenLayer(); ++n)
+	{
+	  _errorGradients[_network.getNumHiddenLayers()-1][n] =
+			  calcErrorGradientHiddenOutput(n);
+	}
+	// potem reszty:
+	for (int l = _network.getNumHiddenLayers()-2; l >= 0; --l)
+	{
+	  for (int n = 0; n < _network.getNumNeuronsPerHiddenLayer(); ++n)
+	  {
+		_errorGradients[l][n] = calcErrorGradientHiddenHidden(l, n);
+	  }
+	}
 
   }
 
