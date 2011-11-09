@@ -119,6 +119,10 @@ public class DataPreprocessor {
 			break;
 		  case 12:
 			break;
+		  case 13:
+			v = (v > 0? 1 : 0);
+			break;
+
 		}
 
 		e.patterns.set(i, v);

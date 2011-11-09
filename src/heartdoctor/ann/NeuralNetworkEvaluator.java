@@ -139,12 +139,15 @@ public class NeuralNetworkEvaluator {
 
   public int roundOutputValue(double x)
   {
-	if (x < 0.5) return 0;
-	else if (x < 1.5) return 1;
-	else if (x < 2.5) return 2;
-	else if (x < 3.5) return 3;
-	else if (x < 4.5) return 4;
-	else return -1;
+//	if (x < 0.5) return 0;
+//	else if (x < 1.5) return 1;
+//	else if (x < 2.5) return 2;
+//	else if (x < 3.5) return 3;
+//	else if (x < 4.5) return 4;
+//	else return -1;
+
+	if (x > 0.7) return 1;
+	else return 0;
   }
 
   /*

@@ -11,8 +11,8 @@ package heartdoctor.ann;
  */
 public class Params {
 
-  public static final double MomentumConst = 0.9;
-  public static final double PresetLearningRate = 0.01;
+  public static final double MomentumConst = 0.6;
+  public static final double PresetLearningRate = 0.06;
   public static final double LearningRateAdjust = 0.5;
   public static final double ForgettingConst = 0.0003;
   public static final double ErrorPrecisionTarget = 0.05;
