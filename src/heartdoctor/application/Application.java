@@ -23,13 +23,13 @@ public class Application {
     MainPanel mainPanel;
     
     public Application(){
-        frame= new JFrame();
-        frame.setSize(800, 450);
-       // frame.setResizable(false);
-        mainPanel=new MainPanel();
-        mainPanel.setLeftPanel(new LeftPanel());
-        mainPanel.setContentPanel(new DiagnosisPanel());
-        frame.add(mainPanel);
+//        frame= new JFrame();
+//        frame.setSize(800, 450);
+//       // frame.setResizable(false);
+//        mainPanel=new MainPanel();
+//        mainPanel.setLeftPanel(new LeftPanel());
+//        mainPanel.setContentPanel(new DiagnosisPanel());
+//        frame.add(mainPanel);
         
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
 
@@ -45,8 +45,8 @@ public class Application {
 			  NeuralNetworkTrainer netTrainer = new NeuralNetworkTrainer(net);
 			  netTrainer.trainNetwork(data, data, data);
 
-                frame.setVisible(true);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+               // frame.setVisible(true);
+               // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             }
         });
     }

@@ -53,7 +53,7 @@ public class NeuralNetworkTrainer {
 	int epoch = 0;
 
 	double desiredAccuracy = 100;
-	double maxEpoch = 1000;
+	double maxEpoch = 2000;
 
 	_trainingSetAccuracy = 0;
 	_trainingSetMSE = 0;
@@ -125,6 +125,7 @@ public class NeuralNetworkTrainer {
 //		_prevErrorGradients[i][j] = _errorGradients[i][j];
 
 	_evaluator.update(desiredOutputValues);
+	_weights = _network.getWeights();
 	_errorGradients = _evaluator.getErrorGradients();
 	_neuronValues = _evaluator.getNeuronValues();
 
@@ -159,8 +160,10 @@ public class NeuralNetworkTrainer {
 	{
 	  for (int n = 0; n < _deltaWeights[l].length; ++n)
 	  {
+		//System.out.println(_errorGradients[l][n]);
 		for (int w = 0; w < _deltaWeights[l][n].length; ++w)
 		{
+		  
 		  _deltaWeights[l][n][w] = 
 				  Params.PresetLearningRate * (w < _neuronValues[l].length? _neuronValues[l][w] : -1) * _errorGradients[l][n] +
 				  Params.MomentumConst * _deltaWeights[l][n][w];
@@ -168,6 +171,10 @@ public class NeuralNetworkTrainer {
 		}
 	  }
 	}
+
+	_network.setWeights(_weights);
+
+	//System.out.println("dW: " + _deltaWeights[0][0][0]);
   }
 
 //  private double weightErrorGradient(int weight, boolean current)
