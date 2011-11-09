@@ -22,6 +22,32 @@ public class NeuralNetworkTrainer {
   private double _trainingSetAccuracy;
   private double _trainingSetMSE;
 
+  private double _learningRate = Params.DefaultPresetLearningRate;
+  private double _learningRateAdjust = Params.DefaultLearningRateAdjust;
+  private double _momentumConst = Params.DefaultMomentumConst;
+  private double _forgettingRate = Params.DefaultForgettingConst;
+
+  private double _validationSetAccuracy;
+  private double _validationSetMSE;
+
+  private double _desiredAccuracy = 100;
+  private int _maxEpochs = 2000;
+
+  private NeuralNetworkTrainingListener _listener = null;
+
+  public void setLearningRate(double x) { _learningRate = x; }
+  public void setLearningRateAdjust(double x) { _learningRateAdjust = x; }
+  public void setMomentumConst(double x) { _momentumConst = x; }
+  public void setForgettingRate(double x) { _forgettingRate = x; }
+
+  public double getValidationSetAccuracy() { return _validationSetAccuracy; }
+  public double getValidationSetMSE() { return _validationSetMSE; }
+
+  public void setDesiredAccuracy(double accuracy) { _desiredAccuracy = accuracy; }
+  public void setMaxEpochs(int epochs) { _maxEpochs = epochs; }
+
+  public void setListener(NeuralNetworkTrainingListener listener) { _listener = listener; }
+
   public NeuralNetworkTrainer(NeuralNetwork network)
   {
 	_network = network;
@@ -39,41 +65,39 @@ public class NeuralNetworkTrainer {
   {
 	int epoch = 0;
 
-	double desiredAccuracy = 100;
-	double maxEpoch = 2000;
-
 	_trainingSetAccuracy = 0;
 	_trainingSetMSE = 0;
 
 	double generalizationAccuracy = 0;
 	double generalizationMSE = 0;
 
-	while ( (_trainingSetAccuracy < desiredAccuracy || generalizationAccuracy < desiredAccuracy) &&
-			epoch < maxEpoch )
+	while ( (_trainingSetAccuracy < _desiredAccuracy || generalizationAccuracy < _desiredAccuracy) &&
+			epoch < _maxEpochs )
 	{
-	  double prevTAccuracy = _trainingSetAccuracy;
-	  double prevGAccuracy = generalizationAccuracy;
-
 	  runTrainingEpoch(trainingSet);
 
 	  generalizationAccuracy = _evaluator.calcDataSetAccuracy(generalizationSet);
 	  generalizationMSE = _evaluator.calcDataSetMSE(generalizationSet);
+	  if (_listener != null)
+	  {
+		_listener.updateGeneralizationSetAccuracy(generalizationAccuracy);
+		_listener.updateGeneralizationSetMSE(generalizationMSE);
+	  }
 
 	  ++epoch;
 
 	  System.out.printf("Epoch %d: accuracy %f, MSE %f\n", epoch, generalizationAccuracy, generalizationMSE);
 	}
 
-	double validationAccuracy = _evaluator.calcDataSetAccuracy(validationSet);
-	double validationMSE = _evaluator.calcDataSetMSE(validationSet);
+	_validationSetAccuracy = _evaluator.calcDataSetAccuracy(validationSet);
+	_validationSetMSE = _evaluator.calcDataSetMSE(validationSet);
 
-	System.out.printf("Gotowe! Epoch: %d, ValidAccuracy: %f, ValidMSE: %f\n", epoch, validationAccuracy, validationMSE);
+	System.out.printf("Gotowe! Epoch: %d, ValidAccuracy: %f, ValidMSE: %f\n", epoch, _validationSetAccuracy, _validationSetMSE);
   }
 
   private void runTrainingEpoch(DataSet trainingSet)
   {
 	double incorrectPatterns = 0;
-	double mse = 0;
 
 	for (int i = 0; i < trainingSet.entries.size(); ++i)
 	{
@@ -92,9 +116,8 @@ public class NeuralNetworkTrainer {
 		if (_evaluator.roundOutputValue(_neuronValues[_network.getNumHiddenLayers()+1][j]) != (int)(double)entry.targets.get(j))
 		{
 		  patternCorrect = false;
+		  break;
 		}
-
-		mse += Math.pow(_neuronValues[_network.getNumHiddenLayers()+1][j] - (double)entry.targets.get(j), 2);
 	  }
 
 	  if (!patternCorrect)
@@ -102,12 +125,18 @@ public class NeuralNetworkTrainer {
 	}
 
 	_trainingSetAccuracy = 100 - ((double)incorrectPatterns / trainingSet.entries.size() * 100);
-	_trainingSetMSE = mse / ( _network.getNumOutputs() * trainingSet.entries.size() );
+	_trainingSetMSE = _evaluator.calcDataSetMSE(trainingSet);
+
+	if (_listener != null)
+	{
+	  _listener.updateTrainingSetAccuracy(_trainingSetAccuracy);
+	  _listener.updateTrainingSetMSE(_trainingSetMSE);
+	}
   }
 
-  private void backpropagate(double[] desiredOutputValues)
+  private void backpropagate(double[] desiredOutputs)
   {
-	_evaluator.update(desiredOutputValues);
+	_evaluator.update(desiredOutputs);
 	_weights = _network.getWeights();
 	_errorGradients = _evaluator.getErrorGradients();
 	_neuronValues = _evaluator.getNeuronValues();
@@ -124,9 +153,10 @@ public class NeuralNetworkTrainer {
 		for (int w = 0; w < _deltaWeights[l][n].length; ++w)
 		{
 		  
-		  _deltaWeights[l][n][w] = 
-				  Params.PresetLearningRate * (w < _neuronValues[l].length? _neuronValues[l][w] : -1) * _errorGradients[l][n] +
-				  Params.MomentumConst * _deltaWeights[l][n][w];
+		  _deltaWeights[l][n][w] = (_learningRate + _learningRateAdjust * _trainingSetMSE) *
+				  (w < _neuronValues[l].length? _neuronValues[l][w] : -1) * _errorGradients[l][n] +
+				  _momentumConst * _deltaWeights[l][n][w] -
+				  Math.signum(_weights[l][n][w]) * _forgettingRate;
 		  _weights[l][n][w] += _deltaWeights[l][n][w];
 		}
 	  }

@@ -41,7 +41,7 @@ public class Application {
 			  DataPreprocessor preprocessor = new DataPreprocessor();
 			  preprocessor.preprocessData(data);
 
-			  NeuralNetwork net = new NeuralNetwork(data.entries.get(0).patterns.size(), data.entries.get(0).targets.size(), 1, 8);
+			  NeuralNetwork net = new NeuralNetwork(data.entries.get(0).patterns.size(), data.entries.get(0).targets.size(), 1, 7);
 			  NeuralNetworkTrainer netTrainer = new NeuralNetworkTrainer(net);
 			  netTrainer.trainNetwork(data, data, data);
 

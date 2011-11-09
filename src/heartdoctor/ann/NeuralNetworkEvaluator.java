@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class NeuralNetworkEvaluator {
 
   private NeuralNetwork _network;
+
   private double[][][] _weights;
   private double[][] _errorGradients;
   private double[][] _neuronValues;
