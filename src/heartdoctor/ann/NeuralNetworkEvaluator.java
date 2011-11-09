@@ -196,31 +196,6 @@ public class NeuralNetworkEvaluator {
    */
   private double getWeight(int nextLayer, int nextNeuron, int prevNeuron)
   {
-//	int wIdx = 0;
-//
-//	if (nextLayer == 0)
-//	{
-//	  // nextLayer - first hidden layer
-//	  // weights from input
-//	  wIdx = nextNeuron * _network.getNumInputs() + prevNeuron;
-//	}
-//	else
-//	{
-//	  // nextLayer - hidden/output layer
-//	  // weights from hidden
-//
-//	  // dodaj indeksy wag pomiedzy pierwsza ukryta i inputem oraz neuronem w wybranej ukrytej
-//	  wIdx = _network.getNumNeuronsPerHiddenLayer() * _network.getNumInputs() +
-//			  nextNeuron * _network.getNumNeuronsPerHiddenLayer() +
-//			  prevNeuron;
-//
-//	  // dodaj wagi posrednich warstw ukrytych
-//	  if (nextLayer > 1)
-//		wIdx += (nextLayer - 1) * _network.getNumNeuronsPerHiddenLayer() * _network.getNumNeuronsPerHiddenLayer();
-//	}
-//
-//	return _weights[wIdx];
-
 	return _weights[nextLayer][nextNeuron][prevNeuron];
   }
 
