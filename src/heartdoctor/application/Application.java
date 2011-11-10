@@ -6,12 +6,11 @@ package heartdoctor.application;
 
 import heartdoctor.GUI.DiagnosisPanel;
 import heartdoctor.GUI.LeftPanel;
+import heartdoctor.GUI.LoginPanel;
+import heartdoctor.GUI.MainFrame;
 import heartdoctor.GUI.MainPanel;
-import heartdoctor.ann.DataPreprocessor;
-import heartdoctor.ann.DataSet;
-import heartdoctor.ann.FileDataLoader;
-import heartdoctor.ann.NeuralNetwork;
-import heartdoctor.ann.NeuralNetworkTrainer;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import javax.swing.JFrame;
 
 /**
@@ -19,31 +18,30 @@ import javax.swing.JFrame;
  * @author michal
  */
 public class Application {
-    JFrame frame;
-    MainPanel mainPanel;
-    
+    MainFrame frame;
+    AppController controller;
     public Application(){
-        frame= new JFrame();
-        frame.setSize(800, 450);
-       // frame.setResizable(false);
-        mainPanel=new MainPanel();
-        mainPanel.setLeftPanel(new LeftPanel());
-        mainPanel.setContentPanel(new DiagnosisPanel());
-        frame.add(mainPanel);
+        frame= new MainFrame();
+        controller=new AppController(frame);
+ 
+        LoginPanel panel=new LoginPanel(controller);
+        panel.setBackground(Color.RED);
+        frame.setLayout(null);
+        frame.add(panel);
         
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
 
             @Override
             public void run() {
 
-			  FileDataLoader dataLoader = new FileDataLoader("processed.cleveland.data");
-			  DataSet data = dataLoader.loadData();
-			  DataPreprocessor preprocessor = new DataPreprocessor();
-			  preprocessor.preprocessData(data);
-
-			  NeuralNetwork net = new NeuralNetwork(data.entries.get(0).patterns.size(), data.entries.get(0).targets.size(), 1, 8);
-			  NeuralNetworkTrainer netTrainer = new NeuralNetworkTrainer(net);
-			  netTrainer.trainNetwork(data, data, data);
+////			  FileDataLoader dataLoader = new FileDataLoader("processed.cleveland.data");
+//			  DataSet data = new DBDataLoader().loadData();//dataLoader.loadData();
+//			  DataPreprocessor preprocessor = new DataPreprocessor();
+//			  preprocessor.preprocessData(data);
+//
+//			  NeuralNetwork net = new NeuralNetwork(data.entries.get(0).patterns.size(), data.entries.get(0).targets.size(), 1, 8);
+//			  NeuralNetworkTrainer netTrainer = new NeuralNetworkTrainer(net);
+//			  netTrainer.trainNetwork(data, data, data);
 
                 frame.setVisible(true);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

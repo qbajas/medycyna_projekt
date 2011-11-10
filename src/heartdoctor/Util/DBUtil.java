@@ -19,10 +19,15 @@ import java.util.logging.Logger;
  */
 public class DBUtil {
 
-    private static String DB_CONN_STRING = "jdbc:mysql://medycyna.x10.mx:3306/michal12_medycyna";
+//    private static String DB_CONN_STRING = "jdbc:mysql://medycyna.x10.mx:3306/michal12_medycyna";
+//    private static String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
+//    private static String USER_NAME = "michal12_app";
+//    private static String PASSWORD = "1q2w3e";
+    
+    private static String DB_CONN_STRING = "jdbc:mysql://db4free.net:3306/cdssdatabase";
     private static String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
-    private static String USER_NAME = "michal12_app";
-    private static String PASSWORD = "1q2w3e";
+    private static String USER_NAME = "medycynaman";
+    private static String PASSWORD = "pukocz4";
 
     public static Connection getConnection() {
 

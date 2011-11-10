@@ -1,13 +1,6 @@
 package heartdoctor.GUI;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import sun.awt.VerticalBagLayout;
 
 /**
  *
