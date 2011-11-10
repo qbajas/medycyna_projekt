@@ -103,7 +103,7 @@ public class NeuralNetwork {
 	ArrayList<Double> outputs = new ArrayList<Double>();
 
 	_neuronValues.clear();
-	_neuronValues.add(inputs);
+	_neuronValues.add( (ArrayList<Double>)inputs.clone() );
 
 	for (int l = 0; l < _layers.size(); ++l)
 	{

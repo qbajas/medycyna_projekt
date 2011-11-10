@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class NeuralNetworkEvaluator {
 
   private NeuralNetwork _network;
+
   private double[][][] _weights;
   private double[][] _errorGradients;
   private double[][] _neuronValues;
@@ -139,12 +140,15 @@ public class NeuralNetworkEvaluator {
 
   public int roundOutputValue(double x)
   {
-	if (x < 0.5) return 0;
-	else if (x < 1.5) return 1;
-	else if (x < 2.5) return 2;
-	else if (x < 3.5) return 3;
-	else if (x < 4.5) return 4;
-	else return -1;
+//	if (x < 0.5) return 0;
+//	else if (x < 1.5) return 1;
+//	else if (x < 2.5) return 2;
+//	else if (x < 3.5) return 3;
+//	else if (x < 4.5) return 4;
+//	else return -1;
+
+	if (x > 0.7) return 1;
+	else return 0;
   }
 
   /*
@@ -196,31 +200,6 @@ public class NeuralNetworkEvaluator {
    */
   private double getWeight(int nextLayer, int nextNeuron, int prevNeuron)
   {
-//	int wIdx = 0;
-//
-//	if (nextLayer == 0)
-//	{
-//	  // nextLayer - first hidden layer
-//	  // weights from input
-//	  wIdx = nextNeuron * _network.getNumInputs() + prevNeuron;
-//	}
-//	else
-//	{
-//	  // nextLayer - hidden/output layer
-//	  // weights from hidden
-//
-//	  // dodaj indeksy wag pomiedzy pierwsza ukryta i inputem oraz neuronem w wybranej ukrytej
-//	  wIdx = _network.getNumNeuronsPerHiddenLayer() * _network.getNumInputs() +
-//			  nextNeuron * _network.getNumNeuronsPerHiddenLayer() +
-//			  prevNeuron;
-//
-//	  // dodaj wagi posrednich warstw ukrytych
-//	  if (nextLayer > 1)
-//		wIdx += (nextLayer - 1) * _network.getNumNeuronsPerHiddenLayer() * _network.getNumNeuronsPerHiddenLayer();
-//	}
-//
-//	return _weights[wIdx];
-
 	return _weights[nextLayer][nextNeuron][prevNeuron];
   }
 

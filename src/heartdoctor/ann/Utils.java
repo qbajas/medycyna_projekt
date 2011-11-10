@@ -13,7 +13,11 @@ import java.util.Random;
  */
 public class Utils {
 
-  private static Random _random = new Random();
+  private static Random _random;
+
+  static {
+	_random = new Random(System.currentTimeMillis());
+  }
 
   public static double random()
   {
