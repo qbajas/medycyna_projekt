@@ -8,6 +8,7 @@ import heartdoctor.GUI.DiagnosisPanel;
 import heartdoctor.GUI.LeftPanel;
 import heartdoctor.GUI.MainFrame;
 import heartdoctor.GUI.MainPanel;
+import heartdoctor.GUI.NetworkStats;
 import heartdoctor.GUI.StatusPanel;
 import javax.swing.JPanel;
 
@@ -27,8 +28,8 @@ public class AdminGuiController implements GuiController {
     public void setStartingView() {
         mainPanel = new MainPanel();
         frame.remove(frame.getPanel());
-        mainPanel.setLeftPanel(new LeftPanel(this));
-        mainPanel.setContentPanel(new DiagnosisPanel(this));
+        prepareLeftPanel();
+        mainPanel.setContentPanel(new NetworkStats(this));
         mainPanel.setBounds(0, 0, MainFrame.WINDOW_WIDTH, MainFrame.WINDOW_HEIGHT - StatusPanel.PANEL_HEIGHT);
 
         frame.add(mainPanel);
@@ -36,7 +37,10 @@ public class AdminGuiController implements GuiController {
     }
 
     public void prepareLeftPanel() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        LeftPanel lp = new LeftPanel(this);
+        lp.getDiagnosisPanelButton().setEnabled(false);
+        lp.getSearchPatientButton().setEnabled(false);
+        mainPanel.setLeftPanel(lp);
     }
 
     public void setRightPanel(JPanel panel) {

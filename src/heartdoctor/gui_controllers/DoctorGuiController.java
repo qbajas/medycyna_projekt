@@ -27,7 +27,7 @@ public class DoctorGuiController implements GuiController {
     public void setStartingView() {
         mainPanel = new MainPanel();
         frame.remove(frame.getPanel());
-        mainPanel.setLeftPanel(new LeftPanel(this));
+        prepareLeftPanel();
         mainPanel.setContentPanel(new DiagnosisPanel(this));
         mainPanel.setBounds(0, 0, MainFrame.WINDOW_WIDTH, MainFrame.WINDOW_HEIGHT - StatusPanel.PANEL_HEIGHT);
 
@@ -36,7 +36,10 @@ public class DoctorGuiController implements GuiController {
     }
 
     public void prepareLeftPanel() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        LeftPanel lp = new LeftPanel(this);
+        lp.getStatisticsButton().setEnabled(false);
+        mainPanel.setLeftPanel(lp);
+
     }
 
     public void setRightPanel(JPanel panel) {
