@@ -6,6 +6,7 @@ package heartdoctor.application;
 
 import heartdoctor.DataModel.User;
 import heartdoctor.GUI.MainFrame;
+import heartdoctor.GUI.MainPanel;
 import heartdoctor.Util.SecurityController;
 import java.sql.SQLException;
 import javax.swing.JLabel;
@@ -44,6 +45,9 @@ public class AppController {
                     if (SecurityController.authenticate(user)) {
                         showOptionPaneOutsideEDT("Access granted", 
                                 "Successfully authorized");
+
+                        frame.setMainPanel(new MainPanel());
+
                     } else {
                         showOptionPaneOutsideEDT("Access denied", 
                                 "WYPIERDALAĆ! WSTĘP WZBRONONY");

@@ -61,5 +61,20 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
-    
+
+
+//    ROLES
+
+    private static final String DOCTOR_STRING = "doctor";
+    private static final String ADMIN_STRING = "admin";
+
+    public boolean isDoctor(){
+       return  getRole().equals(DOCTOR_STRING);
+    }
+
+    public boolean isAdmin(){
+       return  getRole().equals(ADMIN_STRING);
+    }
+      
+
 }

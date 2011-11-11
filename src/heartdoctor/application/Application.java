@@ -27,7 +27,8 @@ public class Application {
         LoginPanel panel=new LoginPanel(controller);
         panel.setBackground(Color.RED);
         frame.setLayout(null);
-        frame.add(panel);
+//        frame.add(panel);
+        frame.setLoginPanel(panel);
         
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
 
