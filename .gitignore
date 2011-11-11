@@ -2,8 +2,10 @@
 *.tmp
 *.log
 
+
 nbproject/**
+manifest.mf
 build.xml
 /build/
 /dist/
-origin/master
+
