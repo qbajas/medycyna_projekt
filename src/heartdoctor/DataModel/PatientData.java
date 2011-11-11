@@ -10,7 +10,7 @@ public class PatientData {
     private String name;
     private String middleName;
     private String lastName;
-    private int socialSecurityNbr;
+    private String pesel;
     private String address;
     private String postalCode;
     private String city;
@@ -19,12 +19,12 @@ public class PatientData {
     public PatientData() {
     }
 
-    public PatientData(int ID, String name, String middleName, String lastName, int socialSecurityNbr, String address, String postalCode, String city, MedicalData medicalData) {
+    public PatientData(int ID, String name, String middleName, String lastName, int pesel, String address, String postalCode, String city, MedicalData medicalData) {
         this.ID = ID;
         this.name = name;
         this.middleName = middleName;
         this.lastName = lastName;
-        this.socialSecurityNbr = socialSecurityNbr;
+       // this.pesel = pesel;
         this.address = address;
         this.postalCode = postalCode;
         this.city = city;
@@ -95,11 +95,11 @@ public class PatientData {
         this.postalCode = postalCode;
     }
 
-    public int getSocialSecurityNbr() {
-        return socialSecurityNbr;
+    public String getPesel() {
+        return pesel;
     }
 
-    public void setSocialSecurityNbr(int socialSecurityNbr) {
-        this.socialSecurityNbr = socialSecurityNbr;
+    public void setPesel(String socialSecurityNbr) {
+        this.pesel = socialSecurityNbr;
     }
 }

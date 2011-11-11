@@ -10,6 +10,7 @@
  */
 package heartdoctor.GUI;
 
+import heartdoctor.DataModel.PatientSearchResults;
 import heartdoctor.gui_controllers.GuiController;
 import javax.swing.JButton;
 
@@ -113,12 +114,14 @@ public class LeftPanel extends javax.swing.JPanel {
 
     private void DiagnosisPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DiagnosisPanelButtonActionPerformed
         // TODO add your handling code here:
-        controller.setRightPanel(new DiagnosisPanel(controller));
+        DiagnosisPanel panel=new DiagnosisPanel();
+        panel.setController(controller);
+        controller.setRightPanel(panel);
     }//GEN-LAST:event_DiagnosisPanelButtonActionPerformed
 
     private void SearchPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchPatientButtonActionPerformed
         // TODO add your handling code here:
-        controller.setRightPanel(new SearchPatients(controller));
+        controller.setRightPanel(new SearchPatients(controller,new PatientSearchResults() ));
     }//GEN-LAST:event_SearchPatientButtonActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

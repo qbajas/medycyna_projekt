@@ -13,6 +13,8 @@ public class MainPanel extends JPanel {
 
     public static final int WINDOW_WIDTH = 800;
     public static final int WINDOW_HEIGHT = 550;
+    public static final int LEFT_PANEL_WIDTH=200;
+    public static final int MAIN_PANEL_WIDTH=WINDOW_WIDTH-LEFT_PANEL_WIDTH;
 
     public MainPanel() {
         setLayout(null);
@@ -27,7 +29,7 @@ public class MainPanel extends JPanel {
             remove(this.contentPanel);
         }
         this.contentPanel = contentPanel;
-        contentPanel.setBounds(250, 0, 500, WINDOW_HEIGHT);
+        contentPanel.setBounds(LEFT_PANEL_WIDTH, 0, MAIN_PANEL_WIDTH, WINDOW_HEIGHT);
         add(contentPanel);
 
         revalidate();
@@ -43,7 +45,7 @@ public class MainPanel extends JPanel {
             remove(this.leftPanel);
         }
         this.leftPanel = leftPanel;
-        leftPanel.setBounds(0, 0, 200, WINDOW_HEIGHT);
+        leftPanel.setBounds(0, 0, LEFT_PANEL_WIDTH, WINDOW_HEIGHT);
         add(leftPanel);
         revalidate();
         repaint();

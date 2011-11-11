@@ -28,7 +28,9 @@ public class DoctorGuiController implements GuiController {
         mainPanel = new MainPanel();
         frame.remove(frame.getPanel());
         prepareLeftPanel();
+        
         mainPanel.setContentPanel(new DiagnosisPanel(this));
+        
         mainPanel.setBounds(0, 0, MainFrame.WINDOW_WIDTH, MainFrame.WINDOW_HEIGHT - StatusPanel.PANEL_HEIGHT);
 
         frame.add(mainPanel);
