@@ -36,8 +36,24 @@ public class DiagnosisPanel extends javax.swing.JPanel {
         this.controller = controller;
     }
 
-    public void setMedicalData(MedicalData data){
+    public void showMedicalData(MedicalData data){
+        ECG.setSelectedIndex(data.getRestecg());
+        Slope.setSelectedIndex(data.getSlopeEnum().ordinal());
+        Thal.setSelectedIndex(data.getThalEnum().ordinal());
+        Vessels.setSelectedIndex(data.getCa());
+        chestPain.setSelectedIndex(data.getChestPainEnum().ordinal());
         
+        age.setText(""+data.getAge());
+        sex.setSelectedIndex(data.getSex());
+        
+        anginaCombo.setSelected(data.getAngina()==1);
+        
+        bloodPressure.setText(""+data.getBloodPressure());
+        cholestoral.setText(""+data.getCholestoral());
+        sugar.setText(""+data.getBloodSugar());
+        heartRate.setText(""+data.getMaxHeartRate());
+        oldpeak.setText(""+data.getOldpeak());
+
     }
     
     public MedicalData getMedicalData(){
@@ -315,7 +331,7 @@ public class DiagnosisPanel extends javax.swing.JPanel {
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(sex, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

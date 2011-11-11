@@ -10,6 +10,7 @@
  */
 package heartdoctor.GUI;
 
+import heartdoctor.DataModel.PatientData;
 import heartdoctor.DataModel.PatientSearchResults;
 import heartdoctor.gui_controllers.GuiController;
 import heartdoctor.gui_controllers.PatientResultsController;
@@ -24,11 +25,21 @@ public class SearchPatients extends javax.swing.JPanel {
 
     /** Creates new form SearchPatients */
     SearchPatients(GuiController controller, PatientSearchResults result) {
-        initComponents();
         this.flowController=new PatientResultsController(this,result);
+        initComponents();
+        this.flowController.initView();
         this.controller = controller;
     }
 
+    public void showPatientData(PatientData patient){
+        patientSmallDataPanel1.setData(patient);
+        diagnosisPanel1.showMedicalData(patient.getMedicalData());
+    }
+    
+    public PatientData getPatientData(){
+        return flowController.getActivePatient();
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -48,7 +59,6 @@ public class SearchPatients extends javax.swing.JPanel {
         setBackground(new java.awt.Color(0, 102, 204));
         setPreferredSize(new java.awt.Dimension(458, 284));
 
-        patientListBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         patientListBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 patientListBoxActionPerformed(evt);
@@ -114,7 +124,7 @@ public class SearchPatients extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void patientListBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientListBoxActionPerformed
-        flowController.setResult(patientListBox.getSelectedIndex());
+        flowController.selectResult(patientListBox.getSelectedIndex());
     }//GEN-LAST:event_patientListBoxActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
@@ -128,11 +138,11 @@ public class SearchPatients extends javax.swing.JPanel {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private heartdoctor.GUI.DiagnosisPanel diagnosisPanel1;
+    public heartdoctor.GUI.DiagnosisPanel diagnosisPanel1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JButton nextButton;
-    private javax.swing.JComboBox patientListBox;
-    private heartdoctor.GUI.PatientSmallDataPanel patientSmallDataPanel1;
-    private javax.swing.JButton prevButton;
+    public javax.swing.JButton nextButton;
+    public javax.swing.JComboBox patientListBox;
+    public heartdoctor.GUI.PatientSmallDataPanel patientSmallDataPanel1;
+    public javax.swing.JButton prevButton;
     // End of variables declaration//GEN-END:variables
 }

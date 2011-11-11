@@ -11,8 +11,8 @@ public class MainPanel extends JPanel {
     private JPanel leftPanel;
     private JPanel contentPanel;
 
-    public static final int WINDOW_WIDTH = 800;
-    public static final int WINDOW_HEIGHT = 550;
+    public static final int WINDOW_WIDTH = MainFrame.WINDOW_WIDTH;
+    public static final int WINDOW_HEIGHT = MainFrame.WINDOW_HEIGHT;
     public static final int LEFT_PANEL_WIDTH=200;
     public static final int MAIN_PANEL_WIDTH=WINDOW_WIDTH-LEFT_PANEL_WIDTH;
 
