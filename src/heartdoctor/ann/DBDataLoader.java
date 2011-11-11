@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Wczytuje dane z bazy danych
  * @author michal
  */
 public class DBDataLoader implements DataLoader {
@@ -21,6 +21,10 @@ public class DBDataLoader implements DataLoader {
     private static final String queryString = "select * from LearnDataSet";
     private static final String numberString = "select count(*) from LearnDataSet";
 
+    /**
+     * Zwraca aktualna liczbe rekordow w tabeli z danymi do nauki
+     * @return Liczba rekordow z tabeli do nauki
+     */
     public int getRecordsAmount() {
         Connection conn = DBUtil.getConnection();
         Statement stm = null;
@@ -35,12 +39,16 @@ public class DBDataLoader implements DataLoader {
         } catch (SQLException ex) {
             Logger.getLogger(DBDataLoader.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException("0 results returned");
-        } finally{
+        } finally {
             DBUtil.close(stm, rs);
             DBUtil.close(conn);
         }
     }
 
+    /**
+     * Wczytuje z bazy danych zawartosc tabeli z rekordami do nauki sieci
+     * @return DataSet z danymi do nauki sieci
+     */
     @Override
     public DataSet loadData() {
         Connection conn = DBUtil.getConnection();
@@ -51,13 +59,16 @@ public class DBDataLoader implements DataLoader {
         try {
             stm = conn.createStatement();
             rs = stm.executeQuery(queryString);
-            rs.setFetchSize(500);
+            rs.setFetchSize(500); //w przypadku duzej ilosci rekordów przyspiesza wszytywanie
+            double d;
             while (rs.next()) {
-                entry=new DataEntry();
+                entry = new DataEntry();
                 for (int i = 2; i < 15; ++i) {
-                    entry.patterns.add(rs.getDouble(i));
+                    d = rs.getDouble(i);
+                    //null jesli wartosc w rekordzie nieznana
+                    entry.patterns.add(rs.wasNull() ? null : d);
                 }
-                entry.targets.add(rs.getDouble(15));
+                entry.targets.add(rs.getDouble(15)); //tylko jeden target jak na razie
                 data.entries.add(entry);
             }
 
