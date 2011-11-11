@@ -31,7 +31,7 @@ public class PatientSmallDataPanel extends javax.swing.JPanel {
     
    public PatientData getData(){
        PatientData data=new PatientData();
-       data.setPesel(Integer.parseInt(pesel.getText()) );
+       data.setPesel( pesel.getText() );
        data.setName(name.getText());
        data.setLastName(lastName.getText());
        return data;

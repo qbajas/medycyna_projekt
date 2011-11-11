@@ -8,45 +8,74 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- *
+ * Klasa modelujaca liste pacjentow zwrocana z zapytania etc.
+ * W konstrukorze na czas testow uzyta funkcja populateRecords zeby 
+ * utworzyc jakies rekordy - funkcja do usuniecia gdy bedzie juz gotowa funkcjonalnosc
+ * do wyszukiwania
  * @author michal
  */
 public class PatientSearchResults {
     private ArrayList<PatientData> patients;
     
+    /**
+     * Tworzy nowy model PatientSearchResults i dodaje rekordy 
+     */
     public PatientSearchResults(){
         patients=new ArrayList<PatientData>();
         populateRecords();
     }
     
+    /**
+     * Tworzy nowy model PatientSearchResults z poczatkowa rezerwacja
+     * i dodaje rekordy
+     * @param initialCapacity Na ile elementow zarezerwowac pamiec
+     */
     public PatientSearchResults(int initialCapacity){
         patients=new ArrayList<PatientData>(initialCapacity);
+        populateRecords();
     }
 
+    /**
+     * Zwraca liste pacjentow
+     * @return 
+     */
     public ArrayList<PatientData> getPatients() {
         return patients;
     }
 
+    /**
+     * Wrzuca do modelu dana liste pacjentow
+     * @param patients 
+     */
     public void setPatients(ArrayList<PatientData> patients) {
         this.patients = patients;
     }
     
+    /**
+     * Zwraca pacjenta o podanym indeksie
+     * @param indeks
+     * @return 
+     */
     public PatientData getPatient(int indeks){
         return patients.get(indeks);
     }
     
+    /**
+     * Dodaje pacjenta do listy
+     * @param patient 
+     */
     public void add(PatientData patient){
         patients.add(patient);
     }
     
     /**
-     * wywalic pozniej
+     * Generuje 10 rekordow, funkcja na czas testow, do wywalenia pozniej
      */
     public void populateRecords(){
         Random rand=new Random();
         for(int i=0;i<10;i++){
             PatientData patient=new PatientData(i,"Imie"+i,
-                    "MiddleName"+i,"Nazwisko"+i, i*12314,
+                    "MiddleName"+i,"Nazwisko"+i, ""+i*12314,
                            "address"+i,"code"+i,"city"+i,null);
                            
             MedicalData medical=new MedicalData();
