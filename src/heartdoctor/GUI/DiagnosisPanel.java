@@ -10,15 +10,19 @@
  */
 package heartdoctor.GUI;
 
+import heartdoctor.gui_controllers.GuiController;
+
 /**
  *
  * @author michal
  */
 public class DiagnosisPanel extends javax.swing.JPanel {
+    private final GuiController controller;
 
     /** Creates new form DiagnosisPanel */
-    public DiagnosisPanel() {
+    public DiagnosisPanel(GuiController controller) {
         initComponents();
+        this.controller = controller;
     }
 
     /** This method is called from within the constructor to

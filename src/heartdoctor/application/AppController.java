@@ -8,6 +8,9 @@ import heartdoctor.DataModel.User;
 import heartdoctor.GUI.MainFrame;
 import heartdoctor.GUI.MainPanel;
 import heartdoctor.Util.SecurityController;
+import heartdoctor.gui_controllers.AdminGuiController;
+import heartdoctor.gui_controllers.DoctorGuiController;
+import heartdoctor.gui_controllers.GuiController;
 import java.sql.SQLException;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,6 +22,7 @@ import javax.swing.JOptionPane;
 public class AppController {
 
     MainFrame frame;
+    GuiController controller;
 
     AppController(MainFrame frame) {
         this.frame = frame;
@@ -43,21 +47,28 @@ public class AppController {
                 try {
                     frame.add(new JLabel("LOGOWANIE"));
                     if (SecurityController.authenticate(user)) {
-                        showOptionPaneOutsideEDT("Access granted", 
+                        showOptionPaneOutsideEDT("Access granted",
                                 "Successfully authorized");
 
-                        frame.setMainPanel(new MainPanel());
+//                        creating view
+//                        frame.setMainPanel(new MainPanel());
+                        controller = createGuiController(user, frame);
+                        controller.setStartingView();
+                        frame.getStatusPanel().setRole(user.getRole());
+                        frame.getStatusPanel().setLoggedAs("Logged as: ");
+
 
                     } else {
-                        showOptionPaneOutsideEDT("Access denied", 
+                        showOptionPaneOutsideEDT("Access denied",
                                 "WYPIERDALAĆ! WSTĘP WZBRONONY");
                     }
                 } catch (SQLException ex) {
-                    showOptionPaneOutsideEDT("Connection problem", 
-                                "Can't connect to DB");
+                    showOptionPaneOutsideEDT("Connection problem",
+                            "Can't connect to DB");
                 }
-                
+
                 javax.swing.SwingUtilities.invokeLater(new Runnable() {
+
                     @Override
                     public void run() {
                         frame.setStatus(null);
@@ -66,20 +77,33 @@ public class AppController {
             }
         }).start();
     }
-    
-    public void showOptionPaneOutsideEDT(final String title, final String message){
-        showOptionPaneOutsideEDT(title,message,JOptionPane.DEFAULT_OPTION);
+
+    public void showOptionPaneOutsideEDT(final String title, final String message) {
+        showOptionPaneOutsideEDT(title, message, JOptionPane.DEFAULT_OPTION);
     }
 
-    public void showOptionPaneOutsideEDT(final String title, final String message,final int option) {
+    public void showOptionPaneOutsideEDT(final String title, final String message, final int option) {
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
 
             @Override
             public void run() {
-                JOptionPane.showConfirmDialog(frame,message, title,option);
+                JOptionPane.showConfirmDialog(frame, message, title, option);
 
             }
         });
+    }
+
+//    FACTORY
+    public GuiController createGuiController(User user, MainFrame frame) {
+        if (user.isAdmin()) {
+            return new AdminGuiController(frame);
+        }
+        if (user.isDoctor()) {
+            return new DoctorGuiController(frame);
+        }
+//        default
+//        return null;
+        return new DoctorGuiController(frame);
     }
 }

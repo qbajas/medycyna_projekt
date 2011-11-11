@@ -10,13 +10,15 @@
  */
 package heartdoctor.GUI;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author michal
  */
 public class StatusPanel extends javax.swing.JPanel {
-    static final int PANEL_WIDTH = MainFrame.WINDOW_WIDTH;
-    static final int PANEL_HEIGHT = 50;
+    public static final int PANEL_WIDTH = MainFrame.WINDOW_WIDTH;
+    public static final int PANEL_HEIGHT = 50;
     
     /** Creates new form StatusPanel */
     public StatusPanel() {
@@ -26,6 +28,13 @@ public class StatusPanel extends javax.swing.JPanel {
     public void setStatus(String text){
         status.setText(text);
     }
+
+    public void setRole(String text){
+        role.setText(text);
+    }
+
+
+
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -38,8 +47,12 @@ public class StatusPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         status = new javax.swing.JLabel();
+        loggedAs = new javax.swing.JLabel();
+        role = new javax.swing.JLabel();
 
         jLabel1.setText("System status:");
+
+        loggedAs.setText("Not logged in");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -50,16 +63,32 @@ public class StatusPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(211, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(loggedAs)
+                .addGap(18, 18, 18)
+                .addComponent(role, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1)
-            .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1)
+                    .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                        .addComponent(role)
+                        .addComponent(loggedAs)))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel loggedAs;
+    private javax.swing.JLabel role;
     private javax.swing.JLabel status;
     // End of variables declaration//GEN-END:variables
+
+    public void setLoggedAs(String text) {
+        loggedAs.setText(text);
+    }
 }

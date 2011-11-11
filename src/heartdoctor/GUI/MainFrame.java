@@ -15,10 +15,18 @@ import javax.swing.JFrame;
  */
 public class MainFrame extends JFrame {
 
-    static final int WINDOW_WIDTH = 800;
-    static final int WINDOW_HEIGHT = 600;
+    public static final int WINDOW_WIDTH = 800;
+    public static final int WINDOW_HEIGHT = 600;
     StatusPanel statusPanel;
+
+    public StatusPanel getStatusPanel() {
+        return statusPanel;
+    }
     private LoginPanel panel;
+
+    public LoginPanel getPanel() {
+        return panel;
+    }
 
     public MainFrame() {
         super();
@@ -37,16 +45,6 @@ public class MainFrame extends JFrame {
 
     }
 
-    public void setMainPanel(MainPanel mp) {
-
-        remove(panel);
-        mp.setLeftPanel(new LeftPanel());
-        mp.setContentPanel(new DiagnosisPanel());
-        mp.setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT - statusPanel.PANEL_HEIGHT);
-
-        add(mp);
-        repaint();
-    }
 
     public void setStatus(String status) {
         statusPanel.setStatus(status);

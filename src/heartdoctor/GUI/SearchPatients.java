@@ -10,17 +10,17 @@
  */
 package heartdoctor.GUI;
 
-import gui_controllers.DoctorGuiController;
+import heartdoctor.gui_controllers.GuiController;
 
 /**
  *
  * @author Qba
  */
 public class SearchPatients extends javax.swing.JPanel {
-    private final DoctorGuiController controller;
+    private final GuiController controller;
 
     /** Creates new form SearchPatients */
-    SearchPatients(DoctorGuiController controller) {
+    SearchPatients(GuiController controller) {
         initComponents();
         this.controller = controller;
     }

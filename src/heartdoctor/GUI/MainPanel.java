@@ -6,28 +6,31 @@ import javax.swing.JPanel;
  *
  * @author michal
  */
-public class MainPanel extends JPanel{
+public class MainPanel extends JPanel {
+
     private JPanel leftPanel;
     private JPanel contentPanel;
 
-    public MainPanel() {
+    public static final int WINDOW_WIDTH = 800;
+    public static final int WINDOW_HEIGHT = 550;
 
+    public MainPanel() {
+        setLayout(null);
     }
-    
-    
 
     public JPanel getContentPanel() {
         return contentPanel;
     }
 
     public void setContentPanel(JPanel contentPanel) {
-        if(this.contentPanel!=null)
+        if (this.contentPanel != null) {
             remove(this.contentPanel);
+        }
         this.contentPanel = contentPanel;
-        contentPanel.setBounds(180,0, 500, 700);
+        contentPanel.setBounds(250, 0, 500, WINDOW_HEIGHT);
         add(contentPanel);
-        
-                revalidate();
+
+        revalidate();
         repaint();
     }
 
@@ -36,15 +39,13 @@ public class MainPanel extends JPanel{
     }
 
     public void setLeftPanel(JPanel leftPanel) {
-        if(this.leftPanel!=null)
+        if (this.leftPanel != null) {
             remove(this.leftPanel);
+        }
         this.leftPanel = leftPanel;
-        leftPanel.setBounds(0, 0, 400, 700);
+        leftPanel.setBounds(0, 0, 200, WINDOW_HEIGHT);
         add(leftPanel);
         revalidate();
         repaint();
     }
-    
-    
-    
 }
