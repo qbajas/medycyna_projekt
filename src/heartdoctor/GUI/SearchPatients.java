@@ -95,7 +95,7 @@ public class SearchPatients extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 102));
 
-        nameSearch.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Name", "Last name", "Pesel", "Age", "Sex" }));
+        nameSearch.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Name", "Middlename", "Lastname", "Pesel", "Address", "Postalcode", "City" }));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Search by:");
@@ -232,11 +232,12 @@ public class SearchPatients extends javax.swing.JPanel {
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
 //        domyslnie dane przekazywane kontrolerowi
-//        flowController.prepareResults(nameSearch.getToolTipText(), conditionSearch.getToolTipText(), valueSearch.getSelectedText());
-//        na razie modelowi
-        String sql = PatientSearchResults.generateSQL(nameSearch.getSelectedItem().toString(), 
+        String sql = flowController.prepareResults(nameSearch.getSelectedItem().toString(),
                 conditionSearch.getSelectedItem().toString(), valueSearch.getText());
-        resultCount.setText(sql);
+//        na razie modelowi
+//        String sql = PatientSearchResults.generateSQL(nameSearch.getSelectedItem().toString(),
+//                conditionSearch.getSelectedItem().toString(), valueSearch.getText());
+        resultCount.setText("Results: " + sql);
     }//GEN-LAST:event_searchButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox conditionSearch;

@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package heartdoctor.Util;
 
 import heartdoctor.DataModel.PatientData;
@@ -19,13 +18,11 @@ import java.util.logging.Logger;
  * @author Witek
  */
 public class PatientController {
+
     private static final String queryString = "select * from Patients where pesel=?";
 
-
-
     public static boolean canCreate(String pesel) throws SQLException {
-        if(pesel.length()==11 && pesel.matches("[0-9]+"))
-        {
+        if (pesel.length() == 11 && pesel.matches("[0-9]+")) {
             Connection conn = DBUtil.getConnection();
             PreparedStatement stm = null;
             ResultSet rs = null;
@@ -38,8 +35,7 @@ public class PatientController {
                 DBUtil.close(stm, rs);
                 DBUtil.close(conn);
             }
-        }
-        else {
+        } else {
             System.out.println("Blad w numerze pesel");
             return false;
         }
@@ -97,13 +93,10 @@ public class PatientController {
         } catch (SQLException ex) {
             Logger.getLogger(SecurityController.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Nie mozna dodac pacjenta");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Logger.getLogger(SecurityController.class.getName()).log(Level.SEVERE, null, e);
             System.out.println(e.getMessage());
-        }
-
-         finally {
+        } finally {
             scan.close();
         }
     }
