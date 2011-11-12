@@ -90,7 +90,7 @@ public class PatientController {
             stm.setDouble(12, record.getCa());
             stm.setDouble(13, record.getThal());
             stm.setDouble(14, record.getDiagnosis());
-            stm.setDouble(15, record.getVerifiedDiagnosis());
+            stm.setDouble(15, record.getProgramDiagnosis());
             stm.executeUpdate();
             return true;
         } finally {
@@ -153,7 +153,7 @@ public class PatientController {
             stm.setDouble(13, record.getThal());
             stm.setDouble(14, record.getDiagnosis());
             stm.setInt(15, patient.getID());
-            stm.setDouble(16, record.getVerifiedDiagnosis());
+            stm.setDouble(16, record.getProgramDiagnosis());
 
             stm.executeUpdate();
 
