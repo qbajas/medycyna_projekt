@@ -2,14 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package heartdoctor.Util;
 
+import heartdoctor.DataModel.MedicalData;
 import heartdoctor.DataModel.PatientData;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,13 +20,11 @@ import java.util.logging.Logger;
  * @author Witek
  */
 public class PatientController {
+
     private static final String queryString = "select * from Patients where pesel=?";
 
-
-
     public static boolean canCreate(String pesel) throws SQLException {
-        if(pesel.length()==11 && pesel.matches("[0-9]+"))
-        {
+        if (pesel.length() == 11 && pesel.matches("[0-9]+")) {
             Connection conn = DBUtil.getConnection();
             PreparedStatement stm = null;
             ResultSet rs = null;
@@ -38,14 +37,13 @@ public class PatientController {
                 DBUtil.close(stm, rs);
                 DBUtil.close(conn);
             }
-        }
-        else {
+        } else {
             System.out.println("Blad w numerze pesel");
             return false;
         }
     }
 
-    public static boolean addUser(PatientData patient) throws SQLException {
+    public static boolean updatePatient(PatientData patient) throws SQLException {
         Connection conn = DBUtil.getConnection();
         PreparedStatement stm = null;
         try {
@@ -53,7 +51,8 @@ public class PatientController {
             if (!canCreate(patient.getPesel())) {
                 return false;
             }
-            stm = conn.prepareStatement("insert into Patients (name,middlename,lastname,pesel,address,postalcode,city) values(?,?,?,?,?,?,?)");
+            stm = conn.prepareStatement("update Patients "
+                    + "set name=?,middlename=?,lastname=?,pesel=?,address=?,postalcode=?,city=?");
             stm.setString(1, patient.getName());
             stm.setString(2, patient.getMiddleName());
             stm.setString(3, patient.getLastName());
@@ -62,6 +61,145 @@ public class PatientController {
             stm.setString(6, patient.getPostalCode());
             stm.setString(7, patient.getCity());
             stm.executeUpdate();
+            return true;
+        } finally {
+            DBUtil.close(stm);
+            DBUtil.close(conn);
+        }
+    }
+    
+    public static boolean updateMedicalRecord(MedicalData record) throws SQLException{
+        Connection conn = DBUtil.getConnection();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            stm = conn.prepareStatement("update  LearnDataSet set"
+                    + "age=?, sex=?, cp=?, trestbps=?, chol=?, fbs=?, restecg=?, thalach=?,"
+                    + "exang=?, oldpeak=?, slope=?, ca=?, thal=?,num=?,diagnosis=?)");
+            stm.setInt(1, record.getAge());
+            stm.setInt(2, record.getSex());
+            stm.setInt(3, record.getChestPain());
+            stm.setInt(4, record.getBloodPressure());
+            stm.setInt(5, record.getCholestoral());
+            stm.setInt(6, record.getBloodSugar());
+            stm.setInt(7, record.getRestecg());
+            stm.setInt(8, record.getMaxHeartRate());
+            stm.setInt(9, record.getAngina());
+            stm.setInt(10, record.getOldpeak());
+            stm.setInt(11, record.getSlope());
+            stm.setInt(12, record.getCa());
+            stm.setInt(13, record.getThal());
+            stm.setInt(14, record.getDiagnosis());
+            stm.setInt(15, record.getVerifiedDiagnosis());
+            stm.executeUpdate();
+            return true;
+        } finally {
+            DBUtil.close(stm, rs);
+            DBUtil.close(conn);
+        }
+    }
+
+    public static int deletePatient(PatientData patient) throws SQLException {
+        Connection conn = DBUtil.getConnection();
+        Statement stm = null;
+        try {
+            stm = conn.createStatement();
+            return stm.executeUpdate("delete from Patients where id=" + patient.getID());
+        } finally {
+            DBUtil.close(stm);
+            DBUtil.close(conn);
+        }
+    }
+
+    public static int deleteMedicalRecord(MedicalData data) throws SQLException {
+        Connection conn = DBUtil.getConnection();
+        Statement stm = null;
+        try {
+            stm = conn.createStatement();
+            return stm.executeUpdate("delete from LearnDataSet where id=" + data.getDbID());
+        } finally {
+            DBUtil.close(stm);
+            DBUtil.close(conn);
+        }
+    }
+
+    /**
+     * Dodaje do bazy nowy rekord medyczny, laczy go z podanym pacjentem.
+     * Gdy pacjent =null rekord nie bedzie polaczony z zadnym pacjentem
+     * @param record Dane medyczne do dodania do bazy
+     * @param patient Pacjent do ktorego przypisac wyniki badan
+     */
+    public static void addMedicalRecord(MedicalData record, PatientData patient) throws SQLException {
+        Connection conn = DBUtil.getConnection();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            stm = conn.prepareStatement("insert into LearnDataSet"
+                    + "(age, sex, cp, trestbps, chol, fbs, restecg, thalach,"
+                    + "exang, oldpeak, slope, ca, thal,num,patient_id,diagnosis) "
+                    + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            stm.setInt(1, record.getAge());
+            stm.setInt(2, record.getSex());
+            stm.setInt(3, record.getChestPain());
+            stm.setInt(4, record.getBloodPressure());
+            stm.setInt(5, record.getCholestoral());
+            stm.setInt(6, record.getBloodSugar());
+            stm.setInt(7, record.getRestecg());
+            stm.setInt(8, record.getMaxHeartRate());
+            stm.setInt(9, record.getAngina());
+            stm.setInt(10, record.getOldpeak());
+            stm.setInt(11, record.getSlope());
+            stm.setInt(12, record.getCa());
+            stm.setInt(13, record.getThal());
+            stm.setInt(14, record.getDiagnosis());
+            stm.setInt(15, patient.getID());
+            stm.setInt(16, record.getVerifiedDiagnosis());
+
+            stm.executeUpdate();
+
+            rs = stm.getGeneratedKeys();
+
+            if (rs.next()) {
+                record.setDbID(rs.getInt(1));
+                patient.setMedicalData(record);
+            } else {
+                throw new RuntimeException("Wrong id returned");
+            }
+        } finally {
+            DBUtil.close(stm, rs);
+            DBUtil.close(conn);
+        }
+
+    }
+
+    public static boolean addPatient(PatientData patient) throws SQLException {
+        Connection conn = DBUtil.getConnection();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+
+            if (!canCreate(patient.getPesel())) {
+                return false;
+            }
+            stm = conn.prepareStatement("insert into Patients "
+                    + "(name,middlename,lastname,pesel,address,postalcode,city) "
+                    + "values(?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            stm.setString(1, patient.getName());
+            stm.setString(2, patient.getMiddleName());
+            stm.setString(3, patient.getLastName());
+            stm.setString(4, patient.getPesel());
+            stm.setString(5, patient.getAddress());
+            stm.setString(6, patient.getPostalCode());
+            stm.setString(7, patient.getCity());
+            stm.executeUpdate();
+            rs = stm.getGeneratedKeys();
+
+            if (rs.next()) {
+                patient.setID(rs.getInt(1));
+            } else {
+                throw new RuntimeException("Wrong id returned");
+            }
+
             return true;
         } finally {
             DBUtil.close(stm);
@@ -93,17 +231,14 @@ public class PatientController {
             patient.setPostalCode(scan.nextLine());
             System.out.println("Podaj miejscowosc:");
             patient.setCity(scan.nextLine());
-            addUser(patient);
+            addPatient(patient);
         } catch (SQLException ex) {
             Logger.getLogger(SecurityController.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Nie mozna dodac pacjenta");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Logger.getLogger(SecurityController.class.getName()).log(Level.SEVERE, null, e);
             System.out.println(e.getMessage());
-        }
-
-         finally {
+        } finally {
             scan.close();
         }
     }

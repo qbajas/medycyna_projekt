@@ -22,6 +22,7 @@ public class MedicalData {
     private int ca;
     private Thal thal;
     private int diagnosis;
+    private int verifiedDiagnosis=-1;
 
     public MedicalData(int dbID,int age, Sex sex, ChestPain chestPain, int bloodPressure, int cholestoral, int bloodSugar, RestingECGResult restecg, int maxHeartRate, int angina, int oldpeak, Slope slope, int ca, Thal thal, int diagnosis) {
         this.age = age;
@@ -41,6 +42,14 @@ public class MedicalData {
     }
 
     public MedicalData() {
+    }
+
+    public int getVerifiedDiagnosis() {
+        return verifiedDiagnosis;
+    }
+
+    public void setVerifiedDiagnosis(int verifiedDiagnosis) {
+        this.verifiedDiagnosis = verifiedDiagnosis;
     }
 
     public void setChestPain(ChestPain chestPain) {
