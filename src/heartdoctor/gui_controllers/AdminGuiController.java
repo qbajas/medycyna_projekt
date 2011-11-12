@@ -4,7 +4,6 @@
  */
 package heartdoctor.gui_controllers;
 
-import heartdoctor.GUI.DiagnosisPanel;
 import heartdoctor.GUI.LeftPanel;
 import heartdoctor.GUI.MainFrame;
 import heartdoctor.GUI.MainPanel;

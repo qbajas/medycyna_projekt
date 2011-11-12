@@ -5,8 +5,6 @@
 
 package heartdoctor.gui_controllers;
 
-import heartdoctor.GUI.DiagnosisPanel;
-import heartdoctor.GUI.SearchPatients;
 import javax.swing.JPanel;
 
 /**
@@ -19,7 +17,5 @@ public interface GuiController {
     public void prepareLeftPanel();
 
     public void setRightPanel(JPanel panel);
-
-
 
 }
