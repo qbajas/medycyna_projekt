@@ -7,6 +7,7 @@ package heartdoctor.gui_controllers;
 import heartdoctor.DataModel.PatientData;
 import heartdoctor.DataModel.PatientSearchResults;
 import heartdoctor.GUI.SearchPatients;
+import java.util.ArrayList;
 
 /**
  * Kontroler do zarzadzania wyswietlaniem listy pacjentow w widoku SearchPatients
@@ -102,11 +103,13 @@ public class PatientResultsController {
     public void setPatientData(PatientData data) {
     }
 
-
     /**
      * funkcja oblsugujaca klikniecie w search z widoku search patients
      */
-    public void prepareResults(String searchBy, String condition, String value) {
-        
+//    public ArrayList<PatientData> prepareResults(String searchBy, String condition, String value) {
+    public String prepareResults(String searchBy, String condition, String value) {
+//        model = new PatientSearchResults(PatientSearchResults.generateSQL(searchBy, condition, value));
+//        return model.getPatients();
+        return model.search(PatientSearchResults.generateSQL(searchBy, condition, value)).toString();
     }
 }

@@ -4,8 +4,15 @@
  */
 package heartdoctor.DataModel;
 
+import java.sql.Connection;
+import heartdoctor.Util.DBUtil;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Klasa modelujaca liste pacjentow zwrocana z zapytania etc.
@@ -34,6 +41,37 @@ public class PatientSearchResults {
     public PatientSearchResults(int initialCapacity) {
         patients = new ArrayList<PatientData>(initialCapacity);
         populateRecords();
+    }
+
+    /**
+     * konstruktor tworzacy rezultaty na podstawie query
+     * @param query
+     */
+    public PatientSearchResults(String query) {
+//        patients = search(query);
+    }
+
+    /**
+     * wykonuje zapytanie sql do bazy
+     * @param query
+     * @return
+     */
+//    public ArrayList<PatientData> search(String query) {
+    public ResultSet search(String query) {
+        patients = new ArrayList<PatientData>();
+        Connection conn = DBUtil.getConnection();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            stm = conn.prepareStatement(query);
+            rs = stm.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientSearchResults.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBUtil.close(stm, rs);
+            DBUtil.close(conn);
+        }
+        return rs;
     }
 
     /**
@@ -71,10 +109,9 @@ public class PatientSearchResults {
 
     /**
      * generuje zapytanie sql z danych z kontrolera
-     * @return
      */
     public static String generateSQL(String searchBy, String condition, String value) {
-        return "SELECT * FROM Patients WHERE " + searchBy + " " + condition + " " + value;
+        return "SELECT * FROM Patients WHERE " + searchBy.toLowerCase() + " " + condition + " '" + value + "'";
     }
 
     /**
