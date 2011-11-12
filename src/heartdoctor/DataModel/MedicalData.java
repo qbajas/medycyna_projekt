@@ -21,8 +21,8 @@ public class MedicalData {
     private Slope slope;
     private double ca;
     private Thal thal;
-    private double diagnosis;
-    private double verifiedDiagnosis=-1;
+    private double diagnosis; //zweryfikowana przez lekarza, -1 jesli nie potwierdzono
+    private double programDiagnosis=-1; //diagnoza wystawiona przez program, -1 jesli nie diagnozowano
 
     public MedicalData(int dbID,double age, Sex sex, ChestPain chestPain, 
             double bloodPressure, double cholestoral, double bloodSugar, 
@@ -47,12 +47,12 @@ public class MedicalData {
     public MedicalData() {
     }
 
-    public double getVerifiedDiagnosis() {
-        return verifiedDiagnosis;
+    public double getProgramDiagnosis() {
+        return programDiagnosis;
     }
 
-    public void setVerifiedDiagnosis(double verifiedDiagnosis) {
-        this.verifiedDiagnosis = verifiedDiagnosis;
+    public void setProgramDiagnosis(double verifiedDiagnosis) {
+        this.programDiagnosis = verifiedDiagnosis;
     }
 
     public void setChestPain(ChestPain chestPain) {
