@@ -76,21 +76,21 @@ public class PatientController {
             stm = conn.prepareStatement("update  LearnDataSet set"
                     + "age=?, sex=?, cp=?, trestbps=?, chol=?, fbs=?, restecg=?, thalach=?,"
                     + "exang=?, oldpeak=?, slope=?, ca=?, thal=?,num=?,diagnosis=?)");
-            stm.setInt(1, record.getAge());
-            stm.setInt(2, record.getSex());
-            stm.setInt(3, record.getChestPain());
-            stm.setInt(4, record.getBloodPressure());
-            stm.setInt(5, record.getCholestoral());
-            stm.setInt(6, record.getBloodSugar());
-            stm.setInt(7, record.getRestecg());
-            stm.setInt(8, record.getMaxHeartRate());
-            stm.setInt(9, record.getAngina());
-            stm.setInt(10, record.getOldpeak());
-            stm.setInt(11, record.getSlope());
-            stm.setInt(12, record.getCa());
-            stm.setInt(13, record.getThal());
-            stm.setInt(14, record.getDiagnosis());
-            stm.setInt(15, record.getVerifiedDiagnosis());
+            stm.setDouble(1, record.getAge());
+            stm.setDouble(2, record.getSex());
+            stm.setDouble(3, record.getChestPain());
+            stm.setDouble(4, record.getBloodPressure());
+            stm.setDouble(5, record.getCholestoral());
+            stm.setDouble(6, record.getBloodSugar());
+            stm.setDouble(7, record.getRestecg());
+            stm.setDouble(8, record.getMaxHeartRate());
+            stm.setDouble(9, record.getAngina());
+            stm.setDouble(10, record.getOldpeak());
+            stm.setDouble(11, record.getSlope());
+            stm.setDouble(12, record.getCa());
+            stm.setDouble(13, record.getThal());
+            stm.setDouble(14, record.getDiagnosis());
+            stm.setDouble(15, record.getVerifiedDiagnosis());
             stm.executeUpdate();
             return true;
         } finally {
@@ -138,22 +138,22 @@ public class PatientController {
                     + "(age, sex, cp, trestbps, chol, fbs, restecg, thalach,"
                     + "exang, oldpeak, slope, ca, thal,num,patient_id,diagnosis) "
                     + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            stm.setInt(1, record.getAge());
-            stm.setInt(2, record.getSex());
-            stm.setInt(3, record.getChestPain());
-            stm.setInt(4, record.getBloodPressure());
-            stm.setInt(5, record.getCholestoral());
-            stm.setInt(6, record.getBloodSugar());
-            stm.setInt(7, record.getRestecg());
-            stm.setInt(8, record.getMaxHeartRate());
-            stm.setInt(9, record.getAngina());
-            stm.setInt(10, record.getOldpeak());
-            stm.setInt(11, record.getSlope());
-            stm.setInt(12, record.getCa());
-            stm.setInt(13, record.getThal());
-            stm.setInt(14, record.getDiagnosis());
+            stm.setDouble(1, record.getAge());
+            stm.setDouble(2, record.getSex());
+            stm.setDouble(3, record.getChestPain());
+            stm.setDouble(4, record.getBloodPressure());
+            stm.setDouble(5, record.getCholestoral());
+            stm.setDouble(6, record.getBloodSugar());
+            stm.setDouble(7, record.getRestecg());
+            stm.setDouble(8, record.getMaxHeartRate());
+            stm.setDouble(9, record.getAngina());
+            stm.setDouble(10, record.getOldpeak());
+            stm.setDouble(11, record.getSlope());
+            stm.setDouble(12, record.getCa());
+            stm.setDouble(13, record.getThal());
+            stm.setDouble(14, record.getDiagnosis());
             stm.setInt(15, patient.getID());
-            stm.setInt(16, record.getVerifiedDiagnosis());
+            stm.setDouble(16, record.getVerifiedDiagnosis());
 
             stm.executeUpdate();
 

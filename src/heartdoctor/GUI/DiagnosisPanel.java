@@ -37,14 +37,14 @@ public class DiagnosisPanel extends javax.swing.JPanel {
     }
 
     public void showMedicalData(MedicalData data){
-        ECG.setSelectedIndex(data.getRestecg());
+        ECG.setSelectedIndex((int) data.getRestecg());
         Slope.setSelectedIndex(data.getSlopeEnum().ordinal());
         Thal.setSelectedIndex(data.getThalEnum().ordinal());
-        Vessels.setSelectedIndex(data.getCa());
+        Vessels.setSelectedIndex((int)data.getCa());
         chestPain.setSelectedIndex(data.getChestPainEnum().ordinal());
         
         age.setText(""+data.getAge());
-        sex.setSelectedIndex(data.getSex());
+        sex.setSelectedIndex((int)data.getSex());
         
         anginaCombo.setSelected(data.getAngina()==1);
         

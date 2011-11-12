@@ -8,23 +8,26 @@ package heartdoctor.DataModel;
 public class MedicalData {
 
     private int dbID;
-    private int age;
+    private double age;
     private Sex sex;
     private ChestPain chestPain;
-    private int bloodPressure;
-    private int cholestoral;
-    private int bloodSugar;
+    private double bloodPressure;
+    private double cholestoral;
+    private double bloodSugar;
     private RestingECGResult restecg;
-    private int maxHeartRate;
-    private int angina;
-    private int oldpeak;
+    private double maxHeartRate;
+    private double angina;
+    private double oldpeak;
     private Slope slope;
-    private int ca;
+    private double ca;
     private Thal thal;
-    private int diagnosis;
-    private int verifiedDiagnosis=-1;
+    private double diagnosis;
+    private double verifiedDiagnosis=-1;
 
-    public MedicalData(int dbID,int age, Sex sex, ChestPain chestPain, int bloodPressure, int cholestoral, int bloodSugar, RestingECGResult restecg, int maxHeartRate, int angina, int oldpeak, Slope slope, int ca, Thal thal, int diagnosis) {
+    public MedicalData(int dbID,double age, Sex sex, ChestPain chestPain, 
+            double bloodPressure, double cholestoral, double bloodSugar, 
+            RestingECGResult restecg, double maxHeartRate, double angina, 
+            double oldpeak, Slope slope, double ca, Thal thal, double diagnosis) {
         this.age = age;
         this.sex = sex;
         this.chestPain = chestPain;
@@ -44,11 +47,11 @@ public class MedicalData {
     public MedicalData() {
     }
 
-    public int getVerifiedDiagnosis() {
+    public double getVerifiedDiagnosis() {
         return verifiedDiagnosis;
     }
 
-    public void setVerifiedDiagnosis(int verifiedDiagnosis) {
+    public void setVerifiedDiagnosis(double verifiedDiagnosis) {
         this.verifiedDiagnosis = verifiedDiagnosis;
     }
 
@@ -72,52 +75,52 @@ public class MedicalData {
         this.thal = thal;
     }
 
-    public int getAge() {
+    public double getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(double age) {
         this.age = age;
     }
 
-    public int getAngina() {
+    public double getAngina() {
         return angina;
     }
 
-    public void setAngina(int angina) {
+    public void setAngina(double angina) {
         this.angina = angina;
     }
 
-    public int getBloodPressure() {
+    public double getBloodPressure() {
         return bloodPressure;
     }
 
-    public void setBloodPressure(int bloodPressure) {
+    public void setBloodPressure(double bloodPressure) {
         this.bloodPressure = bloodPressure;
     }
 
-    public int getBloodSugar() {
+    public double getBloodSugar() {
         return bloodSugar;
     }
 
-    public void setBloodSugar(int bloodSugar) {
+    public void setBloodSugar(double bloodSugar) {
         this.bloodSugar = bloodSugar;
     }
 
-    public int getCa() {
+    public double getCa() {
         return ca;
     }
 
-    public void setCa(int ca) {
+    public void setCa(double ca) {
         this.ca = ca;
     }
 
-    public int getChestPain() {
+    public double getChestPain() {
         return chestPain.getValue();
     }
 
-    public void setChestPain(int chestPain) {
-        switch (chestPain) {
+    public void setChestPain(double chestPain) {
+        switch ((int)chestPain) {
             case 1:
                 this.chestPain = ChestPain.TypicalAngina;
                 break;
@@ -143,44 +146,44 @@ public class MedicalData {
         this.dbID = dbID;
     }
     
-    public int getCholestoral() {
+    public double getCholestoral() {
         return cholestoral;
     }
 
-    public void setCholestoral(int cholestoral) {
+    public void setCholestoral(double cholestoral) {
         this.cholestoral = cholestoral;
     }
 
-    public int getDiagnosis() {
+    public double getDiagnosis() {
         return diagnosis;
     }
 
-    public void setDiagnosis(int diagnosis) {
+    public void setDiagnosis(double diagnosis) {
         this.diagnosis = diagnosis;
     }
 
-    public int getMaxHeartRate() {
+    public double getMaxHeartRate() {
         return maxHeartRate;
     }
 
-    public void setMaxHeartRate(int maxHeartRate) {
+    public void setMaxHeartRate(double maxHeartRate) {
         this.maxHeartRate = maxHeartRate;
     }
 
-    public int getOldpeak() {
+    public double getOldpeak() {
         return oldpeak;
     }
 
-    public void setOldpeak(int oldpeak) {
+    public void setOldpeak(double oldpeak) {
         this.oldpeak = oldpeak;
     }
 
-    public int getRestecg() {
+    public double getRestecg() {
         return restecg.getValue();
     }
 
-    public void setRestecg(int restecg) {
-        switch (restecg) {
+    public void setRestecg(double restecg) {
+        switch ((int)restecg) {
             case 0:
                 this.restecg = RestingECGResult.Normal;
                 break;
@@ -195,12 +198,12 @@ public class MedicalData {
         }
     }
 
-    public int getSex() {
+    public double getSex() {
         return sex.getValue();
     }
 
-    public void setSex(int sex) {
-        switch (sex) {
+    public void setSex(double sex) {
+        switch ((int)sex) {
             case 0:
                 this.sex = Sex.Female;
                 break;
@@ -212,12 +215,12 @@ public class MedicalData {
         }
     }
 
-    public int getSlope() {
+    public double getSlope() {
         return slope.getValue();
     }
 
-    public void setSlope(int slope) {
-        switch (slope) {
+    public void setSlope(double slope) {
+        switch ((int)slope) {
             case 1:
                 this.slope = Slope.UpSloping;
                 break;
@@ -232,12 +235,12 @@ public class MedicalData {
         }
     }
 
-    public int getThal() {
+    public double getThal() {
         return thal.getValue();
     }
 
-    public void setThal(int thal) {
-        switch (thal) {
+    public void setThal(double thal) {
+        switch ((int)thal) {
             case 3:
                 this.thal = Thal.Normal;
                 break;
@@ -279,7 +282,7 @@ public class MedicalData {
         NonAnginal,
         Asymptomatic;
 
-        public int getValue() {
+        public double getValue() {
             return ordinal() + 1;
         }
     }
@@ -289,7 +292,7 @@ public class MedicalData {
         Female,
         Male;
 
-        public int getValue() {
+        public double getValue() {
             return ordinal();
         }
     }
@@ -300,7 +303,7 @@ public class MedicalData {
         STTAbnormal,
         leftVentricularHypertrophy;
 
-        public int getValue() {
+        public double getValue() {
             return ordinal();
         }
     }
@@ -311,7 +314,7 @@ public class MedicalData {
         Flat,
         DownSloping;
 
-        public int getValue() {
+        public double getValue() {
             return ordinal() + 1;
         }
     }
@@ -327,7 +330,7 @@ public class MedicalData {
             mapping = nbr;
         }
 
-        public int getValue() {
+        public double getValue() {
             return mapping;
         }
     }
