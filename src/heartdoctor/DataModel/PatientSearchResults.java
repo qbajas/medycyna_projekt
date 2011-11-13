@@ -47,31 +47,54 @@ public class PatientSearchResults {
      * konstruktor tworzacy rezultaty na podstawie query
      * @param query
      */
-    public PatientSearchResults(String query) {
+//    public PatientSearchResults(String query) {
 //        patients = search(query);
-    }
-
+//    }
     /**
-     * wykonuje zapytanie sql do bazy
+     * wykonuje zapytanie sql do bazy, rezulaty zapisuje w obiekcie
      * @param query
      * @return
      */
 //    public ArrayList<PatientData> search(String query) {
-    public ResultSet search(String query) {
-        patients = new ArrayList<PatientData>();
+    public void search(String query) {
+//        patients = new ArrayList<PatientData>();
         Connection conn = DBUtil.getConnection();
         PreparedStatement stm = null;
         ResultSet rs = null;
         try {
             stm = conn.prepareStatement(query);
             rs = stm.executeQuery();
+            patients = convertResultSet(rs);
         } catch (SQLException ex) {
             Logger.getLogger(PatientSearchResults.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DBUtil.close(stm, rs);
             DBUtil.close(conn);
         }
-        return rs;
+    }
+
+    /**
+     * na podstawie resultatu zapytania generuje obiekty 
+     * @param rs
+     * @return
+     */
+    public ArrayList<PatientData> convertResultSet(ResultSet rs) {
+        ArrayList<PatientData> _patients = new ArrayList<PatientData>();
+        PatientData patientData;
+        try {
+            while (rs.next()) {
+
+                patientData = new PatientData(rs.getInt(1), rs.getString(2),
+                        rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
+                        rs.getString(7), rs.getString(8), null);
+
+                _patients.add(patientData);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientSearchResults.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return _patients;
     }
 
     /**

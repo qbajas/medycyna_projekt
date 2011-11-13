@@ -14,6 +14,7 @@ import heartdoctor.DataModel.PatientData;
 import heartdoctor.DataModel.PatientSearchResults;
 import heartdoctor.gui_controllers.GuiController;
 import heartdoctor.gui_controllers.PatientResultsController;
+import java.util.ArrayList;
 
 /**
  *
@@ -232,12 +233,12 @@ public class SearchPatients extends javax.swing.JPanel {
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
 //        domyslnie dane przekazywane kontrolerowi
-        String sql = flowController.prepareResults(nameSearch.getSelectedItem().toString(),
+        ArrayList<PatientData> patients = flowController.prepareResults(nameSearch.getSelectedItem().toString(),
                 conditionSearch.getSelectedItem().toString(), valueSearch.getText());
 //        na razie modelowi
 //        String sql = PatientSearchResults.generateSQL(nameSearch.getSelectedItem().toString(),
 //                conditionSearch.getSelectedItem().toString(), valueSearch.getText());
-        resultCount.setText("Results: " + sql);
+        resultCount.setText("Results: " + patients.size());
     }//GEN-LAST:event_searchButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox conditionSearch;

@@ -106,10 +106,11 @@ public class PatientResultsController {
     /**
      * funkcja oblsugujaca klikniecie w search z widoku search patients
      */
-//    public ArrayList<PatientData> prepareResults(String searchBy, String condition, String value) {
-    public String prepareResults(String searchBy, String condition, String value) {
+    public ArrayList<PatientData> prepareResults(String searchBy, String condition, String value) {
 //        model = new PatientSearchResults(PatientSearchResults.generateSQL(searchBy, condition, value));
 //        return model.getPatients();
-        return model.search(PatientSearchResults.generateSQL(searchBy, condition, value)).toString();
+        model.search(PatientSearchResults.generateSQL(searchBy, condition, value));
+        return model.getPatients();
+//        zrobic to w nowym watku
     }
 }
