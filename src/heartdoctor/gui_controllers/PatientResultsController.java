@@ -110,6 +110,14 @@ public class PatientResultsController {
     }
 
     /**
+     * wczytuje wszystkich pacjentow do formularza
+     */
+    public void loadAllPatients() {
+        model.loadAllPatients();
+        initView();
+    }
+
+    /**
      * funkcja oblsugujaca klikniecie w search z widoku search patients
      */
     public ArrayList<PatientData> prepareResults(String searchBy, String condition, String value) {

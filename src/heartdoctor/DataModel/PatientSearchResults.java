@@ -30,7 +30,7 @@ public class PatientSearchResults {
      */
     public PatientSearchResults() {
         patients = new ArrayList<PatientData>();
-        populateRecords();
+//        loadAllPatients();
     }
 
     /**
@@ -40,7 +40,7 @@ public class PatientSearchResults {
      */
     public PatientSearchResults(int initialCapacity) {
         patients = new ArrayList<PatientData>(initialCapacity);
-        populateRecords();
+//        loadAllPatients();
     }
 
     /**
@@ -135,6 +135,12 @@ public class PatientSearchResults {
      */
     public static String generateSQL(String searchBy, String condition, String value) {
         return "SELECT * FROM Patients WHERE " + searchBy.toLowerCase() + " " + condition + " '" + value + "'";
+    }
+
+
+    public void loadAllPatients()
+    {
+        search("SELECT * FROM Patients");
     }
 
     /**
