@@ -41,9 +41,9 @@
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="patientSmallDataPanel1" pref="170" max="32767" attributes="0"/>
+                      <Component id="patientSmallDataPanel1" pref="151" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="resultCount" alignment="0" pref="559" max="32767" attributes="0"/>
+                  <Component id="resultCount" alignment="0" pref="540" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -71,7 +71,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="diagnosisPanel1" min="-2" pref="262" max="-2" attributes="0"/>
-              <EmptySpace pref="17" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -165,7 +165,7 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="valueSearch" min="-2" pref="136" max="-2" attributes="0"/>
-                          <EmptySpace pref="31" max="32767" attributes="0"/>
+                          <EmptySpace pref="12" max="32767" attributes="0"/>
                           <Component id="searchButton" min="-2" pref="117" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -268,7 +268,7 @@
     <Component class="javax.swing.JLabel" name="resultCount">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Wygenerowany sql (w przysz&#x142;o&#x15b;ci ilos&#x107; wynik&#xf3;w)"/>
+        <Property name="text" type="java.lang.String" value=" "/>
       </Properties>
     </Component>
   </SubComponents>

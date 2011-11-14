@@ -38,6 +38,11 @@ public class SearchPatients extends javax.swing.JPanel {
         diagnosisPanel1.showMedicalData(patient.getMedicalData());
     }
 
+    public void clearPatientData(){
+        patientSmallDataPanel1.clearData();
+//        diagnosisPanel1.clearData();
+    }
+
     public PatientData getPatientData() {
         return flowController.getActivePatient();
     }
@@ -98,15 +103,15 @@ public class SearchPatients extends javax.swing.JPanel {
 
         nameSearch.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Name", "Middlename", "Lastname", "Pesel", "Address", "Postalcode", "City" }));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel2.setText("Search by:");
 
         conditionSearch.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "=", "!=", ">", "<" }));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel3.setText("Condition:");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel4.setText("Value:");
 
         valueSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -141,7 +146,7 @@ public class SearchPatients extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addComponent(valueSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                         .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(79, 79, 79)
@@ -166,7 +171,7 @@ public class SearchPatients extends javax.swing.JPanel {
         );
 
         resultCount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        resultCount.setText("Wygenerowany sql (w przyszłości ilosć wyników)");
+        resultCount.setText(" ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -187,8 +192,8 @@ public class SearchPatients extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(patientSmallDataPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
-                    .addComponent(resultCount, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE))
+                        .addComponent(patientSmallDataPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
+                    .addComponent(resultCount, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -210,12 +215,14 @@ public class SearchPatients extends javax.swing.JPanel {
                     .addComponent(patientSmallDataPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(diagnosisPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void patientListBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientListBoxActionPerformed
-        flowController.selectResult(patientListBox.getSelectedIndex());
+        if (patientListBox.getSelectedIndex() != -1) {
+            flowController.selectResult(patientListBox.getSelectedIndex());
+        }
     }//GEN-LAST:event_patientListBoxActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
