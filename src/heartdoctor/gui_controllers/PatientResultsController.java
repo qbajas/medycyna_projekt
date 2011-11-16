@@ -35,12 +35,18 @@ public class PatientResultsController {
      * komponenty widoku a pozniej uzyc funkcji initView
      */
     public void initView() {
+        panel.patientListBox.removeAllItems();
         for (PatientData patient : model.getPatients()) {
             panel.patientListBox.addItem(patient.getName() + " " + patient.getLastName());
         }
         activeRecord = 0;
         panel.prevButton.setEnabled(false);
         panel.nextButton.setEnabled(model.getPatients().size() > 1);
+        if (model.getPatients().size() > activeRecord) {
+            panel.showPatientData(model.getPatient(activeRecord));
+        } else {
+            panel.clearPatientData();
+        }
     }
 
     /**
@@ -104,12 +110,21 @@ public class PatientResultsController {
     }
 
     /**
+     * wczytuje wszystkich pacjentow do formularza
+     */
+    public void loadAllPatients() {
+        model.loadAllPatients();
+        initView();
+    }
+
+    /**
      * funkcja oblsugujaca klikniecie w search z widoku search patients
      */
     public ArrayList<PatientData> prepareResults(String searchBy, String condition, String value) {
 //        model = new PatientSearchResults(PatientSearchResults.generateSQL(searchBy, condition, value));
 //        return model.getPatients();
         model.search(PatientSearchResults.generateSQL(searchBy, condition, value));
+        initView();
         return model.getPatients();
 //        zrobic to w nowym watku
     }

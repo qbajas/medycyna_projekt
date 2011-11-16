@@ -23,20 +23,26 @@ public class PatientSmallDataPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public void setData(PatientData patient){
-        pesel.setText(""+patient.getPesel());
-        name.setText(patient.getName() + " "+ patient.getMiddleName());
+    public void setData(PatientData patient) {
+        pesel.setText("" + patient.getPesel());
+        name.setText(patient.getName() + " " + patient.getMiddleName());
         lastName.setText(patient.getLastName());
     }
-    
-   public PatientData getData(){
-       PatientData data=new PatientData();
-       data.setPesel( pesel.getText() );
-       data.setName(name.getText());
-       data.setLastName(lastName.getText());
-       return data;
-   }
-    
+
+    public void clearData() {
+        pesel.setText("");
+        name.setText("");
+        lastName.setText("");
+    }
+
+    public PatientData getData() {
+        PatientData data = new PatientData();
+        data.setPesel(pesel.getText());
+        data.setName(name.getText());
+        data.setLastName(lastName.getText());
+        return data;
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
