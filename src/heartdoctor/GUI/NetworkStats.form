@@ -411,7 +411,7 @@
                   <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel20" min="-2" pref="32" max="-2" attributes="0"/>
-                  <EmptySpace pref="309" max="32767" attributes="0"/>
+                  <EmptySpace pref="322" max="32767" attributes="0"/>
                   <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButton2" min="-2" pref="128" max="-2" attributes="0"/>
@@ -446,7 +446,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel19">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Iteration"/>
+            <Property name="text" type="java.lang.String" value="Epoch"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel20">
