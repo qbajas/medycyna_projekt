@@ -16,5 +16,7 @@ public interface NeuralNetworkTrainingListener {
 
   public void updateGeneralizationSetAccuracy(double accuracy);
   public void updateGeneralizationSetMSE(double mse);
+  
+  public void nextEpoch();
 
 }

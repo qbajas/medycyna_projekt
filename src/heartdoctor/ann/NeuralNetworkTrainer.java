@@ -85,7 +85,8 @@ public class NeuralNetworkTrainer {
 	  }
 
 	  ++epoch;
-
+          _listener.nextEpoch();
+          
 	  System.out.printf("Epoch %d: accuracy %f, MSE %f\n", epoch, generalizationAccuracy, generalizationMSE);
 	}
 

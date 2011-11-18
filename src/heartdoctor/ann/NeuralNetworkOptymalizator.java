@@ -111,4 +111,10 @@ public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public void nextEpoch() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    
 }
