@@ -5,6 +5,8 @@
 
 package heartdoctor.ann;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author empitness
@@ -33,7 +35,8 @@ public class NeuralNetworkTrainer {
   private double _desiredAccuracy = 100;
   private int _maxEpochs = 2000;
 
-  private NeuralNetworkTrainingListener _listener = null;
+  private ArrayList<NeuralNetworkTrainingListener> _listeners = 
+          new ArrayList<NeuralNetworkTrainingListener>();
 
   public void setLearningRate(double x) { _learningRate = x; }
   public void setLearningRateAdjust(double x) { _learningRateAdjust = x; }
@@ -46,7 +49,13 @@ public class NeuralNetworkTrainer {
   public void setDesiredAccuracy(double accuracy) { _desiredAccuracy = accuracy; }
   public void setMaxEpochs(int epochs) { _maxEpochs = epochs; }
 
-  public void setListener(NeuralNetworkTrainingListener listener) { _listener = listener; }
+  public void addListener(NeuralNetworkTrainingListener listener) { 
+      _listeners.add(listener); 
+  }
+  
+  public void removeListener(NeuralNetworkTrainingListener listener) { 
+      _listeners.remove(listener); 
+  }
 
   public NeuralNetworkTrainer(NeuralNetwork network)
   {
@@ -78,14 +87,15 @@ public class NeuralNetworkTrainer {
 
 	  generalizationAccuracy = _evaluator.calcDataSetAccuracy(generalizationSet);
 	  generalizationMSE = _evaluator.calcDataSetMSE(generalizationSet);
-	  if (_listener != null)
-	  {
+          
+	  for(NeuralNetworkTrainingListener _listener: _listeners){
 		_listener.updateGeneralizationSetAccuracy(generalizationAccuracy);
 		_listener.updateGeneralizationSetMSE(generalizationMSE);
+                _listener.nextEpoch();
 	  }
 
 	  ++epoch;
-          _listener.nextEpoch();
+          
           
 	  System.out.printf("Epoch %d: accuracy %f, MSE %f\n", epoch, generalizationAccuracy, generalizationMSE);
 	}
@@ -128,7 +138,7 @@ public class NeuralNetworkTrainer {
 	_trainingSetAccuracy = 100 - ((double)incorrectPatterns / trainingSet.entries.size() * 100);
 	_trainingSetMSE = _evaluator.calcDataSetMSE(trainingSet);
 
-	if (_listener != null)
+	for(NeuralNetworkTrainingListener _listener:_listeners)
 	{
 	  _listener.updateTrainingSetAccuracy(_trainingSetAccuracy);
 	  _listener.updateTrainingSetMSE(_trainingSetMSE);

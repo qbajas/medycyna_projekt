@@ -11,7 +11,8 @@ import java.util.ArrayList;
  *
  * @author Witek
  */
-public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener{
+public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener,
+        Runnable{
 
     static private int INPUTS = 14,OUTPUTS = 1;
 
@@ -71,7 +72,8 @@ public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener
         validationSet.entries = (ArrayList<DataEntry>) data.entries.subList((int)0.8*i+1, i-1);
     }
 
-    public void optimalize(){
+    @Override
+    public void run(){
         for(int h = _minNumHiddenLayers; h <= _maxNumHiddenLayers; h++)
             for(int p = _minNumNeuronsPerHiddenLayer; p <= _maxNumNeuronsPerHiddenLayer; p++)
                 for(int lr = 0 ; lr < _learningRateSet.length; lr++)
@@ -85,7 +87,7 @@ public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener
                                 _nnTrainer.setLearningRateAdjust(lra);
                                 _nnTrainer.setMomentumConst(m);
                                 _nnTrainer.setForgettingRate(fr);
-                                _nnTrainer.setListener(this);
+                                _nnTrainer.addListener(this);
                                 _nnTrainer.trainNetwork(trainingSet, generalizationSet, validationSet);
                             }
     }
