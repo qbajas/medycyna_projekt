@@ -22,7 +22,8 @@ public class Application {
     AppController controller;
     public Application(){
         frame= new MainFrame();
-        controller=new AppController(frame);
+        AppController.setFrame(frame);
+        controller=AppController.get();
  
         LoginPanel panel=new LoginPanel(controller);
         panel.setBackground(Color.RED);

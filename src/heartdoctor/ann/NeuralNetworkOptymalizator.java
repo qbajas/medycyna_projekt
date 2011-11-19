@@ -5,6 +5,7 @@
 
 package heartdoctor.ann;
 
+import heartdoctor.gui_controllers.LearningProcessController;
 import java.util.ArrayList;
 
 /**
@@ -35,11 +36,16 @@ public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener
     public double optimumLearningRateAdjust;
     public double optimumMomentum;
     public double optimumForgettingRate;
+    
+    private boolean breakFlag=false;
+    private LearningProcessController controller;
 
     DataSet trainingSet;
     DataSet generalizationSet;
     DataSet validationSet;
 
+    public NeuralNetworkOptymalizator(){}
+    
     public NeuralNetworkOptymalizator(int nHL,int nNPH,double[] lR,double[] lRA,double[] m,double[] fR,DataSet data){
         _maxNumHiddenLayers = nHL;
         _maxNumNeuronsPerHiddenLayer = nNPH;
@@ -81,6 +87,10 @@ public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener
                         for(int m = 0; m <= _momentumSet.length; m++)
                             for(int fr = 0; fr <= _forgettingRateSet.length ; fr++){
                         // DO SOMETHING AMAZING!!! -----------------------------
+                                if(breakFlag){
+                                    clean();
+                                    return;
+                                }
                                 _network = new NeuralNetwork(INPUTS, OUTPUTS, h, p);
                                 _nnTrainer = new NeuralNetworkTrainer(_network);
                                 _nnTrainer.setLearningRate(lr);
@@ -88,12 +98,22 @@ public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener
                                 _nnTrainer.setMomentumConst(m);
                                 _nnTrainer.setForgettingRate(fr);
                                 _nnTrainer.addListener(this);
+                                _nnTrainer.addListener(controller);
                                 _nnTrainer.trainNetwork(trainingSet, generalizationSet, validationSet);
                             }
+        controller.notifyFinished();
     }
 
-    public void setGui(){
-
+    
+    /*
+     * przy przerwaniu przez uzytkownika, jesli trzeba cos posprzatac
+     */
+    public void clean(){
+        
+    }
+    
+    public void interrupt(){
+        breakFlag=true;
     }
 
     public void updateTrainingSetAccuracy(double accuracy) {
@@ -118,5 +138,14 @@ public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    public LearningProcessController getController() {
+        return controller;
+    }
+
+    public void setController(LearningProcessController controller) {
+        this.controller = controller;
+    }
+
+    
     
 }

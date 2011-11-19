@@ -37,7 +37,6 @@ public class AdminGuiController implements GuiController {
 
     public void prepareLeftPanel() {
         LeftPanel lp = new LeftPanel(this);
-        lp.getDiagnosisPanelButton().setEnabled(false);
         lp.getSearchPatientButton().setEnabled(false);
         mainPanel.setLeftPanel(lp);
     }

@@ -21,12 +21,37 @@ import javax.swing.JOptionPane;
  */
 public class AppController {
 
-    MainFrame frame;
-    GuiController controller;
+    static MainFrame frame;
+    static GuiController controller;
+    private static AppController instance;
 
-    AppController(MainFrame frame) {
-        this.frame = frame;
+    private AppController(){
+        
     }
+    
+    public static AppController get(){
+        if(instance==null)
+            instance=new AppController();
+        return instance;
+    }
+
+    public static GuiController getController() {
+        return controller;
+    }
+
+    public static void setController(GuiController controller) {
+        AppController.controller = controller;
+    }
+
+    public static MainFrame getFrame() {
+        return frame;
+    }
+
+    public static void setFrame(MainFrame frame) {
+        AppController.frame = frame;
+    }
+    
+    
 
     public void authenticationAction(final User user) {
         frame.setStatus("LOGOWANIE...");
