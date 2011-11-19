@@ -11,7 +11,10 @@ import heartdoctor.ann.NeuralNetworkOptymalizator;
 import heartdoctor.ann.NeuralNetworkTrainer;
 import heartdoctor.ann.NeuralNetworkTrainingListener;
 import heartdoctor.application.AppController;
+import java.awt.geom.Rectangle2D;
 import javax.swing.JOptionPane;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.axis.ValueAxis;
 
 /**
  *
@@ -23,6 +26,7 @@ public class LearningProcessController implements NeuralNetworkTrainingListener{
     
     NeuralNetwork bestNet, currentNet;
     NeuralNetworkOptymalizator optymalizer;
+    NeuralNetworkTrainer trainer;
     NetworkStats statsGUI;
     
     private int epoch;
@@ -42,6 +46,7 @@ public class LearningProcessController implements NeuralNetworkTrainingListener{
         statsGUI.startButton.setText("Interrupt");
         optymalizer=new NeuralNetworkOptymalizator();
         optymalizer.setController(this);
+        statsGUI.getAdminChartPanel1().resetSeries();
         new Thread(optymalizer).start();  
     }
     
@@ -68,11 +73,10 @@ public class LearningProcessController implements NeuralNetworkTrainingListener{
     public void interruptLearning(){
         int option=JOptionPane.showConfirmDialog(AppController.getFrame(),"Are you sure"
                 + "to stop learning process?","Confirm",JOptionPane.YES_NO_OPTION);
-        System.out.println("option========="+option);
-        System.out.println("JOPTION======="+JOptionPane.YES_OPTION);
         
         if(option==JOptionPane.YES_OPTION){
             optymalizer.interrupt();
+            trainer.interrupt();
             running=false;
             statsGUI.startButton.setText("Start learning");
             AppController.getFrame().setStatus("Interrupted");
@@ -144,7 +148,12 @@ public class LearningProcessController implements NeuralNetworkTrainingListener{
     public void nextEpoch() {
         ++epoch;
         updateGUI();
-        
+        if(epoch>200){
+            ChartPanel panel= statsGUI.getAdminChartPanel1().getChartPanel();
+            ValueAxis axis=panel.getChart().getXYPlot().getDomainAxis();
+            axis.setRange(epoch-100, epoch+100);
+        }
+            
     }
 
     public NeuralNetworkOptymalizator getOptymalizer() {
@@ -166,6 +175,7 @@ public class LearningProcessController implements NeuralNetworkTrainingListener{
     }
     
     public void setTrainer(NeuralNetworkTrainer trainer){
+        this.trainer = trainer;
         trainer.addListener(statsGUI.getAdminChartPanel1());
     }
     
@@ -175,7 +185,7 @@ public class LearningProcessController implements NeuralNetworkTrainingListener{
         public void run() {
             statsGUI.updateCurrent(current);
             statsGUI.updateBest(best);
-            
+            statsGUI.epoch.setText(""+epoch);
         }
         
     }

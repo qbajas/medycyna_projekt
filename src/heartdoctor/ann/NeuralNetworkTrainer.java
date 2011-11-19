@@ -34,6 +34,8 @@ public class NeuralNetworkTrainer {
 
   private double _desiredAccuracy = 100;
   private int _maxEpochs = 2000;
+  
+  boolean interrupt=false;
 
   private ArrayList<NeuralNetworkTrainingListener> _listeners = 
           new ArrayList<NeuralNetworkTrainingListener>();
@@ -83,8 +85,10 @@ public class NeuralNetworkTrainer {
 	while ( (_trainingSetAccuracy < _desiredAccuracy || generalizationAccuracy < _desiredAccuracy) &&
 			epoch < _maxEpochs )
 	{
+          if(interrupt)
+              return;
 	  runTrainingEpoch(trainingSet);
-
+          
 	  generalizationAccuracy = _evaluator.calcDataSetAccuracy(generalizationSet);
 	  generalizationMSE = _evaluator.calcDataSetMSE(generalizationSet);
           
@@ -97,13 +101,13 @@ public class NeuralNetworkTrainer {
 	  ++epoch;
           
           
-	  System.out.printf("Epoch %d: accuracy %f, MSE %f\n", epoch, generalizationAccuracy, generalizationMSE);
+	 // System.out.printf("Epoch %d: accuracy %f, MSE %f\n", epoch, generalizationAccuracy, generalizationMSE);
 	}
 
 	_validationSetAccuracy = _evaluator.calcDataSetAccuracy(validationSet);
 	_validationSetMSE = _evaluator.calcDataSetMSE(validationSet);
 
-	System.out.printf("Gotowe! Epoch: %d, ValidAccuracy: %f, ValidMSE: %f\n", epoch, _validationSetAccuracy, _validationSetMSE);
+	//System.out.printf("Gotowe! Epoch: %d, ValidAccuracy: %f, ValidMSE: %f\n", epoch, _validationSetAccuracy, _validationSetMSE);
   }
 
   private void runTrainingEpoch(DataSet trainingSet)
@@ -112,8 +116,9 @@ public class NeuralNetworkTrainer {
 
 	for (int i = 0; i < trainingSet.entries.size(); ++i)
 	{
-	  System.out.println("obrabiam probke nr " + i);
-
+	 // System.out.println("obrabiam probke nr " + i);
+          if(interrupt)
+              return;
 	  DataEntry entry = trainingSet.entries.get(i);
 	  double[] outputs = new double[entry.targets.size()];
 	  for (int j = 0; j < outputs.length; ++j)
@@ -178,4 +183,7 @@ public class NeuralNetworkTrainer {
 	_network.setWeights(_weights);
   }
 
+  public void interrupt(){
+      interrupt=true;
+  }
 }

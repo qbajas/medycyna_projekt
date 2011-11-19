@@ -17,7 +17,6 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="currentStatsPanel" min="-2" max="-2" attributes="0"/>
@@ -28,11 +27,14 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="BestSettings" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="adminChartPanel1" alignment="0" pref="698" max="32767" attributes="1"/>
-                  <Component id="controlPanel" alignment="0" max="32767" attributes="1"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="controlPanel" max="32767" attributes="1"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
+          <Component id="adminChartPanel1" alignment="0" pref="712" max="32767" attributes="1"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -40,12 +42,12 @@
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="currentStatsPanel" alignment="0" max="32767" attributes="1"/>
                       <Component id="BestStatsPanel" alignment="0" max="32767" attributes="1"/>
+                      <Component id="currentStatsPanel" alignment="0" max="32767" attributes="1"/>
                   </Group>
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="CurrentSettings" alignment="0" max="32767" attributes="1"/>
                       <Component id="BestSettings" alignment="0" max="32767" attributes="1"/>
+                      <Component id="CurrentSettings" alignment="0" max="32767" attributes="1"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -85,26 +87,23 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="ctsMSE" alignment="0" pref="28" max="32767" attributes="0"/>
-                              <Component id="cgsa" alignment="0" pref="28" max="32767" attributes="0"/>
-                              <Component id="cgsMSE" alignment="0" pref="28" max="32767" attributes="0"/>
-                              <Component id="ctsa" alignment="0" pref="28" max="32767" attributes="0"/>
+                              <Component id="ctsMSE" alignment="0" pref="52" max="32767" attributes="0"/>
+                              <Component id="cgsa" alignment="0" pref="52" max="32767" attributes="0"/>
+                              <Component id="cgsMSE" alignment="0" pref="52" max="32767" attributes="0"/>
+                              <Component id="ctsa" alignment="0" pref="52" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="cvMSE" alignment="0" pref="27" max="32767" attributes="0"/>
-                              <Component id="cva" alignment="0" pref="27" max="32767" attributes="0"/>
+                              <Component id="cvMSE" alignment="0" pref="51" max="32767" attributes="0"/>
+                              <Component id="cva" alignment="0" pref="51" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                      <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="89" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -232,12 +231,12 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="bvMSE" pref="23" max="32767" attributes="0"/>
-                      <Component id="bva" alignment="0" pref="23" max="32767" attributes="0"/>
-                      <Component id="btsMSE" alignment="0" pref="23" max="32767" attributes="0"/>
-                      <Component id="bgsa" alignment="0" pref="23" max="32767" attributes="0"/>
-                      <Component id="bgsMSE" alignment="0" pref="23" max="32767" attributes="0"/>
-                      <Component id="btsa" alignment="0" pref="23" max="32767" attributes="0"/>
+                      <Component id="bvMSE" pref="46" max="32767" attributes="0"/>
+                      <Component id="bva" alignment="0" pref="46" max="32767" attributes="0"/>
+                      <Component id="btsMSE" alignment="0" pref="46" max="32767" attributes="0"/>
+                      <Component id="bgsa" alignment="0" pref="46" max="32767" attributes="0"/>
+                      <Component id="bgsMSE" alignment="0" pref="46" max="32767" attributes="0"/>
+                      <Component id="btsa" alignment="0" pref="46" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -366,7 +365,7 @@
                       <Component id="cHidden" min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="cPerc" alignment="0" min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="22" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -493,8 +492,8 @@
               <Group type="102" alignment="1" attributes="0">
                   <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="epoch" min="-2" pref="32" max="-2" attributes="0"/>
-                  <EmptySpace pref="330" max="32767" attributes="0"/>
+                  <Component id="epoch" min="-2" pref="190" max="-2" attributes="0"/>
+                  <EmptySpace pref="166" max="32767" attributes="0"/>
                   <Component id="startButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="saveButton" min="-2" pref="128" max="-2" attributes="0"/>
@@ -545,6 +544,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
