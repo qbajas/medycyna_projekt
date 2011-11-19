@@ -13,8 +13,7 @@ import java.util.Collections;
  *
  * @author Witek
  */
-public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener,
-        Runnable{
+public class NeuralNetworkOptymalizator implements Runnable{
 
     static private int INPUTS = 13,OUTPUTS = 1;
 
@@ -123,7 +122,6 @@ public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener
                                 _nnTrainer.setLearningRateAdjust(lra);
                                 _nnTrainer.setMomentumConst(m);
                                 _nnTrainer.setForgettingRate(fr);
-                                _nnTrainer.addListener(this);
                                 _nnTrainer.addListener(controller);
                                 _nnTrainer.trainNetwork(trainingSet, generalizationSet, validationSet);
                                 _validationAcc= _nnTrainer.getValidationSetAccuracy();
@@ -145,28 +143,6 @@ public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener
     
     public void interrupt(){
         breakFlag=true;
-    }
-
-    public void updateTrainingSetAccuracy(double accuracy) {
-        throw new UnsupportedOperationException("Not supported yet.");
-        // RYSYJEMY ZAJEBISTE WYKRESYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY!!!!!!!!!!!!
-    }
-
-    public void updateTrainingSetMSE(double mse) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void updateGeneralizationSetAccuracy(double accuracy) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void updateGeneralizationSetMSE(double mse) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void nextEpoch() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public LearningProcessController getController() {
