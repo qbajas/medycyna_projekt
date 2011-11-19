@@ -75,13 +75,11 @@ public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener
     @Override
     public void run(){
         DataSet data= new DBDataLoader().loadData();
+
         DataPreprocessor preprocessor = new DataPreprocessor();
-	preprocessor.preprocessData(data);
+		preprocessor.preprocessData(data);
 
         int i=data.entries.size();
-
-		DataPreprocessor preprocessor = new DataPreprocessor();
-		preprocessor.preprocessData(data);
 
         Collections.shuffle(data.entries);
         trainingSet=new DataSet();
