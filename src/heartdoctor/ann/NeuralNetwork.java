@@ -134,7 +134,7 @@ public class NeuralNetwork {
 		int currentInput = 0;
 		double netInput = 0;
 
-		// zsumuj iloczyny wejsc i odpowiadajych im wag                
+		// zsumuj iloczyny wejsc i odpowiadajych im wag
 		for (int w = 0; w < neuron.getNumInputs() - 1; ++w)
 		{
 		  netInput += neuron.inputWeights.get(w) * inputs.get(currentInput++);
