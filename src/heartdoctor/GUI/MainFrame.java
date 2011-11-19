@@ -15,8 +15,8 @@ import javax.swing.JFrame;
  */
 public class MainFrame extends JFrame {
 
-    public static final int WINDOW_WIDTH = 950;
-    public static final int WINDOW_HEIGHT = 650;
+    public static final int WINDOW_WIDTH = 1000;
+    public static final int WINDOW_HEIGHT = 700;
     StatusPanel statusPanel;
 
     public StatusPanel getStatusPanel() {

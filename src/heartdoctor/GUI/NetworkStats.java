@@ -11,6 +11,7 @@
 
 package heartdoctor.GUI;
 
+import heartdoctor.DataModel.NetworkStatistics;
 import heartdoctor.gui_controllers.GuiController;
 import heartdoctor.gui_controllers.LearningProcessController;
 
@@ -44,32 +45,40 @@ public class NetworkStats extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        gsa = new javax.swing.JLabel();
-        tsMSE = new javax.swing.JLabel();
-        tsa = new javax.swing.JLabel();
-        gsMSE = new javax.swing.JLabel();
+        cgsa = new javax.swing.JLabel();
+        ctsMSE = new javax.swing.JLabel();
+        ctsa = new javax.swing.JLabel();
+        cgsMSE = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        cva = new javax.swing.JLabel();
+        cvMSE = new javax.swing.JLabel();
         BestStatsPanel = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        bgsa = new javax.swing.JLabel();
+        btsMSE = new javax.swing.JLabel();
+        btsa = new javax.swing.JLabel();
+        bgsMSE = new javax.swing.JLabel();
+        jlabel12123 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        bva = new javax.swing.JLabel();
+        bvMSE = new javax.swing.JLabel();
         CurrentSettings = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
+        cPerc = new javax.swing.JLabel();
+        cHidden = new javax.swing.JLabel();
         BestSettings = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
+        bPerc = new javax.swing.JLabel();
+        bHidden = new javax.swing.JLabel();
         controlPanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        startButton = new javax.swing.JButton();
+        saveButton = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         epoch = new javax.swing.JLabel();
 
@@ -83,13 +92,21 @@ public class NetworkStats extends javax.swing.JPanel {
 
         jLabel4.setText("Generalization set MSE");
 
-        gsa.setText("0");
+        cgsa.setText("0");
 
-        tsMSE.setText("0");
+        ctsMSE.setText("0");
 
-        tsa.setText("0");
+        ctsa.setText("0");
 
-        gsMSE.setText("0");
+        cgsMSE.setText("0");
+
+        jLabel5.setText("Validation set accuracy");
+
+        jLabel6.setText("Validation set MSE");
+
+        cva.setText("0");
+
+        cvMSE.setText("0");
 
         javax.swing.GroupLayout currentStatsPanelLayout = new javax.swing.GroupLayout(currentStatsPanel);
         currentStatsPanel.setLayout(currentStatsPanelLayout);
@@ -97,36 +114,55 @@ public class NetworkStats extends javax.swing.JPanel {
             currentStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(currentStatsPanelLayout.createSequentialGroup()
                 .addGroup(currentStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(currentStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tsa, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(tsMSE, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(gsa, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(gsMSE, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                    .addGroup(currentStatsPanelLayout.createSequentialGroup()
+                        .addGroup(currentStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(currentStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ctsMSE, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                            .addComponent(cgsa, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                            .addComponent(cgsMSE, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                            .addComponent(ctsa, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)))
+                    .addGroup(currentStatsPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(29, 29, 29)
+                        .addGroup(currentStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cvMSE, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                            .addComponent(cva, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))))
                 .addContainerGap())
+            .addGroup(currentStatsPanelLayout.createSequentialGroup()
+                .addComponent(jLabel6)
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         currentStatsPanelLayout.setVerticalGroup(
             currentStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(currentStatsPanelLayout.createSequentialGroup()
                 .addGroup(currentStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(tsa))
+                    .addComponent(ctsa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(currentStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(tsMSE))
+                    .addComponent(ctsMSE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(currentStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(gsa))
+                    .addComponent(cgsa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(currentStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(gsMSE)))
+                    .addComponent(cgsMSE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(currentStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cva))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(currentStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(cvMSE)))
         );
 
         BestStatsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Best", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
@@ -139,13 +175,21 @@ public class NetworkStats extends javax.swing.JPanel {
 
         jLabel12.setText("Generalization set MSE");
 
-        jLabel13.setText("0");
+        bgsa.setText("0");
 
-        jLabel14.setText("0");
+        btsMSE.setText("0");
 
-        jLabel15.setText("0");
+        btsa.setText("0");
 
-        jLabel16.setText("0");
+        bgsMSE.setText("0");
+
+        jlabel12123.setText("Validation set MSE");
+
+        jLabel7.setText("Validation set accuracy");
+
+        bva.setText("0");
+
+        bvMSE.setText("0");
 
         javax.swing.GroupLayout BestStatsPanelLayout = new javax.swing.GroupLayout(BestStatsPanel);
         BestStatsPanel.setLayout(BestStatsPanelLayout);
@@ -156,13 +200,17 @@ public class NetworkStats extends javax.swing.JPanel {
                     .addComponent(jLabel11)
                     .addComponent(jLabel10)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel12))
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel7)
+                    .addComponent(jlabel12123))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(BestStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+                    .addComponent(bvMSE, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                    .addComponent(bva, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                    .addComponent(btsMSE, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                    .addComponent(bgsa, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                    .addComponent(bgsMSE, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                    .addComponent(btsa, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
                 .addContainerGap())
         );
         BestStatsPanelLayout.setVerticalGroup(
@@ -170,19 +218,27 @@ public class NetworkStats extends javax.swing.JPanel {
             .addGroup(BestStatsPanelLayout.createSequentialGroup()
                 .addGroup(BestStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel15))
+                    .addComponent(btsa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(BestStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel14))
+                    .addComponent(btsMSE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(BestStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jLabel13))
+                    .addComponent(bgsa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(BestStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jLabel16)))
+                    .addComponent(bgsMSE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(BestStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(bva))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(BestStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlabel12123)
+                    .addComponent(bvMSE)))
         );
 
         CurrentSettings.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Current", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
@@ -191,9 +247,9 @@ public class NetworkStats extends javax.swing.JPanel {
 
         jLabel18.setText("Perceptrons");
 
-        jLabel22.setText("0");
+        cPerc.setText("0");
 
-        jLabel23.setText("0");
+        cHidden.setText("0");
 
         javax.swing.GroupLayout CurrentSettingsLayout = new javax.swing.GroupLayout(CurrentSettings);
         CurrentSettings.setLayout(CurrentSettingsLayout);
@@ -203,21 +259,23 @@ public class NetworkStats extends javax.swing.JPanel {
                 .addGroup(CurrentSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel18)
                     .addComponent(jLabel17))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(CurrentSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(cHidden, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cPerc, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         CurrentSettingsLayout.setVerticalGroup(
             CurrentSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CurrentSettingsLayout.createSequentialGroup()
                 .addGroup(CurrentSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(jLabel23))
+                    .addComponent(cHidden))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(CurrentSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
-                    .addComponent(jLabel22)))
+                    .addComponent(cPerc))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         BestSettings.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Best", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
@@ -226,9 +284,9 @@ public class NetworkStats extends javax.swing.JPanel {
 
         jLabel26.setText("Perceptrons");
 
-        jLabel30.setText("0");
+        bPerc.setText("0");
 
-        jLabel31.setText("0");
+        bHidden.setText("0");
 
         javax.swing.GroupLayout BestSettingsLayout = new javax.swing.GroupLayout(BestSettings);
         BestSettings.setLayout(BestSettingsLayout);
@@ -240,31 +298,38 @@ public class NetworkStats extends javax.swing.JPanel {
                     .addComponent(jLabel25))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(BestSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)))
+                    .addComponent(bHidden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bPerc, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         BestSettingsLayout.setVerticalGroup(
             BestSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BestSettingsLayout.createSequentialGroup()
                 .addGroup(BestSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel25)
-                    .addComponent(jLabel31))
+                    .addComponent(bHidden))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(BestSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
-                    .addComponent(jLabel30)))
+                    .addComponent(bPerc))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         controlPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jButton1.setText("Start Learning Process");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        startButton.setText("Start Learning Process");
+        startButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                startButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Save ANN");
+        saveButton.setText("Save ANN");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
 
         jLabel19.setText("Epoch");
 
@@ -278,17 +343,17 @@ public class NetworkStats extends javax.swing.JPanel {
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(epoch, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 322, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 330, Short.MAX_VALUE)
+                .addComponent(startButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         controlPanelLayout.setVerticalGroup(
             controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jButton2)
-                .addComponent(jButton1)
+                .addComponent(saveButton)
+                .addComponent(startButton)
                 .addComponent(jLabel19)
                 .addComponent(epoch))
         );
@@ -299,30 +364,29 @@ public class NetworkStats extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(controlPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(adminChartPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(currentStatsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(BestStatsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(CurrentSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(BestSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(currentStatsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BestStatsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CurrentSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BestSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(adminChartPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
+                    .addComponent(controlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(currentStatsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BestStatsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(BestSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(CurrentSettings, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(currentStatsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BestStatsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(CurrentSettings, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BestSettings, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(adminChartPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -331,9 +395,13 @@ public class NetworkStats extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+        learnController.startButtonClick();
+    }//GEN-LAST:event_startButtonActionPerformed
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        learnController.saveButtonClick();
+    }//GEN-LAST:event_saveButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -341,36 +409,44 @@ public class NetworkStats extends javax.swing.JPanel {
     private javax.swing.JPanel BestStatsPanel;
     private javax.swing.JPanel CurrentSettings;
     private heartdoctor.GUI.AdminChartPanel adminChartPanel1;
+    private javax.swing.JLabel bHidden;
+    private javax.swing.JLabel bPerc;
+    private javax.swing.JLabel bgsMSE;
+    private javax.swing.JLabel bgsa;
+    private javax.swing.JLabel btsMSE;
+    private javax.swing.JLabel btsa;
+    private javax.swing.JLabel bvMSE;
+    private javax.swing.JLabel bva;
+    private javax.swing.JLabel cHidden;
+    private javax.swing.JLabel cPerc;
+    private javax.swing.JLabel cgsMSE;
+    private javax.swing.JLabel cgsa;
     private javax.swing.JPanel controlPanel;
+    private javax.swing.JLabel ctsMSE;
+    private javax.swing.JLabel ctsa;
     private javax.swing.JPanel currentStatsPanel;
+    private javax.swing.JLabel cvMSE;
+    private javax.swing.JLabel cva;
     private javax.swing.JLabel epoch;
-    private javax.swing.JLabel gsMSE;
-    private javax.swing.JLabel gsa;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel tsMSE;
-    private javax.swing.JLabel tsa;
+    private javax.swing.JLabel jlabel12123;
+    public javax.swing.JButton saveButton;
+    public javax.swing.JButton startButton;
     // End of variables declaration//GEN-END:variables
 
     public AdminChartPanel getAdminChartPanel1() {
@@ -389,5 +465,34 @@ public class NetworkStats extends javax.swing.JPanel {
         this.learnController = learnController;
     }
 
+    public void updateCurrent(NetworkStatistics stats){
+        ctsa.setText(percent(stats.tsAcc));
+        ctsMSE.setText(""+stats.tsMSE);
+        cgsa.setText(percent(stats.gsAcc));
+        cgsMSE.setText(""+stats.gsMSE);
+        cva.setText(percent(stats.valAcc));
+        cvMSE.setText(""+stats.valMSE);
+        cHidden.setText(""+stats.hidden);
+        cPerc.setText(""+stats.perceptrons);
+    }
+    
+    public void updateBest(NetworkStatistics stats){
+        btsa.setText(percent(stats.tsAcc));
+        btsMSE.setText(""+stats.tsMSE);
+        bgsa.setText(percent(stats.gsAcc));
+        bgsMSE.setText(""+stats.gsMSE);
+        bva.setText(percent(stats.valAcc));
+        bvMSE.setText(""+stats.valMSE);
+        bHidden.setText(""+stats.hidden);
+        bPerc.setText(""+stats.perceptrons);
+    }
+    
+    public void setEpoch(int epoch){
+        this.epoch.setText(""+epoch);
+    }
+    
+    public String percent(double str){
+        return str+" %";
+    }
     
 }

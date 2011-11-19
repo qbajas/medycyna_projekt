@@ -46,10 +46,12 @@ public class AdminChartPanel extends JPanel implements NeuralNetworkTrainingList
         trainingSetMSE.add(tsMSEIter, 0);
         generalizationSetAccuracy.add(gsaIter, 0);
         generalizationSetMSE.add(gsMSEIter, 0);
-          
+        
+        
         chart=ChartFactory.createXYLineChart("ANN training","iteration",
                 "value",dataset,PlotOrientation.VERTICAL,
                 true,true,false);
+        
         panel=new ChartPanel(chart);
         panel.setBackground(Color.CYAN);
         add(panel);

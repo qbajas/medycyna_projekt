@@ -28,7 +28,7 @@ public class AdminGuiController implements GuiController {
         mainPanel = new MainPanel();
         frame.remove(frame.getPanel());
         prepareLeftPanel();
-        mainPanel.setContentPanel(new NetworkStats(this));
+        mainPanel.setContentPanel(new JPanel());
         mainPanel.setBounds(0, 0, MainFrame.WINDOW_WIDTH, MainFrame.WINDOW_HEIGHT - StatusPanel.PANEL_HEIGHT);
 
         frame.add(mainPanel);
@@ -38,6 +38,9 @@ public class AdminGuiController implements GuiController {
     public void prepareLeftPanel() {
         LeftPanel lp = new LeftPanel(this);
         lp.getSearchPatientButton().setEnabled(false);
+        lp.learnButton.setEnabled(true);
+        lp.statisticsButton.setEnabled(true);
+        lp.validateButton.setEnabled(false);
         mainPanel.setLeftPanel(lp);
     }
 

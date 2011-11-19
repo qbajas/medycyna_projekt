@@ -7,6 +7,7 @@ package heartdoctor.ann;
 
 import heartdoctor.gui_controllers.LearningProcessController;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -44,23 +45,22 @@ public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener
     DataSet generalizationSet;
     DataSet validationSet;
 
-    public NeuralNetworkOptymalizator(){}
-    
-    public NeuralNetworkOptymalizator(int nHL,int nNPH,double[] lR,double[] lRA,double[] m,double[] fR,DataSet data){
-        _maxNumHiddenLayers = nHL;
-        _maxNumNeuronsPerHiddenLayer = nNPH;
-
-        
-        int i=data.entries.size();
-
-        // Wprowadzić loswo wybierane rekordy
-        trainingSet.entries = (ArrayList<DataEntry>) data.entries.subList(0, (int)0.6*i);
-        generalizationSet.entries = (ArrayList<DataEntry>) data.entries.subList((int)0.6*i+1, (int)0.8*i);
-        validationSet.entries = (ArrayList<DataEntry>) data.entries.subList((int)0.8*i+1, i-1);
+    public NeuralNetworkOptymalizator(){
+        this(4,8,4,20,new double[]{0.1, 0.5 , 1, 1.5}, 
+                new double[]{0.1, 0.5 , 1, 1.5},new double[]{0.1, 0.5 , 1, 1.5},
+                new double[]{0.1, 0.5 , 1, 1.5} );
     }
     
-    public NeuralNetworkOptymalizator(int minHL,int maxHL,int minNPH,int maxNPH,double[] LR,double[] LRA,double[] M,double[] FR,DataSet data){
-
+    public NeuralNetworkOptymalizator(int nHL,int nNPH,double[] lR,double[] lRA,double[] m,double[] fR){
+        _maxNumHiddenLayers = nHL;
+        _maxNumNeuronsPerHiddenLayer = nNPH;
+    }
+    
+    //Bardziej podupconego konstruktora sie nie dalo zrobic?
+    //zrob jakis konstruktor domyslny czy cos, w koncu to ta klasa ma dobrac 
+    //optymalne parametry a nie zeby ktos podawal zakresy
+    //Wogole co to za zmienne?
+    public NeuralNetworkOptymalizator(int minHL,int maxHL,int minNPH,int maxNPH,double[] LR,double[] LRA,double[] M,double[] FR){
         _minNumHiddenLayers = minHL;
         _minNumNeuronsPerHiddenLayer = minNPH;
         _learningRateSet = LR;
@@ -70,16 +70,34 @@ public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener
         
         _maxNumHiddenLayers = maxHL;
         _maxNumNeuronsPerHiddenLayer = maxNPH;
-
-        int i=data.entries.size();
-        // Wprowadzić loswo wybierane rekordy
-        trainingSet.entries = (ArrayList<DataEntry>) data.entries.subList(0, (int)0.6*i);
-        generalizationSet.entries = (ArrayList<DataEntry>) data.entries.subList((int)0.6*i+1, (int)0.8*i);
-        validationSet.entries = (ArrayList<DataEntry>) data.entries.subList((int)0.8*i+1, i-1);
     }
 
     @Override
     public void run(){
+        DataSet data= new DBDataLoader().loadData();
+        int i=data.entries.size();
+
+        Collections.shuffle(data.entries);
+        trainingSet=new DataSet();
+        generalizationSet=new DataSet();
+        validationSet=new DataSet();
+        
+        trainingSet.entries =new ArrayList<DataEntry>();
+        trainingSet.entries.addAll( data.entries.subList(0, (int) (0.6*i)) );
+        
+        generalizationSet.entries = new ArrayList<DataEntry>();
+        generalizationSet.entries.addAll( data.entries.subList((int) (0.6*i+1), (int) (0.8*i)) );
+        
+        validationSet.entries = new ArrayList<DataEntry>();
+        validationSet.entries.addAll( data.entries.subList((int) (0.8*i+1), (i-1)) );
+        
+        //TAKIE RZUTOWANIE NIE PRZEJDZIE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //generalizationSet.entries = (ArrayList<DataEntry>) data.entries.subList((int)0.6*i+1, (int)0.8*i);
+        
+
+        
+        double _validationAcc, _validationMSE;
+        
         for(int h = _minNumHiddenLayers; h <= _maxNumHiddenLayers; h++)
             for(int p = _minNumNeuronsPerHiddenLayer; p <= _maxNumNeuronsPerHiddenLayer; p++)
                 for(int lr = 0 ; lr < _learningRateSet.length; lr++)
@@ -93,6 +111,10 @@ public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener
                                 }
                                 _network = new NeuralNetwork(INPUTS, OUTPUTS, h, p);
                                 _nnTrainer = new NeuralNetworkTrainer(_network);
+                                
+                                controller.setCurrentNet(_network);
+                                controller.setTrainer(_nnTrainer);
+                                
                                 _nnTrainer.setLearningRate(lr);
                                 _nnTrainer.setLearningRateAdjust(lra);
                                 _nnTrainer.setMomentumConst(m);
@@ -100,7 +122,12 @@ public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener
                                 _nnTrainer.addListener(this);
                                 _nnTrainer.addListener(controller);
                                 _nnTrainer.trainNetwork(trainingSet, generalizationSet, validationSet);
+                                _validationAcc= _nnTrainer.getValidationSetAccuracy();
+                                _validationMSE= _nnTrainer.getValidationSetMSE();
+                                
+                                controller.updateValidationParams(_validationAcc, _validationMSE);
                             }
+        
         controller.notifyFinished();
     }
 
@@ -146,6 +173,8 @@ public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener
         this.controller = controller;
     }
 
-    
-    
+    public NeuralNetwork getNetwork() {
+        return _network;
+    }
+
 }

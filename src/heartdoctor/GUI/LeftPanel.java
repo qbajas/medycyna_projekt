@@ -9,13 +9,12 @@
  * Created on 2011-11-07, 22:20:51
  */
 package heartdoctor.GUI;
-
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import heartdoctor.DataModel.PatientSearchResults;
 import heartdoctor.ann.NeuralNetworkOptymalizator;
 import heartdoctor.gui_controllers.GuiController;
 import heartdoctor.gui_controllers.LearningProcessController;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  *
@@ -113,9 +112,7 @@ public class LeftPanel extends javax.swing.JPanel {
         NetworkStats panel=new NetworkStats(controller);
         LearningProcessController learnControl=new LearningProcessController();
         learnControl.setStatsGUI(panel);
-        NeuralNetworkOptymalizator optymalizer=new NeuralNetworkOptymalizator();
-        learnControl.setOptymalizer(optymalizer);
-        learnControl.startLearning();
+        controller.setRightPanel(panel);
     }//GEN-LAST:event_learnButtonActionPerformed
 
     private void validateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validateButtonActionPerformed
@@ -124,14 +121,14 @@ public class LeftPanel extends javax.swing.JPanel {
 
     private void statisticsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statisticsButtonActionPerformed
         // TODO add your handling code here:
-        controller.setRightPanel(new NetworkStats(controller));
+        controller.setRightPanel(new JPanel());
     }//GEN-LAST:event_statisticsButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton SearchPatientButton;
-    private javax.swing.JButton learnButton;
-    private javax.swing.JButton statisticsButton;
-    private javax.swing.JButton validateButton;
+    public javax.swing.JButton SearchPatientButton;
+    public javax.swing.JButton learnButton;
+    public javax.swing.JButton statisticsButton;
+    public javax.swing.JButton validateButton;
     // End of variables declaration//GEN-END:variables
 
 
