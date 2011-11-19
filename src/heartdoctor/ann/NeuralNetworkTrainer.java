@@ -112,6 +112,8 @@ public class NeuralNetworkTrainer {
 
 	for (int i = 0; i < trainingSet.entries.size(); ++i)
 	{
+	  System.out.println("obrabiam probke nr " + i);
+
 	  DataEntry entry = trainingSet.entries.get(i);
 	  double[] outputs = new double[entry.targets.size()];
 	  for (int j = 0; j < outputs.length; ++j)

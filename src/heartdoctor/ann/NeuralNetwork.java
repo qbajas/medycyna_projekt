@@ -100,6 +100,17 @@ public class NeuralNetwork {
   {
 	assert inputs != null && inputs.size() == _numInputs;
 
+	if (inputs == null)
+	  throw new RuntimeException("dostalem nullowy input");
+	if (inputs.size() != _numInputs)
+	  throw new RuntimeException("dostalem input o zlej wielkosci");
+
+	for (int i = 0; i < inputs.size(); ++i)
+	{
+	  if (inputs.get(i) == null)
+		throw new RuntimeException("pole inputu nr " + i + " jest nullem! wtf!?");
+	}
+
 	ArrayList<Double> outputs = new ArrayList<Double>();
 
 	_neuronValues.clear();

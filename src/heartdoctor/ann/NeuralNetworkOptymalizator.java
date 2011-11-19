@@ -16,7 +16,7 @@ import java.util.Collections;
 public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener,
         Runnable{
 
-    static private int INPUTS = 14,OUTPUTS = 1;
+    static private int INPUTS = 13,OUTPUTS = 1;
 
     private NeuralNetworkTrainer _nnTrainer;
     private NeuralNetwork _network;
@@ -46,7 +46,7 @@ public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener
     DataSet validationSet;
 
     public NeuralNetworkOptymalizator(){
-        this(4,8,4,20,new double[]{0.1, 0.5 , 1, 1.5}, 
+        this(1,4,4,20,new double[]{0.1, 0.5 , 1, 1.5},
                 new double[]{0.1, 0.5 , 1, 1.5},new double[]{0.1, 0.5 , 1, 1.5},
                 new double[]{0.1, 0.5 , 1, 1.5} );
     }
@@ -76,6 +76,9 @@ public class NeuralNetworkOptymalizator implements NeuralNetworkTrainingListener
     public void run(){
         DataSet data= new DBDataLoader().loadData();
         int i=data.entries.size();
+
+		DataPreprocessor preprocessor = new DataPreprocessor();
+		preprocessor.preprocessData(data);
 
         Collections.shuffle(data.entries);
         trainingSet=new DataSet();
