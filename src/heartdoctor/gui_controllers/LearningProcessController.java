@@ -42,7 +42,16 @@ public class LearningProcessController implements NeuralNetworkTrainingListener{
         statsGUI.startButton.setText("Interrupt");
         optymalizer=new NeuralNetworkOptymalizator();
         optymalizer.setController(this);
-        new Thread(optymalizer).start();
+        new Thread(optymalizer).start();  
+    }
+    
+    public void processLearningExceptions(Exception ex){
+            JOptionPane.showMessageDialog(AppController.getFrame(),
+                "ERRORS occured. Error message: "+ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+            optymalizer.interrupt();
+            running=false;
+            statsGUI.startButton.setText("Start learning");
+            AppController.getFrame().setStatus("Interrupted");
     }
     
     public void startButtonClick(){
@@ -59,6 +68,8 @@ public class LearningProcessController implements NeuralNetworkTrainingListener{
     public void interruptLearning(){
         int option=JOptionPane.showConfirmDialog(AppController.getFrame(),"Are you sure"
                 + "to stop learning process?","Confirm",JOptionPane.YES_NO_OPTION);
+        System.out.println("option========="+option);
+        System.out.println("JOPTION======="+JOptionPane.YES_OPTION);
         
         if(option==JOptionPane.YES_OPTION){
             optymalizer.interrupt();

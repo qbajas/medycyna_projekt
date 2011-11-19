@@ -14,6 +14,8 @@ package heartdoctor.GUI;
 import heartdoctor.DataModel.NetworkStatistics;
 import heartdoctor.gui_controllers.GuiController;
 import heartdoctor.gui_controllers.LearningProcessController;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  *
@@ -466,33 +468,36 @@ public class NetworkStats extends javax.swing.JPanel {
     }
 
     public void updateCurrent(NetworkStatistics stats){
-        ctsa.setText(percent(stats.tsAcc));
-        ctsMSE.setText(""+stats.tsMSE);
-        cgsa.setText(percent(stats.gsAcc));
-        cgsMSE.setText(""+stats.gsMSE);
-        cva.setText(percent(stats.valAcc));
-        cvMSE.setText(""+stats.valMSE);
+        NumberFormat format=new DecimalFormat("##0.##");
+        
+
+        ctsa.setText(format.format(stats.tsAcc) +"%");
+        ctsMSE.setText(format.format(stats.tsMSE));
+        cgsa.setText(format.format(stats.gsAcc)+"%");
+        cgsMSE.setText(format.format(stats.gsMSE));
+        cva.setText(format.format(stats.valAcc)+"%");
+        cvMSE.setText(format.format(stats.valMSE));
         cHidden.setText(""+stats.hidden);
         cPerc.setText(""+stats.perceptrons);
     }
     
     public void updateBest(NetworkStatistics stats){
-        btsa.setText(percent(stats.tsAcc));
-        btsMSE.setText(""+stats.tsMSE);
-        bgsa.setText(percent(stats.gsAcc));
-        bgsMSE.setText(""+stats.gsMSE);
-        bva.setText(percent(stats.valAcc));
-        bvMSE.setText(""+stats.valMSE);
+        NumberFormat format=new DecimalFormat("##0.##");
+        
+        btsa.setText(format.format(stats.tsAcc));
+        btsMSE.setText(format.format(stats.tsMSE));
+        bgsa.setText(format.format(stats.gsAcc));
+        bgsMSE.setText(format.format(stats.gsMSE));
+        bva.setText(format.format(stats.valAcc));
+        bvMSE.setText(format.format(stats.valMSE));
         bHidden.setText(""+stats.hidden);
         bPerc.setText(""+stats.perceptrons);
+        
     }
     
     public void setEpoch(int epoch){
         this.epoch.setText(""+epoch);
     }
     
-    public String percent(double str){
-        return str+" %";
-    }
     
 }
