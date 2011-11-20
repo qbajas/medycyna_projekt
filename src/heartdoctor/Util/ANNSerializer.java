@@ -26,8 +26,6 @@ public class ANNSerializer {
         PreparedStatement stm = conn.prepareStatement(WRITE_OBJECT_SQL);
 
         stm.setObject(1, object);
-        stm.setDate(2, new java.sql.Date(new Date().getTime()));
-        stm.setDouble(3, accuracy);
         int i=stm.executeUpdate();
 
         DBUtil.close(stm);
