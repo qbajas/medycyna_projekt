@@ -30,12 +30,7 @@ public class NeuralNetworkOptymalizator implements Runnable{
     private int _maxNumHiddenLayers;
     private int _maxNumNeuronsPerHiddenLayer;
 
-    public int optimumHiddenLayers;
-    public int optimumNeuronsPerHiddenLayer;
-    public double optimumLearningRate;
-    public double optimumLearningRateAdjust;
-    public double optimumMomentum;
-    public double optimumForgettingRate;
+    public double _validationAcc, _validationMSE;
     
     private boolean breakFlag=false;
     private LearningProcessController controller;
@@ -45,39 +40,25 @@ public class NeuralNetworkOptymalizator implements Runnable{
     DataSet validationSet;
 
     public NeuralNetworkOptymalizator(){
-        this(1,4,4,20,new double[]{0.1, 0.5 , 1, 1.5},
-                new double[]{0.1, 0.5 , 1, 1.5},new double[]{0.1, 0.5 , 1, 1.5},
-                new double[]{0.1, 0.5 , 1, 1.5} );
-    }
-    
-    public NeuralNetworkOptymalizator(int nHL,int nNPH,double[] lR,double[] lRA,double[] m,double[] fR){
-        _maxNumHiddenLayers = nHL;
-        _maxNumNeuronsPerHiddenLayer = nNPH;
-    }
-    
-    //Bardziej podupconego konstruktora sie nie dalo zrobic?
-    //zrob jakis konstruktor domyslny czy cos, w koncu to ta klasa ma dobrac 
-    //optymalne parametry a nie zeby ktos podawal zakresy
-    //Wogole co to za zmienne?
-    public NeuralNetworkOptymalizator(int minHL,int maxHL,int minNPH,int maxNPH,double[] LR,double[] LRA,double[] M,double[] FR){
-        _minNumHiddenLayers = minHL;
-        _minNumNeuronsPerHiddenLayer = minNPH;
-        _learningRateSet = LR;
-        _learningRateAdjustSet = LRA;
-        _momentumSet = M;
-        _forgettingRateSet = FR;
-        
-        _maxNumHiddenLayers = maxHL;
-        _maxNumNeuronsPerHiddenLayer = maxNPH;
+    // Konstruktor domyślny ustawia parametry do przetestowania
+        _minNumHiddenLayers = 1;
+        _maxNumHiddenLayers = 5;
+        _minNumNeuronsPerHiddenLayer = 1;
+        _maxNumNeuronsPerHiddenLayer = 10;
+
+        _learningRateSet = new double[]{0.02};
+        _learningRateAdjustSet = new double[]{0.03};
+        _momentumSet = new double[]{0.0000001};
+        _forgettingRateSet = new double[]{0.4};
     }
 
     @Override
     public void run(){
         try{
+    // Wczytanie danych testowych z bazy danych i i ch podział na 3 grupy
             DataSet data= new DBDataLoader().loadData();
-
             DataPreprocessor preprocessor = new DataPreprocessor();
-                    preprocessor.preprocessData(data);
+            preprocessor.preprocessData(data);
 
             int i=data.entries.size();
 
@@ -94,50 +75,49 @@ public class NeuralNetworkOptymalizator implements Runnable{
 
             validationSet.entries = new ArrayList<DataEntry>();
             validationSet.entries.addAll( data.entries.subList((int) (0.8*i+1), (i-1)) );
-
-            //TAKIE RZUTOWANIE NIE PRZEJDZIE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //generalizationSet.entries = (ArrayList<DataEntry>) data.entries.subList((int)0.6*i+1, (int)0.8*i);
-
-
-
-            double _validationAcc, _validationMSE;
-
+            int q=1;
             for(int h = _minNumHiddenLayers; h <= _maxNumHiddenLayers; h++)
                 for(int p = _minNumNeuronsPerHiddenLayer; p <= _maxNumNeuronsPerHiddenLayer; p++)
                     for(int lr = 0 ; lr < _learningRateSet.length; lr++)
-                        for(int lra = 0; lra <= _learningRateAdjustSet.length; lra++)
-                            for(int m = 0; m <= _momentumSet.length; m++)
-                                for(int fr = 0; fr <= _forgettingRateSet.length ; fr++){
-                            // DO SOMETHING AMAZING!!! -----------------------------
+                        for(int lra = 0; lra < _learningRateAdjustSet.length; lra++)
+                            for(int m = 0; m < _momentumSet.length; m++)
+                                for(int fr = 0; fr < _forgettingRateSet.length ; fr++){
+        // Testowanie sieci dla podanych parametrów
                                     if(breakFlag){
                                         clean();
                                         return;
                                     }
+                                    System.out.println("Iteracja : "+q+"\n Hidden Layers: "+h+"\n Perceptrony: "+p+"\n LearningRate: "+
+                                            _learningRateSet[lr]+"\n LearningRateAdj: "+_learningRateAdjustSet[lra]+
+                                            "\n Momentum: "+_momentumSet[m]+"\n ForgottingRate: "+_forgettingRateSet[fr]);
+
                                     _network = new NeuralNetwork(INPUTS, OUTPUTS, h, p);
                                     _nnTrainer = new NeuralNetworkTrainer(_network);
 
                                     controller.setCurrentNet(_network);
                                     controller.setTrainer(_nnTrainer);
 
-                                    _nnTrainer.setLearningRate(lr);
-                                    _nnTrainer.setLearningRateAdjust(lra);
-                                    _nnTrainer.setMomentumConst(m);
-                                    _nnTrainer.setForgettingRate(fr);
+                                    _nnTrainer.setLearningRate(_learningRateSet[lr]);
+                                    _nnTrainer.setLearningRateAdjust(_learningRateAdjustSet[lra]);
+                                    _nnTrainer.setMomentumConst(_momentumSet[m]);
+                                    _nnTrainer.setForgettingRate(_forgettingRateSet[fr]);
+
                                     _nnTrainer.addListener(controller);
+
                                     _nnTrainer.trainNetwork(trainingSet, generalizationSet, validationSet);
+
                                     _validationAcc= _nnTrainer.getValidationSetAccuracy();
                                     _validationMSE= _nnTrainer.getValidationSetMSE();
-
+                                    System.out.println("accuracy: "+_validationAcc+" MSE: "+_validationMSE);
                                     controller.updateValidationParams(_validationAcc, _validationMSE);
+                                    q++;
                                 }
-
             controller.notifyFinished();
         } catch(Exception ex){
-            controller.processLearningExceptions(ex);
+            System.out.println("Error: "+ex.toString());
+            //controller.processLearningExceptions(ex);
         }
-    }
-
-    
+    }  
     /*
      * przy przerwaniu przez uzytkownika, jesli trzeba cos posprzatac
      */
