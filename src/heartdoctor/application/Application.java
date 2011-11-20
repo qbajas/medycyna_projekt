@@ -24,32 +24,19 @@ public class Application {
         frame= new MainFrame();
         AppController.setFrame(frame);
         controller=AppController.get();
- 
-        LoginPanel panel=new LoginPanel(controller);
-        panel.setBackground(Color.RED);
-        frame.setLayout(null);
-//        frame.add(panel);
-        frame.setLoginPanel(panel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        controller.showLoginScreen();
         
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+       javax.swing.SwingUtilities.invokeLater(new Runnable() {
 
             @Override
             public void run() {
 
-////			  FileDataLoader dataLoader = new FileDataLoader("processed.cleveland.data");
-//			  DataSet data = new DBDataLoader().loadData();//dataLoader.loadData();
-//			  DataPreprocessor preprocessor = new DataPreprocessor();
-//			  preprocessor.preprocessData(data);
-//
-//			  NeuralNetwork net = new NeuralNetwork(data.entries.get(0).patterns.size(), data.entries.get(0).targets.size(), 1, 8);
-//			  NeuralNetworkTrainer netTrainer = new NeuralNetworkTrainer(net);
-//			  netTrainer.trainNetwork(data, data, data);
-
                 frame.setVisible(true);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                
             }
         });
+      
     }
-
     
 }

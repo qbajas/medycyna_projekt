@@ -5,13 +5,16 @@
 package heartdoctor.application;
 
 import heartdoctor.DataModel.User;
+import heartdoctor.GUI.LoginPanel;
 import heartdoctor.GUI.MainFrame;
 import heartdoctor.GUI.MainPanel;
 import heartdoctor.Util.SecurityController;
 import heartdoctor.gui_controllers.AdminGuiController;
 import heartdoctor.gui_controllers.DoctorGuiController;
 import heartdoctor.gui_controllers.GuiController;
+import java.awt.Color;
 import java.sql.SQLException;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -51,8 +54,26 @@ public class AppController {
         AppController.frame = frame;
     }
     
-    
+    public void showLoginScreen(){
 
+        LoginPanel panel=new LoginPanel(this);
+        panel.setBackground(Color.RED);
+        frame.setLayout(null);
+        frame.setLoginPanel(panel);
+        frame.validate();
+        frame.repaint();
+    }
+    
+    public void logout(){
+        frame.remove(controller.getLp());
+        frame.remove(controller.getMainPanel());
+        frame.setStatus("Logout");
+        frame.getStatusPanel().setLoggedAs("Not logged in");
+        frame.getStatusPanel().setRole("");
+        showLoginScreen();
+    }
+    
+   
     public void authenticationAction(final User user) {
         frame.setStatus("LOGOWANIE...");
         if (user.getLogin() == null || user.getPassword() == null

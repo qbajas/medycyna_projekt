@@ -15,15 +15,13 @@ import javax.swing.JPanel;
  *
  * @author Qba
  */
-public class AdminGuiController implements GuiController {
-
-    private MainFrame frame;
-    private MainPanel mainPanel;
+public class AdminGuiController extends GuiController {
 
     public AdminGuiController(MainFrame frame) {
         this.frame = frame;
     }
 
+    @Override
     public void setStartingView() {
         mainPanel = new MainPanel();
         frame.remove(frame.getPanel());
@@ -35,8 +33,9 @@ public class AdminGuiController implements GuiController {
         frame.repaint();
     }
 
+    @Override
     public void prepareLeftPanel() {
-        LeftPanel lp = new LeftPanel(this);
+        lp = new LeftPanel(this);
         lp.getSearchPatientButton().setEnabled(false);
         lp.learnButton.setEnabled(true);
         lp.statisticsButton.setEnabled(true);
@@ -44,7 +43,5 @@ public class AdminGuiController implements GuiController {
         mainPanel.setLeftPanel(lp);
     }
 
-    public void setRightPanel(JPanel panel) {
-        mainPanel.setContentPanel(panel);
-    }
+
 }

@@ -11,6 +11,7 @@
 package heartdoctor.GUI;
 import heartdoctor.DataModel.PatientSearchResults;
 import heartdoctor.ann.NeuralNetworkOptymalizator;
+import heartdoctor.application.AppController;
 import heartdoctor.gui_controllers.GuiController;
 import heartdoctor.gui_controllers.LearningProcessController;
 import javax.swing.JButton;
@@ -42,7 +43,9 @@ public class LeftPanel extends javax.swing.JPanel {
         learnButton = new javax.swing.JButton();
         validateButton = new javax.swing.JButton();
         statisticsButton = new javax.swing.JButton();
+        logoutButton = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 102, 0));
         setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         SearchPatientButton.setText("Search Patient");
@@ -75,6 +78,13 @@ public class LeftPanel extends javax.swing.JPanel {
             }
         });
 
+        logoutButton.setText("Logout");
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,7 +95,8 @@ public class LeftPanel extends javax.swing.JPanel {
                     .addComponent(SearchPatientButton, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                     .addComponent(validateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(statisticsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                    .addComponent(learnButton, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
+                    .addComponent(learnButton, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(logoutButton, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -99,7 +110,9 @@ public class LeftPanel extends javax.swing.JPanel {
                 .addComponent(statisticsButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(learnButton)
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(logoutButton)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -124,9 +137,14 @@ public class LeftPanel extends javax.swing.JPanel {
         controller.setRightPanel(new JPanel());
     }//GEN-LAST:event_statisticsButtonActionPerformed
 
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+        AppController.get().logout();
+    }//GEN-LAST:event_logoutButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton SearchPatientButton;
     public javax.swing.JButton learnButton;
+    private javax.swing.JButton logoutButton;
     public javax.swing.JButton statisticsButton;
     public javax.swing.JButton validateButton;
     // End of variables declaration//GEN-END:variables
@@ -138,5 +156,9 @@ public class LeftPanel extends javax.swing.JPanel {
 
     public JButton getStatisticsButton() {
         return statisticsButton;
+    }
+    
+    public void enableLogout(boolean enabled){
+        logoutButton.setEnabled(enabled);
     }
 }
