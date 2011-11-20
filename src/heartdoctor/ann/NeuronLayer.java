@@ -5,13 +5,14 @@
 
 package heartdoctor.ann;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author empitness
  */
-public class NeuronLayer {
+public class NeuronLayer implements Serializable{
 
   public ArrayList<Neuron> neurons;
 

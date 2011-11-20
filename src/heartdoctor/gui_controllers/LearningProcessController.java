@@ -75,8 +75,10 @@ public class LearningProcessController implements NeuralNetworkTrainingListener{
             ANNSerializer.writeANN(bestNet, best.valAcc);
             AppController.getFrame().setStatus("Saved...");
         } catch(SQLException ex){
+            AppController.getFrame().setStatus("");
             JOptionPane.showMessageDialog(AppController.getFrame(),
                 "ERRORS occured. Error message: "+ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+            throw new RuntimeException(ex);
         }
     }
     

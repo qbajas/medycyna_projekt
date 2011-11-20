@@ -33,7 +33,7 @@ public class NeuralNetworkTrainer {
   private double _validationSetMSE;
 
   private double _desiredAccuracy = 100;
-  private int _maxEpochs = 2000;
+  private int _maxEpochs = 2;
   
   boolean interrupt=false;
 

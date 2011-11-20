@@ -5,13 +5,14 @@
 
 package heartdoctor.ann;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author empitness
  */
-public class Neuron {
+public class Neuron implements Serializable{
 
   public ArrayList<Double> inputWeights;
 
