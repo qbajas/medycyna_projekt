@@ -5,14 +5,15 @@
 
 package heartdoctor.ann;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author empitness
  */
-public class NeuralNetwork {
-
+public class NeuralNetwork implements Serializable{
+  
   private ArrayList<NeuronLayer> _layers;
   private int _numInputs;
   private int _numOutputs;

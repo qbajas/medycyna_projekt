@@ -4,13 +4,8 @@
  */
 package heartdoctor.application;
 
-import heartdoctor.GUI.DiagnosisPanel;
-import heartdoctor.GUI.LeftPanel;
-import heartdoctor.GUI.LoginPanel;
 import heartdoctor.GUI.MainFrame;
-import heartdoctor.GUI.MainPanel;
-import java.awt.BorderLayout;
-import java.awt.Color;
+import java.util.Locale;
 import javax.swing.JFrame;
 
 /**
@@ -21,6 +16,7 @@ public class Application {
     MainFrame frame;
     AppController controller;
     public Application(){
+        Locale.setDefault(Locale.ENGLISH);
         frame= new MainFrame();
         AppController.setFrame(frame);
         controller=AppController.get();

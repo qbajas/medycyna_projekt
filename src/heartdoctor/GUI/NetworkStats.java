@@ -29,6 +29,7 @@ public class NetworkStats extends javax.swing.JPanel {
     /** Creates new form NetworkStats */
     public NetworkStats(GuiController controller) {
         initComponents();
+        saveButton.setEnabled(false);
         this.controller = controller;
     }
 

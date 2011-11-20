@@ -6,12 +6,13 @@ package heartdoctor.gui_controllers;
 
 import heartdoctor.DataModel.NetworkStatistics;
 import heartdoctor.GUI.NetworkStats;
+import heartdoctor.Util.ANNSerializer;
 import heartdoctor.ann.NeuralNetwork;
 import heartdoctor.ann.NeuralNetworkOptymalizator;
 import heartdoctor.ann.NeuralNetworkTrainer;
 import heartdoctor.ann.NeuralNetworkTrainingListener;
 import heartdoctor.application.AppController;
-import java.awt.geom.Rectangle2D;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.axis.ValueAxis;
@@ -44,6 +45,7 @@ public class LearningProcessController implements NeuralNetworkTrainingListener{
         AppController.getFrame().setStatus("Learning in progress");
         running=true;
         statsGUI.startButton.setText("Interrupt");
+        statsGUI.saveButton.setEnabled(false);
         optymalizer=new NeuralNetworkOptymalizator();
         optymalizer.setController(this);
         statsGUI.getAdminChartPanel1().resetSeries();
@@ -57,6 +59,7 @@ public class LearningProcessController implements NeuralNetworkTrainingListener{
             running=false;
             statsGUI.startButton.setText("Start learning");
             AppController.getFrame().setStatus("Interrupted");
+            statsGUI.saveButton.setEnabled(false);
     }
     
     public void startButtonClick(){
@@ -67,7 +70,14 @@ public class LearningProcessController implements NeuralNetworkTrainingListener{
     }
     
     public void saveButtonClick(){
-        
+        try{
+            AppController.getFrame().setStatus("Saving...");
+            ANNSerializer.writeANN(bestNet, best.valAcc);
+            AppController.getFrame().setStatus("Saved...");
+        } catch(SQLException ex){
+            JOptionPane.showMessageDialog(AppController.getFrame(),
+                "ERRORS occured. Error message: "+ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     public void interruptLearning(){
@@ -87,6 +97,7 @@ public class LearningProcessController implements NeuralNetworkTrainingListener{
         AppController.get().showOptionPaneOutsideEDT("Success", "ANN learning completed");
         AppController.getFrame().setStatus("Finished");
         running=false;
+        statsGUI.saveButton.setEnabled(true);
         statsGUI.startButton.setText("Start learning");
     }
 

@@ -46,7 +46,6 @@ public class AdminChartPanel extends JPanel implements NeuralNetworkTrainingList
     
     public AdminChartPanel(){
         super();
-        
         resetSeries();
         
         
@@ -63,7 +62,7 @@ public class AdminChartPanel extends JPanel implements NeuralNetworkTrainingList
         
         
         panel=new ChartPanel(chart,true,true,false,true,true);
-        panel.setLocale(Locale.UK);
+        
         
         final XYPlot plot = chart.getXYPlot();
         final NumberAxis axis2 = new NumberAxis("MSE");

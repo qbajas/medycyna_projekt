@@ -42,7 +42,6 @@ public class LeftPanel extends javax.swing.JPanel {
         SearchPatientButton = new javax.swing.JButton();
         learnButton = new javax.swing.JButton();
         validateButton = new javax.swing.JButton();
-        statisticsButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 102, 0));
@@ -71,13 +70,6 @@ public class LeftPanel extends javax.swing.JPanel {
             }
         });
 
-        statisticsButton.setText("Statistics");
-        statisticsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                statisticsButtonActionPerformed(evt);
-            }
-        });
-
         logoutButton.setText("Logout");
         logoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,9 +86,8 @@ public class LeftPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(SearchPatientButton, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                     .addComponent(validateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(statisticsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                    .addComponent(learnButton, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                    .addComponent(logoutButton, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
+                    .addComponent(logoutButton, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(learnButton, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -107,10 +98,8 @@ public class LeftPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(validateButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(statisticsButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(learnButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                 .addComponent(logoutButton)
                 .addContainerGap())
         );
@@ -132,11 +121,6 @@ public class LeftPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_validateButtonActionPerformed
 
-    private void statisticsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statisticsButtonActionPerformed
-        // TODO add your handling code here:
-        controller.setRightPanel(new JPanel());
-    }//GEN-LAST:event_statisticsButtonActionPerformed
-
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         AppController.get().logout();
     }//GEN-LAST:event_logoutButtonActionPerformed
@@ -145,17 +129,12 @@ public class LeftPanel extends javax.swing.JPanel {
     public javax.swing.JButton SearchPatientButton;
     public javax.swing.JButton learnButton;
     private javax.swing.JButton logoutButton;
-    public javax.swing.JButton statisticsButton;
     public javax.swing.JButton validateButton;
     // End of variables declaration//GEN-END:variables
 
 
     public JButton getSearchPatientButton() {
         return SearchPatientButton;
-    }
-
-    public JButton getStatisticsButton() {
-        return statisticsButton;
     }
     
     public void enableLogout(boolean enabled){

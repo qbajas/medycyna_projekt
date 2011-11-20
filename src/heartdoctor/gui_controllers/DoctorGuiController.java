@@ -9,7 +9,6 @@ import heartdoctor.GUI.LeftPanel;
 import heartdoctor.GUI.MainFrame;
 import heartdoctor.GUI.MainPanel;
 import heartdoctor.GUI.StatusPanel;
-import javax.swing.JPanel;
 
 /**
  * klasa dostarczajaca strategie dla widokow gui
@@ -41,7 +40,6 @@ public class DoctorGuiController extends GuiController {
         lp = new LeftPanel(this);
         lp.getSearchPatientButton().setEnabled(true);
         lp.learnButton.setEnabled(false);
-        lp.statisticsButton.setEnabled(false);
         lp.validateButton.setEnabled(true);
         mainPanel.setLeftPanel(lp);
 

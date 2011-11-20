@@ -31,9 +31,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="SearchPatientButton" alignment="0" pref="119" max="32767" attributes="1"/>
                   <Component id="validateButton" alignment="0" max="32767" attributes="0"/>
-                  <Component id="statisticsButton" alignment="0" pref="119" max="32767" attributes="0"/>
-                  <Component id="learnButton" alignment="0" pref="119" max="32767" attributes="1"/>
                   <Component id="logoutButton" alignment="0" pref="119" max="32767" attributes="0"/>
+                  <Component id="learnButton" alignment="0" pref="119" max="32767" attributes="1"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -47,10 +46,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="validateButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="statisticsButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
               <Component id="learnButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="53" max="32767" attributes="0"/>
+              <EmptySpace pref="82" max="32767" attributes="0"/>
               <Component id="logoutButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -88,17 +85,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="validateButtonActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JButton" name="statisticsButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Statistics"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="statisticsButtonActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
