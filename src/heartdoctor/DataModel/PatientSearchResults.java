@@ -81,12 +81,31 @@ public class PatientSearchResults {
     public ArrayList<PatientData> convertResultSet(ResultSet rs) {
         ArrayList<PatientData> _patients = new ArrayList<PatientData>();
         PatientData patientData;
+        MedicalData medicalData;
         try {
             while (rs.next()) {
 
+                medicalData = new MedicalData();
+                medicalData.setDbID(rs.getInt(9));
+                medicalData.setAge(rs.getInt(10));
+                medicalData.setSex(rs.getDouble(11));
+                medicalData.setChestPain(rs.getDouble(12));
+                medicalData.setBloodPressure(rs.getDouble(13));
+                medicalData.setCholestoral(rs.getDouble(14));
+                medicalData.setBloodSugar(rs.getDouble(15));
+                medicalData.setRestecg(rs.getDouble(16));
+                medicalData.setMaxHeartRate(rs.getDouble(17));
+                medicalData.setAngina(rs.getDouble(18));
+                medicalData.setOldpeak(rs.getDouble(19));
+                medicalData.setSlope(rs.getDouble(20));
+                medicalData.setCa(rs.getDouble(21));
+                medicalData.setThal(rs.getDouble(22));
+                medicalData.setDiagnosis(rs.getDouble(23));
+
+//                rs.getInt(9), rs.getDouble(10), new MedicalData.Sex())
                 patientData = new PatientData(rs.getInt(1), rs.getString(2),
                         rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
-                        rs.getString(7), rs.getString(8), null);
+                        rs.getString(7), rs.getString(8), medicalData);
 
                 _patients.add(patientData);
 
@@ -134,13 +153,25 @@ public class PatientSearchResults {
      * generuje zapytanie sql z danych z kontrolera
      */
     public static String generateSQL(String searchBy, String condition, String value) {
-        return "SELECT * FROM Patients WHERE " + searchBy.toLowerCase() + " " + condition + " '" + value + "'";
+        return  getBasicQuery() + " WHERE " + searchBy.toLowerCase() + " " + condition + " '" + value + "'";
     }
 
 
+    /**
+     * wczytywanie wszystkich pacjentow
+     */
     public void loadAllPatients()
     {
-        search("SELECT * FROM Patients");
+        search(getBasicQuery());
+    }
+
+
+    /**
+     * szkielet zapytania
+     * @return
+     */
+    private static String getBasicQuery(){
+        return "SELECT * FROM Patients P JOIN LearnDataSet L on P.id=L.patient_id";
     }
 
     /**

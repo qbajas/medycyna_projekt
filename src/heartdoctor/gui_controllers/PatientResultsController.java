@@ -7,7 +7,11 @@ package heartdoctor.gui_controllers;
 import heartdoctor.DataModel.PatientData;
 import heartdoctor.DataModel.PatientSearchResults;
 import heartdoctor.GUI.SearchPatients;
+import heartdoctor.Util.PatientController;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Kontroler do zarzadzania wyswietlaniem listy pacjentow w widoku SearchPatients
@@ -99,6 +103,19 @@ public class PatientResultsController {
      */
     public PatientData getActivePatient() {
         return model.getPatient(activeRecord);
+    }
+
+    /**
+     * obsluguje akcje zapisania pacjenta/danych z gui
+     * @return
+     */
+    public boolean saveActivePatient() {
+        try {
+            return PatientController.updateMedicalRecord(getActivePatient().getMedicalData());
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientResultsController.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     /**

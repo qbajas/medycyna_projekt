@@ -4,10 +4,12 @@
  */
 package heartdoctor.gui_controllers;
 
+import heartdoctor.DataModel.PatientSearchResults;
 import heartdoctor.GUI.DiagnosisPanel;
 import heartdoctor.GUI.LeftPanel;
 import heartdoctor.GUI.MainFrame;
 import heartdoctor.GUI.MainPanel;
+import heartdoctor.GUI.SearchPatients;
 import heartdoctor.GUI.StatusPanel;
 
 /**
@@ -27,7 +29,9 @@ public class DoctorGuiController extends GuiController {
         frame.remove(frame.getPanel());
         prepareLeftPanel();
         
-        mainPanel.setContentPanel(new DiagnosisPanel(this));
+//        mainPanel.setContentPanel(new DiagnosisPanel(this));
+        mainPanel.setContentPanel(new SearchPatients(this,new PatientSearchResults() ));
+
         
         mainPanel.setBounds(0, 0, MainFrame.WINDOW_WIDTH, MainFrame.WINDOW_HEIGHT - StatusPanel.PANEL_HEIGHT);
 
