@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * @author empitness
  */
 public class Neuron implements Serializable{
+  private static final long serialVersionUID = -4141257806047709L;
 
   public ArrayList<Double> inputWeights;
 

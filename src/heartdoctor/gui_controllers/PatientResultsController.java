@@ -168,7 +168,7 @@ public class PatientResultsController {
             outputs = neuralNetwork.feedForward(
                     convertMedicalData(getActivePatient().getMedicalData()));
             getActivePatient().getMedicalData().setProgramDiagnosis(outputs.get(0));
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(PatientResultsController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

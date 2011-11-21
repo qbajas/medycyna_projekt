@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * @author empitness
  */
 public class NeuralNetwork implements Serializable{
+  private static final long serialVersionUID = -1562896790507503199L;
   
   private ArrayList<NeuronLayer> _layers;
   private int _numInputs;

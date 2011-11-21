@@ -5,6 +5,9 @@
 package heartdoctor.Util;
 
 import heartdoctor.ann.NeuralNetwork;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,15 +37,20 @@ public class ANNSerializer {
             throw new SQLException("Update failed");
     }
 
-    public static NeuralNetwork readLastANN() throws SQLException {
+    public static NeuralNetwork readLastANN() throws SQLException, IOException, ClassNotFoundException {
         Connection conn=DBUtil.getConnection();
         PreparedStatement stm = conn.prepareStatement(READ_LAST);
  
         ResultSet rs = stm.executeQuery();
         if( !rs.next() )
             throw new SQLException("ANN not found");
-//        nie dziala
-        NeuralNetwork network = (NeuralNetwork) rs.getObject(2);
+        
+        byte[] buf = rs.getBytes(2);
+        ObjectInputStream objectIn = null;
+        if (buf != null)
+            objectIn = new ObjectInputStream(new ByteArrayInputStream(buf));
+        
+        NeuralNetwork network = (NeuralNetwork) objectIn.readObject();
         
         DBUtil.close(stm, rs);
         DBUtil.close(conn);

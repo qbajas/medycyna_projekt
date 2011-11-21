@@ -98,7 +98,7 @@ public class PatientDataGenerator {
         String str = "";
         int a=(int)age;
         Calendar cal=GregorianCalendar.getInstance();
-        cal.roll(Calendar.YEAR,a);
+        cal.roll(Calendar.YEAR,-a);
         cal.set(Calendar.MONTH, rand.nextInt(12)+1);
         cal.set(Calendar.DAY_OF_MONTH, rand.nextInt(28)+1);
         Date d=cal.getTime();
