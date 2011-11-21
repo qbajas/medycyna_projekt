@@ -166,13 +166,20 @@ public class PatientSearchResults {
         search(getBasicQuery());
     }
 
+    /**
+     * wczytywanie pacjentow bez diagnozy wystwionej przez lekarza
+     */
+    public void loadNotDiagnosedPatients(){
+        search(getBasicQuery() + " WHERE num IS NULL AND diagnosis IS NOT NULL ");
+    }
+
 
     /**
      * szkielet zapytania
      * @return
      */
     private static String getBasicQuery(){
-        return "SELECT * FROM Patients P JOIN LearnDataSet L on P.id=L.patient_id";
+        return "SELECT * FROM Patients P JOIN LearnDataSet L on P.id=L.patient_id ";
     }
 
     /**

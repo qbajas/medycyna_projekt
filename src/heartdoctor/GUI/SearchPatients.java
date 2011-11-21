@@ -26,6 +26,10 @@ public class SearchPatients extends javax.swing.JPanel {
     private final GuiController controller;
     private final PatientResultsController flowController;
 
+    public PatientResultsController getFlowController() {
+        return flowController;
+    }
+
     /** Creates new form SearchPatients */
     public SearchPatients(GuiController controller, PatientSearchResults result) {
         this.flowController = new PatientResultsController(this, result);
@@ -74,12 +78,10 @@ public class SearchPatients extends javax.swing.JPanel {
         valueSearch = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
         resultCount = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jToggleButton1 = new javax.swing.JToggleButton();
 
-        setBackground(new java.awt.Color(0, 102, 204));
         setPreferredSize(new java.awt.Dimension(458, 284));
 
         patientListBox.addActionListener(new java.awt.event.ActionListener() {
@@ -182,13 +184,6 @@ public class SearchPatients extends javax.swing.JPanel {
         resultCount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         resultCount.setText(" ");
 
-        jButton1.setText("LOAD ALL PATIENTS");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jButton2.setText("Save changes");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,9 +233,7 @@ public class SearchPatients extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(prevButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
-                                    .addComponent(patientListBox, 0, 257, Short.MAX_VALUE))
+                                .addComponent(patientListBox, 0, 257, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel1))
@@ -263,9 +256,7 @@ public class SearchPatients extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(prevButton)
                             .addComponent(patientListBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(40, 40, 40)
                         .addComponent(jLabel1))
                     .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(patientSmallDataPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -306,11 +297,6 @@ public class SearchPatients extends javax.swing.JPanel {
         resultCount.setText("Results: " + patients.size());
     }//GEN-LAST:event_searchButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        flowController.loadAllPatients();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         if (flowController.saveActivePatient(diagnosisPanel1.getMedicalData())) {
@@ -326,7 +312,6 @@ public class SearchPatients extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox conditionSearch;
     public heartdoctor.GUI.DiagnosisPanel diagnosisPanel1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -136,6 +136,12 @@ public class PatientResultsController {
         initView();
     }
 
+    
+    public void loadNotDiagnosedPatients(){
+        model.loadNotDiagnosedPatients();
+        initView();
+    }
+
     /**
      * funkcja oblsugujaca klikniecie w search z widoku search patients
      */

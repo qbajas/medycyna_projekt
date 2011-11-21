@@ -43,7 +43,7 @@ public class DoctorGuiController extends GuiController {
     public void prepareLeftPanel() {
         lp = new LeftPanel(this);
         lp.getSearchPatientButton().setEnabled(true);
-        lp.learnButton.setEnabled(false);
+        lp.learnButton.setVisible(false);
         lp.validateButton.setEnabled(true);
         mainPanel.setLeftPanel(lp);
 

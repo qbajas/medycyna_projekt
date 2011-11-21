@@ -9,6 +9,7 @@
  * Created on 2011-11-07, 22:20:51
  */
 package heartdoctor.GUI;
+
 import heartdoctor.DataModel.PatientSearchResults;
 import heartdoctor.application.AppController;
 import heartdoctor.gui_controllers.GuiController;
@@ -20,6 +21,7 @@ import javax.swing.JButton;
  * @author michal
  */
 public class LeftPanel extends javax.swing.JPanel {
+
     private final GuiController controller;
 
     /** Creates new form LeftPanel */
@@ -46,7 +48,7 @@ public class LeftPanel extends javax.swing.JPanel {
         setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         SearchPatientButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        SearchPatientButton.setText("<html>\n<center>\nPatients \n<br>\n<b>with </b>\n<br>\ndiagnosis\n</center>\n</html>");
+        SearchPatientButton.setText("<html>\n<center>\nAll\n<br>\npatients \n</center>\n</html>");
         SearchPatientButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SearchPatientButtonActionPerformed(evt);
@@ -63,7 +65,7 @@ public class LeftPanel extends javax.swing.JPanel {
         });
 
         validateButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        validateButton.setText("<html>\n<center>\nPatients \n<br>\n<b>without </b>\n<br>\ndiagnosis\n</center>\n</html>");
+        validateButton.setText("<html>\n<center>\nPatients \n<br>\nwithout \n<br>\ndiagnosis\n</center>\n</html>");
         validateButton.setEnabled(false);
         validateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,25 +109,28 @@ public class LeftPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SearchPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchPatientButtonActionPerformed
-        
-        controller.setRightPanel(new SearchPatients(controller,new PatientSearchResults() ));
+        SearchPatients sp = new SearchPatients(controller, new PatientSearchResults());
+        controller.setRightPanel(sp);
+        sp.getFlowController().loadAllPatients();
     }//GEN-LAST:event_SearchPatientButtonActionPerformed
 
     private void learnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_learnButtonActionPerformed
-        NetworkStats panel=new NetworkStats(controller);
-        LearningProcessController learnControl=LearningProcessController.get();
+        NetworkStats panel = new NetworkStats(controller);
+        LearningProcessController learnControl = LearningProcessController.get();
         learnControl.setStatsGUI(panel);
         controller.setRightPanel(panel);
     }//GEN-LAST:event_learnButtonActionPerformed
 
     private void validateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validateButtonActionPerformed
         // TODO add your handling code here:
+        SearchPatients sp = new SearchPatients(controller, new PatientSearchResults());
+        controller.setRightPanel(sp);
+        sp.getFlowController().loadNotDiagnosedPatients();
     }//GEN-LAST:event_validateButtonActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         AppController.get().logout();
     }//GEN-LAST:event_logoutButtonActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton SearchPatientButton;
     public javax.swing.JButton learnButton;
@@ -133,12 +138,11 @@ public class LeftPanel extends javax.swing.JPanel {
     public javax.swing.JButton validateButton;
     // End of variables declaration//GEN-END:variables
 
-
     public JButton getSearchPatientButton() {
         return SearchPatientButton;
     }
-    
-    public void enableLogout(boolean enabled){
+
+    public void enableLogout(boolean enabled) {
         logoutButton.setEnabled(enabled);
     }
 }

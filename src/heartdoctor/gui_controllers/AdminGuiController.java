@@ -36,9 +36,9 @@ public class AdminGuiController extends GuiController {
     @Override
     public void prepareLeftPanel() {
         lp = new LeftPanel(this);
-        lp.getSearchPatientButton().setEnabled(false);
+        lp.getSearchPatientButton().setVisible(false);
         lp.learnButton.setEnabled(true);
-        lp.validateButton.setEnabled(false);
+        lp.validateButton.setVisible(false);
         mainPanel.setLeftPanel(lp);
     }
 
