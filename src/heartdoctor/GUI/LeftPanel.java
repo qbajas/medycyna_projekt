@@ -44,7 +44,7 @@ public class LeftPanel extends javax.swing.JPanel {
         validateButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 153, 51));
+        setBackground(new java.awt.Color(75, 86, 87));
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         SearchPatientButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N

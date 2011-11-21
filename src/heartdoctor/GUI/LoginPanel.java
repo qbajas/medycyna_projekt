@@ -61,6 +61,7 @@ public class LoginPanel extends javax.swing.JPanel {
         passField = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(182, 199, 53));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         Login.setText("Login");

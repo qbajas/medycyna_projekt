@@ -50,6 +50,8 @@ public class StatusPanel extends javax.swing.JPanel {
         loggedAs = new javax.swing.JLabel();
         role = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(210, 201, 176));
+
         jLabel1.setText("System status:");
 
         loggedAs.setText("Not logged in");

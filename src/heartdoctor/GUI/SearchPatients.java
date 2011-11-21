@@ -82,6 +82,7 @@ public class SearchPatients extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jToggleButton1 = new javax.swing.JToggleButton();
 
+        setBackground(new java.awt.Color(244, 227, 193));
         setPreferredSize(new java.awt.Dimension(458, 284));
 
         patientListBox.addActionListener(new java.awt.event.ActionListener() {
@@ -108,11 +109,12 @@ public class SearchPatients extends javax.swing.JPanel {
 
         jLabel1.setText("Patient data preview");
 
+        diagnosisPanel1.setBackground(new java.awt.Color(244, 227, 193));
+
         patientSmallDataPanel1.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.background"));
         patientSmallDataPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 153));
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setBackground(new java.awt.Color(182, 199, 53));
 
         nameSearch.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Name", "Middlename", "Lastname", "Pesel", "Address", "Postalcode", "City" }));
 
@@ -164,7 +166,7 @@ public class SearchPatients extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addComponent(jLabel4)))
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,6 +187,8 @@ public class SearchPatients extends javax.swing.JPanel {
 
         resultCount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         resultCount.setText(" ");
+
+        jPanel2.setBackground(new java.awt.Color(244, 227, 193));
 
         jButton2.setText("Save changes");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -273,7 +277,7 @@ public class SearchPatients extends javax.swing.JPanel {
                 .addComponent(diagnosisPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
