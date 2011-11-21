@@ -10,12 +10,10 @@
  */
 package heartdoctor.GUI;
 import heartdoctor.DataModel.PatientSearchResults;
-import heartdoctor.ann.NeuralNetworkOptymalizator;
 import heartdoctor.application.AppController;
 import heartdoctor.gui_controllers.GuiController;
 import heartdoctor.gui_controllers.LearningProcessController;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 
 /**
  *
@@ -112,7 +110,7 @@ public class LeftPanel extends javax.swing.JPanel {
 
     private void learnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_learnButtonActionPerformed
         NetworkStats panel=new NetworkStats(controller);
-        LearningProcessController learnControl=new LearningProcessController();
+        LearningProcessController learnControl=LearningProcessController.get();
         learnControl.setStatsGUI(panel);
         controller.setRightPanel(panel);
     }//GEN-LAST:event_learnButtonActionPerformed

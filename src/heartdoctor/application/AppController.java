@@ -7,14 +7,13 @@ package heartdoctor.application;
 import heartdoctor.DataModel.User;
 import heartdoctor.GUI.LoginPanel;
 import heartdoctor.GUI.MainFrame;
-import heartdoctor.GUI.MainPanel;
 import heartdoctor.Util.SecurityController;
 import heartdoctor.gui_controllers.AdminGuiController;
 import heartdoctor.gui_controllers.DoctorGuiController;
 import heartdoctor.gui_controllers.GuiController;
+import heartdoctor.gui_controllers.LearningProcessController;
 import java.awt.Color;
 import java.sql.SQLException;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -65,11 +64,20 @@ public class AppController {
     }
     
     public void logout(){
+        int option=JOptionPane.showConfirmDialog(frame,"Are you sure"
+                + "to logout?","Confirm",JOptionPane.YES_NO_OPTION);
+        if(option!=JOptionPane.YES_OPTION){
+            return;
+        }
+        
         frame.remove(controller.getLp());
         frame.remove(controller.getMainPanel());
         frame.setStatus("Logout");
         frame.getStatusPanel().setLoggedAs("Not logged in");
         frame.getStatusPanel().setRole("");
+        if(LearningProcessController.isRunning()){
+            LearningProcessController.get().interrupt();
+        }
         showLoginScreen();
     }
     
@@ -96,8 +104,6 @@ public class AppController {
                         showOptionPaneOutsideEDT("Access granted",
                                 "Successfully authorized");
 
-//                        creating view
-//                        frame.setMainPanel(new MainPanel());
                         controller = createGuiController(user, frame);
                         controller.setStartingView();
                         frame.getStatusPanel().setRole(user.getRole());
@@ -106,7 +112,7 @@ public class AppController {
 
                     } else {
                         showOptionPaneOutsideEDT("Access denied",
-                                "WYPIERDALAĆ! WSTĘP WZBRONONY");
+                                "Wrong login or password entered");
                     }
                 } catch (SQLException ex) {
                     showOptionPaneOutsideEDT("Connection problem",

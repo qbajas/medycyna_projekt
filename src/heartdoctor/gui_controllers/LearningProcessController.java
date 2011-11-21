@@ -31,9 +31,16 @@ public class LearningProcessController implements NeuralNetworkTrainingListener{
     NetworkStats statsGUI;
     
     private int epoch;
-    private boolean running=false;
+    private static boolean running=false;
+    private static LearningProcessController instance;
     
-    public LearningProcessController(){    
+    public static LearningProcessController get(){
+        if(instance==null)
+            instance=new LearningProcessController();
+        return instance;
+    }
+    
+    private LearningProcessController(){    
     }
     
     public void startLearning(){
@@ -82,14 +89,22 @@ public class LearningProcessController implements NeuralNetworkTrainingListener{
         }
     }
     
+    public void interrupt(){
+        optymalizer.interrupt();
+        trainer.interrupt();
+        running=false;
+    }
+    
+    public static boolean isRunning(){
+        return running;
+    }
+    
     public void interruptLearning(){
         int option=JOptionPane.showConfirmDialog(AppController.getFrame(),"Are you sure"
                 + "to stop learning process?","Confirm",JOptionPane.YES_NO_OPTION);
         
         if(option==JOptionPane.YES_OPTION){
-            optymalizer.interrupt();
-            trainer.interrupt();
-            running=false;
+            interrupt();
             statsGUI.startButton.setText("Start learning");
             AppController.getFrame().setStatus("Interrupted");
         }    
