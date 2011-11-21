@@ -67,15 +67,25 @@ public class PatientController {
             DBUtil.close(conn);
         }
     }
-    
-    public static boolean updateMedicalRecord(MedicalData record) throws SQLException{
+
+    /**
+     * poprawione
+     * @param record
+     * @return
+     * @throws SQLException
+     */
+    public static boolean updateMedicalRecord(MedicalData record) throws SQLException {
+        if (record == null) {
+            return false;
+        }
         Connection conn = DBUtil.getConnection();
         PreparedStatement stm = null;
         ResultSet rs = null;
         try {
             stm = conn.prepareStatement("update  LearnDataSet set"
                     + "age=?, sex=?, cp=?, trestbps=?, chol=?, fbs=?, restecg=?, thalach=?,"
-                    + "exang=?, oldpeak=?, slope=?, ca=?, thal=?,num=?,diagnosis=?)");
+                    + "exang=?, oldpeak=?, slope=?, ca=?, thal=?,num=?,diagnosis=?"
+                    + " WHERE id=?");
             stm.setDouble(1, record.getAge());
             stm.setDouble(2, record.getSex());
             stm.setDouble(3, record.getChestPain());
@@ -91,6 +101,7 @@ public class PatientController {
             stm.setDouble(13, record.getThal());
             stm.setDouble(14, record.getDiagnosis());
             stm.setDouble(15, record.getProgramDiagnosis());
+            stm.setInt(15, record.getDbID());
             stm.executeUpdate();
             return true;
         } finally {

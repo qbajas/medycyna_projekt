@@ -28,6 +28,7 @@ public class MedicalData {
             double bloodPressure, double cholestoral, double bloodSugar, 
             RestingECGResult restecg, double maxHeartRate, double angina, 
             double oldpeak, Slope slope, double ca, Thal thal, double diagnosis) {
+        this.dbID = dbID;
         this.age = age;
         this.sex = sex;
         this.chestPain = chestPain;
