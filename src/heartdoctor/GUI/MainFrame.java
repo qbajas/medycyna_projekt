@@ -33,7 +33,7 @@ public class MainFrame extends JFrame {
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         statusPanel = new StatusPanel();
         statusPanel.setBounds(0, WINDOW_HEIGHT - statusPanel.PANEL_HEIGHT, statusPanel.PANEL_WIDTH, statusPanel.PANEL_HEIGHT);
-        statusPanel.setBackground(Color.CYAN);
+//        statusPanel.setBackground(Color.CYAN);
         add(statusPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Toolkit tk = Toolkit.getDefaultToolkit();

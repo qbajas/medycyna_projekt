@@ -56,7 +56,7 @@ public class AppController {
     public void showLoginScreen(){
 
         LoginPanel panel=new LoginPanel(this);
-        panel.setBackground(Color.RED);
+//        panel.setBackground(Color.RED);
         frame.setLayout(null);
         frame.setLoginPanel(panel);
         frame.validate();
