@@ -41,6 +41,7 @@ public class ANNSerializer {
         ResultSet rs = stm.executeQuery();
         if( !rs.next() )
             throw new SQLException("ANN not found");
+//        nie dziala
         NeuralNetwork network = (NeuralNetwork) rs.getObject(2);
         
         DBUtil.close(stm, rs);

@@ -8,7 +8,9 @@ import heartdoctor.DataModel.MedicalData;
 import heartdoctor.DataModel.PatientData;
 import heartdoctor.DataModel.PatientSearchResults;
 import heartdoctor.GUI.SearchPatients;
+import heartdoctor.Util.ANNSerializer;
 import heartdoctor.Util.PatientController;
+import heartdoctor.ann.NeuralNetwork;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -136,8 +138,7 @@ public class PatientResultsController {
         initView();
     }
 
-    
-    public void loadNotDiagnosedPatients(){
+    public void loadNotDiagnosedPatients() {
         model.loadNotDiagnosedPatients();
         initView();
     }
@@ -152,5 +153,47 @@ public class PatientResultsController {
         initView();
         return model.getPatients();
 //        zrobic to w nowym watku
+    }
+
+
+    /**
+     * obluga kilkniecia w diagnose z gui
+     * @return
+     */
+    public void diagnose() {
+        getActivePatient();
+        try {
+            NeuralNetwork neuralNetwork = ANNSerializer.readLastANN();
+            ArrayList<Double> outputs;
+            outputs = neuralNetwork.feedForward(
+                    convertMedicalData(getActivePatient().getMedicalData()));
+            getActivePatient().getMedicalData().setProgramDiagnosis(outputs.get(0));
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientResultsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
+    /**
+     * konwertuje medical data na liste dobule dla neural network
+     * @param medicalData
+     * @return
+     */
+    private ArrayList<Double> convertMedicalData(MedicalData medicalData) {
+        ArrayList<Double> list = new ArrayList<Double>();
+        list.add(medicalData.getAge());
+        list.add(medicalData.getSex());
+        list.add(medicalData.getChestPain());
+        list.add(medicalData.getBloodPressure());
+        list.add(medicalData.getCholestoral());
+        list.add(medicalData.getBloodSugar());
+        list.add(medicalData.getRestecg());
+        list.add(medicalData.getMaxHeartRate());
+        list.add(medicalData.getAngina());
+        list.add(medicalData.getOldpeak());
+        list.add(medicalData.getSlope());
+        list.add(medicalData.getCa());
+        list.add(medicalData.getThal());
+        return list;
     }
 }
