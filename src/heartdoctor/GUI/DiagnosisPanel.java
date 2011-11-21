@@ -18,14 +18,13 @@ import heartdoctor.gui_controllers.GuiController;
  * @author michal
  */
 public class DiagnosisPanel extends javax.swing.JPanel {
-    private  GuiController controller;
 
-    
-    
-    public DiagnosisPanel(){
+    private GuiController controller;
+
+    public DiagnosisPanel() {
         initComponents();
     }
-    
+
     /** Creates new form DiagnosisPanel */
     public DiagnosisPanel(GuiController controller) {
         initComponents();
@@ -36,56 +35,60 @@ public class DiagnosisPanel extends javax.swing.JPanel {
         this.controller = controller;
     }
 
-    public void showMedicalData(MedicalData data){
+    public void showMedicalData(MedicalData data) {
         ECG.setSelectedIndex((int) data.getRestecg());
         Slope.setSelectedIndex(data.getSlopeEnum().ordinal());
         Thal.setSelectedIndex(data.getThalEnum().ordinal());
-        Vessels.setSelectedIndex((int)data.getCa());
+        Vessels.setSelectedIndex((int) data.getCa());
         chestPain.setSelectedIndex(data.getChestPainEnum().ordinal());
-        
-        age.setText(""+data.getAge());
-        sex.setSelectedIndex((int)data.getSex());
-        
-        anginaCombo.setSelected(data.getAngina()==1);
-        
-        bloodPressure.setText(""+data.getBloodPressure());
-        cholestoral.setText(""+data.getCholestoral());
-        sugar.setText(""+data.getBloodSugar());
-        heartRate.setText(""+data.getMaxHeartRate());
-        oldpeak.setText(""+data.getOldpeak());
+
+        age.setText("" + data.getAge());
+        sex.setSelectedIndex((int) data.getSex());
+
+        anginaCombo.setSelected(data.getAngina() == 1);
+
+        bloodPressure.setText("" + data.getBloodPressure());
+        cholestoral.setText("" + data.getCholestoral());
+        sugar.setText("" + data.getBloodSugar());
+        heartRate.setText("" + data.getMaxHeartRate());
+        oldpeak.setText("" + data.getOldpeak());
 
     }
-    
-    public MedicalData getMedicalData(){
-        MedicalData data=new MedicalData();
-        
+
+    public MedicalData getMedicalData() {
+        MedicalData data = new MedicalData();
+
         data.setSex(sex.getSelectedIndex());
-        data.setAge( Integer.parseInt(age.getText()) );
-        
-        data.setAngina(anginaCombo.isSelected()? 1:0);
-        
-        data.setChestPain(chestPain.getSelectedIndex()+1);
-        data.setSlope(Slope.getSelectedIndex()+1);
+        data.setAge(Double.parseDouble(age.getText()));
+
+        data.setAngina(anginaCombo.isSelected() ? 1 : 0);
+
+        data.setChestPain(chestPain.getSelectedIndex() + 1);
+        data.setSlope(Slope.getSelectedIndex() + 1);
         data.setRestecg(ECG.getSelectedIndex());
         data.setCa(Vessels.getSelectedIndex());
-        int indeks=Thal.getSelectedIndex();
-        switch(indeks){
-            case 0: data.setThal(3); break;
-            case 1: data.setThal(6); break;
-            case 2: data.setThal(7); break;
+        int indeks = Thal.getSelectedIndex();
+        switch (indeks) {
+            case 0:
+                data.setThal(3);
+                break;
+            case 1:
+                data.setThal(6);
+                break;
+            case 2:
+                data.setThal(7);
+                break;
         }
-        
-        data.setBloodPressure(Integer.parseInt(bloodPressure.getText()));
-        data.setCholestoral(Integer.parseInt(cholestoral.getText()));
-        data.setBloodSugar(Integer.parseInt(sugar.getText()));
-        data.setOldpeak(Integer.parseInt(oldpeak.getText()));
-        data.setMaxHeartRate(Integer.parseInt(heartRate.getText()));
-        
+
+        data.setBloodPressure(Double.parseDouble(bloodPressure.getText()));
+        data.setCholestoral(Double.parseDouble(cholestoral.getText()));
+        data.setBloodSugar(Double.parseDouble(sugar.getText()));
+        data.setOldpeak(Double.parseDouble(oldpeak.getText()));
+        data.setMaxHeartRate(Double.parseDouble(heartRate.getText()));
+
         return data;
     }
-    
-    
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -448,7 +451,6 @@ public class DiagnosisPanel extends javax.swing.JPanel {
     private void cholestoralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cholestoralActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cholestoralActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ECG;
     private javax.swing.JComboBox Slope;

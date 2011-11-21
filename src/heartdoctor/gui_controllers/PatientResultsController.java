@@ -4,6 +4,7 @@
  */
 package heartdoctor.gui_controllers;
 
+import heartdoctor.DataModel.MedicalData;
 import heartdoctor.DataModel.PatientData;
 import heartdoctor.DataModel.PatientSearchResults;
 import heartdoctor.GUI.SearchPatients;
@@ -109,7 +110,8 @@ public class PatientResultsController {
      * obsluguje akcje zapisania pacjenta/danych z gui
      * @return
      */
-    public boolean saveActivePatient() {
+    public boolean saveActivePatient(MedicalData medicalData) {
+        getActivePatient().setMedicalData(medicalData);
         try {
             return PatientController.updateMedicalRecord(getActivePatient().getMedicalData());
         } catch (SQLException ex) {

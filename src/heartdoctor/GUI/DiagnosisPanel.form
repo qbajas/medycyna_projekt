@@ -1,4 +1,4 @@
-<?xml version="1.1" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
@@ -141,7 +141,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Max heart rate"/>
             <Property name="toolTipText" type="java.lang.String" value="maximum heart rate achieved"/>
           </Properties>
         </Component>
@@ -282,7 +281,6 @@
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
             <Property name="text" type="java.lang.String" value="Slope"/>
-            <Property name="toolTipText" type="java.lang.String" value="The slope of the peak exercise ST segment"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="Slope">

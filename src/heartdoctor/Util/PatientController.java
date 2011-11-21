@@ -82,10 +82,10 @@ public class PatientController {
         PreparedStatement stm = null;
         ResultSet rs = null;
         try {
-            stm = conn.prepareStatement("update  LearnDataSet set"
-                    + "age=?, sex=?, cp=?, trestbps=?, chol=?, fbs=?, restecg=?, thalach=?,"
-                    + "exang=?, oldpeak=?, slope=?, ca=?, thal=?,num=?,diagnosis=?"
-                    + " WHERE id=?");
+            stm = conn.prepareStatement("update  LearnDataSet set "
+                    + "age=?, sex=?, cp=?, trestbps=?, chol=?, fbs=?, restecg=?, thalach=?, "
+                    + "exang=?, oldpeak=?, slope=?, ca=?, thal=?,num=?,diagnosis=? "
+                    + "WHERE id=?");
             stm.setDouble(1, record.getAge());
             stm.setDouble(2, record.getSex());
             stm.setDouble(3, record.getChestPain());
