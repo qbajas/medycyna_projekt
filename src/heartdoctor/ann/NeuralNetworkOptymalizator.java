@@ -42,14 +42,14 @@ public class NeuralNetworkOptymalizator implements Runnable{
     public NeuralNetworkOptymalizator(){
     // Konstruktor domyślny ustawia parametry do przetestowania
         _minNumHiddenLayers = 1;
-        _maxNumHiddenLayers = 5;
-        _minNumNeuronsPerHiddenLayer = 1;
-        _maxNumNeuronsPerHiddenLayer = 10;
+        _maxNumHiddenLayers = 1;
+        _minNumNeuronsPerHiddenLayer = 5;
+        _maxNumNeuronsPerHiddenLayer = 8;
 
-        _learningRateSet = new double[]{0.02};
-        _learningRateAdjustSet = new double[]{0.03};
-        _momentumSet = new double[]{0.0000001};
-        _forgettingRateSet = new double[]{0.4};
+        _learningRateSet = new double[]{0.05};
+        _learningRateAdjustSet = new double[]{0.003};
+        _momentumSet = new double[]{0.4};
+        _forgettingRateSet = new double[]{0.000001};
     }
 
     @Override
