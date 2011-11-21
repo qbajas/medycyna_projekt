@@ -7,18 +7,17 @@ package heartdoctor.databasefiller;
 import heartdoctor.DataModel.MedicalData;
 import heartdoctor.DataModel.PatientData;
 import heartdoctor.Util.DBUtil;
+import heartdoctor.Util.PatientController;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Random;
-import javax.swing.text.DateFormatter;
 
 /**
  *
@@ -82,14 +81,13 @@ public class PatientDataGenerator {
         data.setLastName(selectRandom(lastNames));
         if (sex == 0) {
             data.setName(selectRandom(femaleNames));
-            if (rand.nextInt(11) > 3) {
-                data.setMiddleName(selectRandom(femaleNames));
-            }
-        } else if (sex == 0) {
+            data.setMiddleName(selectRandom(femaleNames));
+            String last=data.getLastName();
+            if(last.endsWith("i"))
+                data.setLastName(last.substring(0, last.length()-1)+"a");
+        } else if (sex == 1) {
             data.setName(selectRandom(maleNames));
-            if (rand.nextInt(11) > 3) {
-                data.setMiddleName(selectRandom(maleNames));
-            }
+            data.setMiddleName(selectRandom(maleNames));       
         }
         
         data.setPesel(generatePesel(sex, age));
@@ -106,7 +104,7 @@ public class PatientDataGenerator {
         Date d=cal.getTime();
         SimpleDateFormat f=new SimpleDateFormat("yyMMdd");
         str=f.format(d);
-        str+=""+ rand.nextInt(11)+""+rand.nextInt(11)+""+rand.nextInt(11);
+        str+=""+ rand.nextInt(10)+""+rand.nextInt(10)+""+rand.nextInt(10);
         if(sex==0)
             str+=selectRandom(female);
         else
@@ -117,10 +115,13 @@ public class PatientDataGenerator {
 
     private String controlSum(String str){
         int [] tokens=new int[10];
-        int i=0;
-        String t[]= str.split("[:digit:]");
-        for(String tok:t)
-            tokens[i++]=Integer.parseInt(tok);
+       
+        for(int j=0;j<10;j++){
+            char [] chars=new char[1];
+            chars[0]=str.charAt(j);
+            tokens[j]=Integer.parseInt(new String(chars));
+        }
+            
         int sum=tokens[0]+3*tokens[1]+7*tokens[2]+9*tokens[3]+
                 tokens[4]+3*tokens[5]+7*tokens[6]+9*tokens[7] +tokens[8] + 3* tokens[9];
         int rest=sum % 10;
@@ -139,13 +140,17 @@ public class PatientDataGenerator {
     }
 
     private String generateCode() {
-        String str;
-        str = "" + rand.nextInt(100);
+        String str="";
+        int code=rand.nextInt(100);
+        if(code<10)
+            str+="0";
+        str +="" + code;
         str += "-";
         int token = rand.nextInt(700);
-        if (token < 100) {
+        if (token < 100) 
             str += "0";
-        }
+        if(token<10)
+            str+="0";
         str += "" + token;
         return str;
     }
@@ -157,12 +162,14 @@ public class PatientDataGenerator {
         ResultSet rs = null;
         MedicalData data=null;
         PatientData patient=null;
+        int counter=0;
         try {
             conn = DBUtil.getConnection();
             stm = conn.createStatement();
             rs = stm.executeQuery("select * from LearnDataSet");
             rs.setFetchSize(500);
             while (rs.next()) {
+                System.out.println("Generating patient "+ (++counter) );
                 data=processResultSet(rs);
                 patient=generatePatient(data.getSex(), data.getAge());
                 patient.setMedicalData(data);
@@ -177,17 +184,17 @@ public class PatientDataGenerator {
     
     public void updateDB(PatientData patient) throws SQLException{
         Connection conn=null;
-        PreparedStatement patientStm=null;
-        PreparedStatement updateStm=null;
+        PreparedStatement stm=null;
         ResultSet rs=null;
         try{
+            PatientController.addPatient(patient);
             conn=DBUtil.getConnection();
-            conn.setAutoCommit(false);
-            
-            
-            conn.commit();
+            stm=conn.prepareStatement("update LearnDataSet set patient_id=? where id=?");
+            stm.setInt(1, patient.getID());
+            stm.setInt(2, patient.getMedicalData().getDbID());
+            stm.executeUpdate();
         } finally {
-            DBUtil.close(updateStm, rs);
+            DBUtil.close(stm, rs);
             DBUtil.close(conn);
         }
         

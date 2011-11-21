@@ -38,7 +38,7 @@ public class PatientController {
                 DBUtil.close(conn);
             }
         } else {
-            System.out.println("Blad w numerze pesel");
+            System.out.println("Blad w numerze pesel " + pesel);
             return false;
         }
     }
@@ -101,7 +101,7 @@ public class PatientController {
             stm.setDouble(13, record.getThal());
             stm.setDouble(14, record.getDiagnosis());
             stm.setDouble(15, record.getProgramDiagnosis());
-            stm.setInt(15, record.getDbID());
+            stm.setInt(16, record.getDbID());
             stm.executeUpdate();
             return true;
         } finally {
