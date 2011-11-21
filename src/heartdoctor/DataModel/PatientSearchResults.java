@@ -100,6 +100,7 @@ public class PatientSearchResults {
                 medicalData.setSlope(rs.getDouble(20));
                 medicalData.setCa(rs.getDouble(21));
                 medicalData.setThal(rs.getDouble(22));
+                medicalData.setProgramDiagnosis(rs.getDouble(25));
                 medicalData.setDiagnosis(rs.getDouble(23));
 
 //                rs.getInt(9), rs.getDouble(10), new MedicalData.Sex())

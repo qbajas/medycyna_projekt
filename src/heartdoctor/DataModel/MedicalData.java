@@ -22,11 +22,11 @@ public class MedicalData {
     private double ca;
     private Thal thal;
     private double diagnosis; //zweryfikowana przez lekarza, -1 jesli nie potwierdzono
-    private double programDiagnosis=-1; //diagnoza wystawiona przez program, -1 jesli nie diagnozowano
+    private double programDiagnosis = -1; //diagnoza wystawiona przez program, -1 jesli nie diagnozowano
 
-    public MedicalData(int dbID,double age, Sex sex, ChestPain chestPain, 
-            double bloodPressure, double cholestoral, double bloodSugar, 
-            RestingECGResult restecg, double maxHeartRate, double angina, 
+    public MedicalData(int dbID, double age, Sex sex, ChestPain chestPain,
+            double bloodPressure, double cholestoral, double bloodSugar,
+            RestingECGResult restecg, double maxHeartRate, double angina,
             double oldpeak, Slope slope, double ca, Thal thal, double diagnosis) {
         this.dbID = dbID;
         this.age = age;
@@ -121,7 +121,7 @@ public class MedicalData {
     }
 
     public void setChestPain(double chestPain) {
-        switch ((int)chestPain) {
+        switch ((int) chestPain) {
             case 1:
                 this.chestPain = ChestPain.TypicalAngina;
                 break;
@@ -146,7 +146,7 @@ public class MedicalData {
     public void setDbID(int dbID) {
         this.dbID = dbID;
     }
-    
+
     public double getCholestoral() {
         return cholestoral;
     }
@@ -184,7 +184,7 @@ public class MedicalData {
     }
 
     public void setRestecg(double restecg) {
-        switch ((int)restecg) {
+        switch ((int) restecg) {
             case 0:
                 this.restecg = RestingECGResult.Normal;
                 break;
@@ -204,7 +204,7 @@ public class MedicalData {
     }
 
     public void setSex(double sex) {
-        switch ((int)sex) {
+        switch ((int) sex) {
             case 0:
                 this.sex = Sex.Female;
                 break;
@@ -221,7 +221,7 @@ public class MedicalData {
     }
 
     public void setSlope(double slope) {
-        switch ((int)slope) {
+        switch ((int) slope) {
             case 1:
                 this.slope = Slope.UpSloping;
                 break;
@@ -241,7 +241,7 @@ public class MedicalData {
     }
 
     public void setThal(double thal) {
-        switch ((int)thal) {
+        switch ((int) thal) {
             case 3:
                 this.thal = Thal.Normal;
                 break;
@@ -270,6 +270,42 @@ public class MedicalData {
 
     public Slope getSlopeEnum() {
         return slope;
+    }
+
+    /**
+     * returns value for select in view
+     * @return
+     */
+    public int getSlopeForSelect() {
+        if (slope == null) {
+            return 0; //default value
+        } else {
+            return (int) slope.ordinal();
+        }
+    }
+
+    /**
+     * returns value for select in view
+     * @return
+     */
+    public int getThalForSelect() {
+        if (thal == null) {
+            return 0; //default value
+        } else {
+            return (int) thal.ordinal();
+        }
+    }
+
+    /**
+     * returns value for select in view
+     * @return
+     */
+    public int getChestPainForSelect() {
+        if (chestPain == null) {
+            return 0; //default value
+        } else {
+            return (int) chestPain.ordinal();
+        }
     }
 
     public Thal getThalEnum() {
