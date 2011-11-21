@@ -107,7 +107,7 @@ public class NeuralNetworkTrainer {
 	_validationSetAccuracy = _evaluator.calcDataSetAccuracy(validationSet);
 	_validationSetMSE = _evaluator.calcDataSetMSE(validationSet);
 
-	//System.out.printf("Gotowe! Epoch: %d, ValidAccuracy: %f, ValidMSE: %f\n", epoch, _validationSetAccuracy, _validationSetMSE);
+	System.out.printf("Gotowe! Epoch: %d, ValidAccuracy: %f, ValidMSE: %f\n", epoch, _validationSetAccuracy, _validationSetMSE);
   }
 
   private void runTrainingEpoch(DataSet trainingSet)
