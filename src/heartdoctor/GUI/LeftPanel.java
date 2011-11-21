@@ -44,10 +44,10 @@ public class LeftPanel extends javax.swing.JPanel {
         validateButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 102, 0));
-        setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        setBackground(new java.awt.Color(255, 153, 51));
+        setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        SearchPatientButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        SearchPatientButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         SearchPatientButton.setText("<html>\n<center>\nAll\n<br>\npatients \n</center>\n</html>");
         SearchPatientButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -55,7 +55,7 @@ public class LeftPanel extends javax.swing.JPanel {
             }
         });
 
-        learnButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        learnButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         learnButton.setText("<html>\n<center>\nRun <br>\nlearning <br>\nprocess\n</center>\n</html>");
         learnButton.setEnabled(false);
         learnButton.addActionListener(new java.awt.event.ActionListener() {
@@ -64,7 +64,7 @@ public class LeftPanel extends javax.swing.JPanel {
             }
         });
 
-        validateButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        validateButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         validateButton.setText("<html>\n<center>\nPatients \n<br>\nwithout \n<br>\ndiagnosis\n</center>\n</html>");
         validateButton.setEnabled(false);
         validateButton.addActionListener(new java.awt.event.ActionListener() {

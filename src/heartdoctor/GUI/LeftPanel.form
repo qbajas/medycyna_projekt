@@ -3,11 +3,11 @@
 <Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-      <Color blue="0" green="66" red="ff" type="rgb"/>
+      <Color blue="33" green="99" red="ff" type="rgb"/>
     </Property>
     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-        <BevelBorder bevelType="1"/>
+      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+        <EtchetBorder/>
       </Border>
     </Property>
   </Properties>
@@ -58,7 +58,7 @@
     <Component class="javax.swing.JButton" name="SearchPatientButton">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="12" style="0"/>
+          <Font name="Tahoma" size="12" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;center&gt;&#xa;All&#xa;&lt;br&gt;&#xa;patients &#xa;&lt;/center&gt;&#xa;&lt;/html&gt;"/>
       </Properties>
@@ -72,7 +72,7 @@
     <Component class="javax.swing.JButton" name="learnButton">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="12" style="0"/>
+          <Font name="Tahoma" size="12" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;center&gt;&#xa;Run &lt;br&gt;&#xa;learning &lt;br&gt;&#xa;process&#xa;&lt;/center&gt;&#xa;&lt;/html&gt;"/>
         <Property name="enabled" type="boolean" value="false"/>
@@ -87,7 +87,7 @@
     <Component class="javax.swing.JButton" name="validateButton">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="12" style="0"/>
+          <Font name="Tahoma" size="12" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;center&gt;&#xa;Patients &#xa;&lt;br&gt;&#xa;without &#xa;&lt;br&gt;&#xa;diagnosis&#xa;&lt;/center&gt;&#xa;&lt;/html&gt;"/>
         <Property name="enabled" type="boolean" value="false"/>
