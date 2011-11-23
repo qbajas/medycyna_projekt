@@ -22,7 +22,10 @@ import java.util.logging.Logger;
 public class PatientController {
 
     private static final String queryString = "select * from Patients where pesel=?";
-
+    static Connection patientConn = null;
+    static PreparedStatement patientStm = null;
+    
+    
     public static boolean canCreate(String pesel) throws SQLException {
         if (pesel.length() == 11 && pesel.matches("[0-9]+")) {
             Connection conn = DBUtil.getConnection();
@@ -183,27 +186,31 @@ public class PatientController {
 
     }
 
-    public static boolean addPatient(PatientData patient) throws SQLException {
-        Connection conn = DBUtil.getConnection();
-        PreparedStatement stm = null;
+    public static boolean addPatient(PatientData patient, boolean single) throws SQLException {
+        
+        if(patientConn==null)
+            patientConn = DBUtil.getConnection();
+
+        
         ResultSet rs = null;
         try {
 
             if (!canCreate(patient.getPesel())) {
                 return false;
             }
-            stm = conn.prepareStatement("insert into Patients "
+            if(patientStm==null)
+            patientStm = patientConn.prepareStatement("insert into Patients "
                     + "(name,middlename,lastname,pesel,address,postalcode,city) "
                     + "values(?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            stm.setString(1, patient.getName());
-            stm.setString(2, patient.getMiddleName());
-            stm.setString(3, patient.getLastName());
-            stm.setString(4, patient.getPesel());
-            stm.setString(5, patient.getAddress());
-            stm.setString(6, patient.getPostalCode());
-            stm.setString(7, patient.getCity());
-            stm.executeUpdate();
-            rs = stm.getGeneratedKeys();
+            patientStm.setString(1, patient.getName());
+            patientStm.setString(2, patient.getMiddleName());
+            patientStm.setString(3, patient.getLastName());
+            patientStm.setString(4, patient.getPesel());
+            patientStm.setString(5, patient.getAddress());
+            patientStm.setString(6, patient.getPostalCode());
+            patientStm.setString(7, patient.getCity());
+            patientStm.executeUpdate();
+            rs = patientStm.getGeneratedKeys();
 
             if (rs.next()) {
                 patient.setID(rs.getInt(1));
@@ -213,11 +220,22 @@ public class PatientController {
 
             return true;
         } finally {
-            DBUtil.close(stm);
-            DBUtil.close(conn);
+            DBUtil.close(rs);
+            if(single){
+                DBUtil.close(patientStm);
+                DBUtil.close(patientConn);
+                patientStm=null;
+                patientConn=null;
+            }
+
         }
     }
 
+    public static void closeConnection(){
+        DBUtil.close(patientStm);
+        DBUtil.close(patientConn);
+    }
+    
     public static void main(String[] args) {
         System.out.println("Dodawanie pacjenta:");
         String pesel;
@@ -242,7 +260,7 @@ public class PatientController {
             patient.setPostalCode(scan.nextLine());
             System.out.println("Podaj miejscowosc:");
             patient.setCity(scan.nextLine());
-            addPatient(patient);
+            addPatient(patient,true);
         } catch (SQLException ex) {
             Logger.getLogger(SecurityController.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Nie mozna dodac pacjenta");

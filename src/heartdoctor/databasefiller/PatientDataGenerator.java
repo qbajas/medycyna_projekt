@@ -34,9 +34,11 @@ public class PatientDataGenerator {
     private String[] male;
     private Random rand;
 
+    Connection updateConn=null;
+    PreparedStatement updateStm=null;
+    
     public PatientDataGenerator() {
         initComponents();
-
     }
 
     private void clearDB() throws SQLException {
@@ -165,6 +167,8 @@ public class PatientDataGenerator {
         int counter=0;
         try {
             conn = DBUtil.getConnection();
+            updateConn=DBUtil.getConnection();
+            updateStm= conn.prepareStatement("update LearnDataSet set patient_id=? where id=?");
             stm = conn.createStatement();
             rs = stm.executeQuery("select * from LearnDataSet");
             rs.setFetchSize(500);
@@ -178,26 +182,17 @@ public class PatientDataGenerator {
         } finally {
             DBUtil.close(stm, rs);
             DBUtil.close(conn);
+            DBUtil.close(updateConn);
+            DBUtil.close(updateStm);
+            PatientController.closeConnection();
         }
-        DBUtil.getConnection();
     }
     
-    public void updateDB(PatientData patient) throws SQLException{
-        Connection conn=null;
-        PreparedStatement stm=null;
-        ResultSet rs=null;
-        try{
-            PatientController.addPatient(patient);
-            conn=DBUtil.getConnection();
-            stm=conn.prepareStatement("update LearnDataSet set patient_id=? where id=?");
-            stm.setInt(1, patient.getID());
-            stm.setInt(2, patient.getMedicalData().getDbID());
-            stm.executeUpdate();
-        } finally {
-            DBUtil.close(stm, rs);
-            DBUtil.close(conn);
-        }
-        
+    public void updateDB(PatientData patient) throws SQLException{ 
+            PatientController.addPatient(patient,false);
+            updateStm.setInt(1, patient.getID());
+            updateStm.setInt(2, patient.getMedicalData().getDbID());
+            updateStm.executeUpdate();  
     }
 
     private String selectRandom(String[] list) {
