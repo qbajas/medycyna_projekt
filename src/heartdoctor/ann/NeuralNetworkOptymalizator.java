@@ -43,13 +43,13 @@ public class NeuralNetworkOptymalizator implements Runnable{
     // Konstruktor domyślny ustawia parametry do przetestowania
         _minNumHiddenLayers = 1;
         _maxNumHiddenLayers = 1;
-        _minNumNeuronsPerHiddenLayer = 5;
+        _minNumNeuronsPerHiddenLayer = 6;
         _maxNumNeuronsPerHiddenLayer = 8;
 
-        _learningRateSet = new double[]{0.05};
-        _learningRateAdjustSet = new double[]{0.003};
-        _momentumSet = new double[]{0.4};
-        _forgettingRateSet = new double[]{0.000001};
+        _learningRateSet = new double[]{0.03};
+        _learningRateAdjustSet = new double[]{0.001};
+        _momentumSet = new double[]{0.5};
+        _forgettingRateSet = new double[]{0.00001};
     }
 
     @Override
@@ -87,9 +87,6 @@ public class NeuralNetworkOptymalizator implements Runnable{
                                         clean();
                                         return;
                                     }
-                                    System.out.println("Iteracja : "+q+"\n Hidden Layers: "+h+"\n Perceptrony: "+p+"\n LearningRate: "+
-                                            _learningRateSet[lr]+"\n LearningRateAdj: "+_learningRateAdjustSet[lra]+
-                                            "\n Momentum: "+_momentumSet[m]+"\n ForgottingRate: "+_forgettingRateSet[fr]);
 
                                     _network = new NeuralNetwork(INPUTS, OUTPUTS, h, p);
                                     _nnTrainer = new NeuralNetworkTrainer(_network);
@@ -108,14 +105,13 @@ public class NeuralNetworkOptymalizator implements Runnable{
 
                                     _validationAcc= _nnTrainer.getValidationSetAccuracy();
                                     _validationMSE= _nnTrainer.getValidationSetMSE();
-                                    System.out.println("accuracy: "+_validationAcc+" MSE: "+_validationMSE);
                                     controller.updateValidationParams(_validationAcc, _validationMSE);
                                     q++;
                                 }
             controller.notifyFinished();
         } catch(Exception ex){
             System.out.println("Error: "+ex.toString());
-            //controller.processLearningExceptions(ex);
+            controller.processLearningExceptions(ex);
         }
     }  
     /*

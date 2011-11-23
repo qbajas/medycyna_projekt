@@ -23,7 +23,7 @@ public class DBUtil {
     private static String DB_CONN_STRING = "jdbc:mysql://db4free.net:3306/cdssdatabase";
     private static String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
     private static String USER_NAME = "medycynaman";
-    private static String PASSWORD = "pukocz4";
+    private static String PASSWORD = "projekt4";
 
     public static Connection getConnection() {
 
