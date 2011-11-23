@@ -6,7 +6,7 @@ package heartdoctor.DataModel;
  */
 public class PatientData {
 
-    int ID; // id z bazy, również id klienta, np. pesel
+    int ID; // id z bazy
     private String name;
     private String middleName;
     private String lastName;
@@ -16,9 +16,15 @@ public class PatientData {
     private String city;
     private MedicalData medicalData;
 
+    /**
+     * Tworzy pusty obiekt
+     */
     public PatientData() {
     }
 
+    /**
+     * Tworzy obiekt PatientData na podstawie danych osobowych
+     */
     public PatientData(int ID, String name, String middleName, String lastName, String pesel, String address, String postalCode, String city, MedicalData medicalData) {
         this.ID = ID;
         this.name = name;
@@ -31,10 +37,18 @@ public class PatientData {
         this.medicalData = medicalData;
     }
 
+    /**
+     * Zwraca ID pacjenta z bazy danych
+     * @return 
+     */
     public int getID() {
         return ID;
     }
 
+    /**
+     * Ustawia ID pacjetna które będzie miał w bazie danych
+     * @param ID 
+     */
     public void setID(int ID) {
         this.ID = ID;
     }

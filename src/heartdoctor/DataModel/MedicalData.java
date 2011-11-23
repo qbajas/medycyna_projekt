@@ -2,7 +2,7 @@ package heartdoctor.DataModel;
 
 /**
  * Klasa do reprezentacji danych z bazy. 
- * Dodane enumy dla mapowania i ułatwienia roboty z GUI.
+ * Dodane enumy dla mapowania i ułatwienia integracji z GUI.
  * @author michal
  */
 public class MedicalData {
@@ -24,6 +24,9 @@ public class MedicalData {
     private double diagnosis; //zweryfikowana przez lekarza, -1 jesli nie potwierdzono
     private double programDiagnosis = -1; //diagnoza wystawiona przez program, -1 jesli nie diagnozowano
 
+    /**
+     * Tworzy obiekt MedicalData
+     */
     public MedicalData(int dbID, double age, Sex sex, ChestPain chestPain,
             double bloodPressure, double cholestoral, double bloodSugar,
             RestingECGResult restecg, double maxHeartRate, double angina,

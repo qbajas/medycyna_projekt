@@ -52,8 +52,21 @@ public class DiagnosisPanel extends javax.swing.JPanel {
         sugar.setText("" + data.getBloodSugar());
         heartRate.setText("" + data.getMaxHeartRate());
         oldpeak.setText("" + data.getOldpeak());
-        verifiedDiagnosis.setText(Double.toString(data.getDiagnosis()));
-        diagnosis.setText(Double.toString(data.getProgramDiagnosis()));
+         
+        double tmp=data.getDiagnosis();
+        if(tmp==-1)
+            verifiedDiagnosis.setSelectedIndex(2);
+        else
+            if(tmp==0)
+                verifiedDiagnosis.setSelectedIndex(0);
+             else
+                verifiedDiagnosis.setSelectedIndex(1);
+        
+        tmp=data.getProgramDiagnosis();
+        if(tmp==-1)
+            diagnosis.setText("Not diagnosed");
+        else
+            diagnosis.setText(tmp==0? "Healthy":"Heart disease");
 
     }
 
@@ -87,9 +100,20 @@ public class DiagnosisPanel extends javax.swing.JPanel {
         data.setBloodSugar(Double.parseDouble(sugar.getText()));
         data.setOldpeak(Double.parseDouble(oldpeak.getText()));
         data.setMaxHeartRate(Double.parseDouble(heartRate.getText()));
-        data.setDiagnosis(Double.parseDouble(verifiedDiagnosis.getText()));
-        data.setProgramDiagnosis(Double.parseDouble(diagnosis.getText()));
-
+        
+        int index=verifiedDiagnosis.getSelectedIndex();
+        if(index==2)
+            data.setDiagnosis(-1);
+        else
+            data.setDiagnosis(index);
+        
+        String str=diagnosis.getText();
+        if(str.equalsIgnoreCase("Not diagnosed"))
+            data.setProgramDiagnosis(-1);
+        else if( str.equalsIgnoreCase("Healthy"))
+            data.setProgramDiagnosis(0);
+        else if(str.equalsIgnoreCase("Heart Disease"))
+            data.setProgramDiagnosis(1);
         return data;
     }
 
@@ -138,7 +162,7 @@ public class DiagnosisPanel extends javax.swing.JPanel {
         diagnosis = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        verifiedDiagnosis = new javax.swing.JTextField();
+        verifiedDiagnosis = new javax.swing.JComboBox();
 
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
@@ -385,12 +409,14 @@ public class DiagnosisPanel extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(diagnosis))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel15.setText("Verified diagnosis");
+
+        verifiedDiagnosis.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Healthy", "Heart Disease", "Not Verified" }));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -400,8 +426,8 @@ public class DiagnosisPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(verifiedDiagnosis, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addComponent(verifiedDiagnosis, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,7 +436,7 @@ public class DiagnosisPanel extends javax.swing.JPanel {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(verifiedDiagnosis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(5, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -443,7 +469,7 @@ public class DiagnosisPanel extends javax.swing.JPanel {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel6, 0, 38, Short.MAX_VALUE)
+                    .addComponent(jPanel6, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -493,6 +519,6 @@ public class DiagnosisPanel extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField oldpeak;
     private javax.swing.JComboBox sex;
     private javax.swing.JFormattedTextField sugar;
-    private javax.swing.JTextField verifiedDiagnosis;
+    private javax.swing.JComboBox verifiedDiagnosis;
     // End of variables declaration//GEN-END:variables
 }

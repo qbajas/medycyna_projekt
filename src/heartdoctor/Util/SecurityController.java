@@ -142,7 +142,7 @@ public class SecurityController {
 
     /**
      * Kreator dodawania nowego uzytkownika. Funkcja pomocnicza przy 
-     * tworzeniu bazy uzytkownikow.
+     * tworzeniu bazy użytkowników.
      * @param args 
      */
     public static void main(String[] args) {

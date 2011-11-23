@@ -1,25 +1,23 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package heartdoctor.DataModel;
 
 /**
- *
+ * Klasa przechowująca dane użytkownika
  * @author michal
  */
 public class User {
+
     private String login;
     private String password;
     private String name;
     private String lastName;
     private String role;
-    
-    public User(){}
-    
-    public User(String login,String password){
-        this.login=login;
-        this.password= password;
+
+    public User() {
+    }
+
+    public User(String login, String password) {
+        this.login = login;
+        this.password = password;
     }
 
     public String getLastName() {
@@ -61,20 +59,23 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
-
-
 //    ROLES
-
     private static final String DOCTOR_STRING = "doctor";
     private static final String ADMIN_STRING = "admin";
 
-    public boolean isDoctor(){
-       return  getRole().equals(DOCTOR_STRING);
+    /**
+     * Sprawdza czy użytkownik jest lekarzem
+     * @return true jeśli użytkownik jest lekarzem
+     */
+    public boolean isDoctor() {
+        return getRole().equals(DOCTOR_STRING);
     }
 
-    public boolean isAdmin(){
-       return  getRole().equals(ADMIN_STRING);
+    /**
+     * Sprawdza czy użytkownik jest administratorem
+     * @return true jeśli użytkownik jest administratorem
+     */
+    public boolean isAdmin() {
+        return getRole().equals(ADMIN_STRING);
     }
-      
-
 }

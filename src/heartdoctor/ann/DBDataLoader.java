@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Wczytuje dane z bazy danych
+ * Wczytuje dane z bazy danych i konwertuje na format używany przez sieć neuronową
  * @author michal
  */
 public class DBDataLoader implements DataLoader {

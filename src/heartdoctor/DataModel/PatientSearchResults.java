@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package heartdoctor.DataModel;
 
 import java.sql.Connection;
@@ -30,7 +26,6 @@ public class PatientSearchResults {
      */
     public PatientSearchResults() {
         patients = new ArrayList<PatientData>();
-//        loadAllPatients();
     }
 
     /**
@@ -40,24 +35,13 @@ public class PatientSearchResults {
      */
     public PatientSearchResults(int initialCapacity) {
         patients = new ArrayList<PatientData>(initialCapacity);
-//        loadAllPatients();
     }
 
     /**
-     * konstruktor tworzacy rezultaty na podstawie query
-     * @param query
+     * Wyszukuje pacjentów na podstawie zapytania SQL
+     * @param query Zapytanie SQL do tabeli z pacjentami
      */
-//    public PatientSearchResults(String query) {
-//        patients = search(query);
-//    }
-    /**
-     * wykonuje zapytanie sql do bazy, rezulaty zapisuje w obiekcie
-     * @param query
-     * @return
-     */
-//    public ArrayList<PatientData> search(String query) {
     public void search(String query) {
-//        patients = new ArrayList<PatientData>();
         Connection conn = DBUtil.getConnection();
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -74,8 +58,8 @@ public class PatientSearchResults {
     }
 
     /**
-     * na podstawie resultatu zapytania generuje obiekty 
-     * @param rs
+     * Na podstawie resultatu zapytania generuje obiekty PatientData
+     * @param rs 
      * @return
      */
     public ArrayList<PatientData> convertResultSet(ResultSet rs) {
@@ -100,10 +84,16 @@ public class PatientSearchResults {
                 medicalData.setSlope(rs.getDouble(20));
                 medicalData.setCa(rs.getDouble(21));
                 medicalData.setThal(rs.getDouble(22));
-                medicalData.setProgramDiagnosis(rs.getDouble(25));
-                medicalData.setDiagnosis(rs.getDouble(23));
-
-//                rs.getInt(9), rs.getDouble(10), new MedicalData.Sex())
+                double tmp = rs.getDouble(25);
+                if (rs.wasNull()) {
+                    tmp = -1;
+                }
+                medicalData.setProgramDiagnosis(tmp);
+                tmp = rs.getDouble(23);
+                if (rs.wasNull()) {
+                    tmp = -1;
+                }
+                medicalData.setDiagnosis(tmp);
                 patientData = new PatientData(rs.getInt(1), rs.getString(2),
                         rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
                         rs.getString(7), rs.getString(8), medicalData);
@@ -154,37 +144,35 @@ public class PatientSearchResults {
      * generuje zapytanie sql z danych z kontrolera
      */
     public static String generateSQL(String searchBy, String condition, String value) {
-        return  getBasicQuery() + " WHERE " + searchBy.toLowerCase() + " " + condition + " '" + value + "'";
+        return getBasicQuery() + " WHERE " + searchBy.toLowerCase() + " " + condition + " '" + value + "'";
     }
-
 
     /**
      * wczytywanie wszystkich pacjentow
      */
-    public void loadAllPatients()
-    {
+    public void loadAllPatients() {
         search(getBasicQuery());
     }
 
     /**
      * wczytywanie pacjentow bez diagnozy wystwionej przez lekarza
      */
-    public void loadNotDiagnosedPatients(){
+    public void loadNotDiagnosedPatients() {
         search(getBasicQuery() + " WHERE num IS NULL AND diagnosis IS NOT NULL ");
     }
-
 
     /**
      * szkielet zapytania
      * @return
      */
-    private static String getBasicQuery(){
+    private static String getBasicQuery() {
         return "SELECT * FROM Patients P JOIN LearnDataSet L on P.id=L.patient_id ";
     }
 
     /**
-     * Generuje 10 rekordow, funkcja na czas testow, do wywalenia pozniej
+     * Generuje 10 rekordow, funkcja na czas testow, nieużywana
      */
+    @Deprecated
     public void populateRecords() {
         Random rand = new Random();
         for (int i = 0; i < 10; i++) {
@@ -220,9 +208,7 @@ public class PatientSearchResults {
                 thal = 7;
             }
             medical.setThal(thal);
-
             patients.add(patient);
-
         }
     }
 }

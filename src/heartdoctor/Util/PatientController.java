@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package heartdoctor.Util;
 
 import heartdoctor.DataModel.MedicalData;
@@ -24,8 +20,13 @@ public class PatientController {
     private static final String queryString = "select * from Patients where pesel=?";
     static Connection patientConn = null;
     static PreparedStatement patientStm = null;
-    
-    
+
+    /**
+     * Sprawdza czy można utworzyć pacjenta o zadanym nr PESEL, walidacja PESELu
+     * @param pesel PESEL do walidacji
+     * @return
+     * @throws SQLException 
+     */
     public static boolean canCreate(String pesel) throws SQLException {
         if (pesel.length() == 11 && pesel.matches("[0-9]+")) {
             Connection conn = DBUtil.getConnection();
@@ -46,6 +47,12 @@ public class PatientController {
         }
     }
 
+    /**
+     * Aktualizuje dane osobowe pacjenta
+     * @param patient Dane do aktualizacji
+     * @return true jesli zaktualizowano
+     * @throws SQLException 
+     */
     public static boolean updatePatient(PatientData patient) throws SQLException {
         Connection conn = DBUtil.getConnection();
         PreparedStatement stm = null;
@@ -72,8 +79,8 @@ public class PatientController {
     }
 
     /**
-     * poprawione
-     * @param record
+     * Aktualizuje dane medyczne
+     * @param record Dane do aktualizacji
      * @return
      * @throws SQLException
      */
@@ -113,6 +120,12 @@ public class PatientController {
         }
     }
 
+    /**
+     * Usuwa z bazy danych danego pacjenta, nie usuwa danych medycznych
+     * @param patient
+     * @return
+     * @throws SQLException 
+     */
     public static int deletePatient(PatientData patient) throws SQLException {
         Connection conn = DBUtil.getConnection();
         Statement stm = null;
@@ -125,6 +138,12 @@ public class PatientController {
         }
     }
 
+    /**
+     * Usuwa rekord z danymi medycznymi
+     * @param data Dane medyczne w bazie do usunięcia
+     * @return Liczba usuniętych rekordów
+     * @throws SQLException 
+     */
     public static int deleteMedicalRecord(MedicalData data) throws SQLException {
         Connection conn = DBUtil.getConnection();
         Statement stm = null;
@@ -170,9 +189,7 @@ public class PatientController {
             stm.setDouble(16, record.getProgramDiagnosis());
 
             stm.executeUpdate();
-
             rs = stm.getGeneratedKeys();
-
             if (rs.next()) {
                 record.setDbID(rs.getInt(1));
                 patient.setMedicalData(record);
@@ -186,22 +203,29 @@ public class PatientController {
 
     }
 
+    /**
+     * Dodaje do bazy danych pacjenta
+     * @param patient Dane osobowe pacjenta
+     * @param single true jesli dodajemy jednego pacjenta, false jeśli funkcja
+     * będzie wykonywana w pętli- zapewnia szybsze wykonanie kilku insertów
+     * Jeśli false należy dodatkowo po pętli wywołać funkcję closeConnection()
+     * @return true jesli dodano pacjenta
+     * @throws SQLException 
+     */
     public static boolean addPatient(PatientData patient, boolean single) throws SQLException {
-        
-        if(patientConn==null)
-            patientConn = DBUtil.getConnection();
 
-        
+        if (patientConn == null) {
+            patientConn = DBUtil.getConnection();
+        }
         ResultSet rs = null;
         try {
-
-            if (!canCreate(patient.getPesel())) {
+            if (!canCreate(patient.getPesel())) 
                 return false;
+            if (patientStm == null) {
+                patientStm = patientConn.prepareStatement("insert into Patients "
+                        + "(name,middlename,lastname,pesel,address,postalcode,city) "
+                        + "values(?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             }
-            if(patientStm==null)
-            patientStm = patientConn.prepareStatement("insert into Patients "
-                    + "(name,middlename,lastname,pesel,address,postalcode,city) "
-                    + "values(?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             patientStm.setString(1, patient.getName());
             patientStm.setString(2, patient.getMiddleName());
             patientStm.setString(3, patient.getLastName());
@@ -209,9 +233,9 @@ public class PatientController {
             patientStm.setString(5, patient.getAddress());
             patientStm.setString(6, patient.getPostalCode());
             patientStm.setString(7, patient.getCity());
+
             patientStm.executeUpdate();
             rs = patientStm.getGeneratedKeys();
-
             if (rs.next()) {
                 patient.setID(rs.getInt(1));
             } else {
@@ -221,21 +245,28 @@ public class PatientController {
             return true;
         } finally {
             DBUtil.close(rs);
-            if(single){
+            if (single) {
                 DBUtil.close(patientStm);
                 DBUtil.close(patientConn);
-                patientStm=null;
-                patientConn=null;
+                patientStm = null;
+                patientConn = null;
             }
 
         }
     }
 
-    public static void closeConnection(){
+    /**
+     * Zamyka połączenie i PreparedStatement przy dodawaniu wielu pacjentów
+     */
+    public static void closeConnection() {
         DBUtil.close(patientStm);
         DBUtil.close(patientConn);
     }
-    
+
+    /**
+     * Prosty formularz do ręcznego wprowadzania nowego pacjenta do bazy danych
+     * @param args 
+     */
     public static void main(String[] args) {
         System.out.println("Dodawanie pacjenta:");
         String pesel;
@@ -260,7 +291,7 @@ public class PatientController {
             patient.setPostalCode(scan.nextLine());
             System.out.println("Podaj miejscowosc:");
             patient.setCity(scan.nextLine());
-            addPatient(patient,true);
+            addPatient(patient, true);
         } catch (SQLException ex) {
             Logger.getLogger(SecurityController.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Nie mozna dodac pacjenta");

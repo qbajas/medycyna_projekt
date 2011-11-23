@@ -1,23 +1,20 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package heartdoctor.gui_controllers;
 
 import heartdoctor.DataModel.MedicalData;
 import heartdoctor.DataModel.PatientData;
 import heartdoctor.DataModel.PatientSearchResults;
 import heartdoctor.GUI.SearchPatients;
-import heartdoctor.Util.ANNSerializer;
 import heartdoctor.Util.PatientController;
 import heartdoctor.ann.NeuralNetwork;
+import heartdoctor.application.AppController;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Kontroler do zarzadzania wyswietlaniem listy pacjentow w widoku SearchPatients
+ * Klasa kontrolera do zarzadzania wyswietlaniem listy pacjentow w 
+ * widoku SearchPatients.
  * @author michal
  */
 public class PatientResultsController {
@@ -110,7 +107,7 @@ public class PatientResultsController {
 
     /**
      * obsluguje akcje zapisania pacjenta/danych z gui
-     * @return
+     * @return true jeśli zapis się powiódł, false w przeciwnym wypadku
      */
     public boolean saveActivePatient(MedicalData medicalData) {
         getActivePatient().setMedicalData(medicalData);
@@ -122,22 +119,18 @@ public class PatientResultsController {
         }
     }
 
-    /**
-     * Widac ze nic nie robi, cos mialo robic ale nie pamietam co dokladnie
-     * chyba mialo modyfikowac aktualnie wybranego pacjenta, na razie nie potrzebne
-     * @param data 
-     */
-    public void setPatientData(PatientData data) {
-    }
 
     /**
-     * wczytuje wszystkich pacjentow do formularza
+     * Wczytuje wszystkich pacjentow do formularza
      */
     public void loadAllPatients() {
         model.loadAllPatients();
         initView();
     }
 
+    /**
+     * Wczytuje nie zdiagnozowanych pacjentow do formularza
+     */
     public void loadNotDiagnosedPatients() {
         model.loadNotDiagnosedPatients();
         initView();
@@ -145,39 +138,37 @@ public class PatientResultsController {
 
     /**
      * funkcja oblsugujaca klikniecie w search z widoku search patients
+     * @param condition Warunek jaki musi spelnic pacjent
+     * @param searchBy Pole po którym będą przeszukiwani pacjenci
+     * @param value  Wartosc poszukiwanego parametru
+     * @return Lista pacjentow zgodnych z warunkiem wyszukiwania
      */
     public ArrayList<PatientData> prepareResults(String searchBy, String condition, String value) {
-//        model = new PatientSearchResults(PatientSearchResults.generateSQL(searchBy, condition, value));
-//        return model.getPatients();
         model.search(PatientSearchResults.generateSQL(searchBy, condition, value));
         initView();
         return model.getPatients();
-//        zrobic to w nowym watku
     }
 
-
     /**
-     * obluga kilkniecia w diagnose z gui
-     * @return
+     * Obluga kilkniecia w diagnose z gui
      */
     public void diagnose() {
         getActivePatient();
         try {
-            NeuralNetwork neuralNetwork = ANNSerializer.readLastANN();
+            NeuralNetwork neuralNetwork=AppController.getNeuralNetwork();
             ArrayList<Double> outputs;
             outputs = neuralNetwork.feedForward(
                     convertMedicalData(getActivePatient().getMedicalData()));
-            getActivePatient().getMedicalData().setProgramDiagnosis(outputs.get(0));
+            getActivePatient().getMedicalData().setProgramDiagnosis(outputs.get(0)>0.7? 1:0);
         } catch (Exception ex) {
             Logger.getLogger(PatientResultsController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-
     /**
-     * konwertuje medical data na liste dobule dla neural network
-     * @param medicalData
-     * @return
+     * Konwertuje medical data na liste dobule dla neural network
+     * @param medicalData Dane medyczne do konwersji
+     * @return Skonwertowane dane medyczne zgodne z formatem obsługiwanym przez ANN
      */
     private ArrayList<Double> convertMedicalData(MedicalData medicalData) {
         ArrayList<Double> list = new ArrayList<Double>();

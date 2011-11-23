@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package heartdoctor.databasefiller;
 
 import heartdoctor.DataModel.MedicalData;
@@ -20,7 +16,11 @@ import java.util.GregorianCalendar;
 import java.util.Random;
 
 /**
- *
+ * Klasa generująca dane osobowe pacjenta: Imię, Drugie imię, nazwisko, pesel,
+ * adres zamieszkania. Nie generuje danych medycznych, dane medyczne podpinane są
+ * z bazy. Zachowuje poprawność płci i wieku z PESELa z wiekiem i płcią z bazy.
+ * Nie używana w programie. Metoda main() wywoływana w celu wypełnienia bazy
+ * danych losowymi danymi osobowymi pacjentów.
  * @author michal
  */
 public class PatientDataGenerator {
@@ -37,10 +37,17 @@ public class PatientDataGenerator {
     Connection updateConn=null;
     PreparedStatement updateStm=null;
     
+    /**
+     * Tworzy obiekt generatora i inicjalizuje komponenty
+     */
     public PatientDataGenerator() {
         initComponents();
     }
-
+    
+    /**
+     * Usuwa wszystkie dane osobowe pacjentów z bazy. 
+     * @throws SQLException 
+     */
     private void clearDB() throws SQLException {
         Connection conn = null;
         Statement stm = null;
@@ -54,6 +61,12 @@ public class PatientDataGenerator {
         }
     }
 
+    /**
+     * Przetwarza ResultSet na MedicalData
+     * @param rs ResultSet do przetworzenia
+     * @return Dane medyczne pacjenta wydobyte z rs
+     * @throws SQLException 
+     */
     public MedicalData processResultSet(ResultSet rs) throws SQLException {
         MedicalData data = new MedicalData();
         data.setDbID(rs.getInt(1));
@@ -75,6 +88,13 @@ public class PatientDataGenerator {
         return data;
     }
 
+    /**
+     * Generuje dane osobowe pojedyńczego pacjenta. Przyjmuje płeć i wiek w celu
+     * generacji imion, nazwisk, PESELu
+     * @param sex Płeć pacjenta
+     * @param age Wiek pacjenta
+     * @return Wygenerowane dane pacjenta
+     */
     private PatientData generatePatient(double sex, double age) {
         PatientData data = new PatientData();
         data.setCity(selectRandom(cities));
@@ -96,6 +116,12 @@ public class PatientDataGenerator {
         return data;
     }
 
+    /**
+     * Generuje prawidłowy nr. PESEL uwzględniając wiek i płeć pacjenta
+     * @param sex Płeć pacjenta
+     * @param age Wiek pacjenta
+     * @return Wygenerowany PESEL
+     */
     private String generatePesel(double sex, double age) {
         String str = "";
         int a=(int)age;
@@ -115,6 +141,11 @@ public class PatientDataGenerator {
         return str;
     }
 
+    /**
+     * Wylicza sumę kontrolną dla numeru PESEL
+     * @param str 10 cyfr numeru PESEL
+     * @return Sume kontrolna dla danego numeru PESEL
+     */
     private String controlSum(String str){
         int [] tokens=new int[10];
        
@@ -132,6 +163,10 @@ public class PatientDataGenerator {
         return ""+ (10-rest);
     }
     
+    /**
+     * Generuje adres zamieszkania
+     * @return Adres zamieszkania
+     */
     private String generateAddress() {
         String str;
         str = " " + rand.nextInt(100);
@@ -141,6 +176,10 @@ public class PatientDataGenerator {
         return str;
     }
 
+    /**
+     * Generuje kod pocztowy
+     * @return Kod pocztowy
+     */
     private String generateCode() {
         String str="";
         int code=rand.nextInt(100);
@@ -156,7 +195,12 @@ public class PatientDataGenerator {
         str += "" + token;
         return str;
     }
-
+    
+    /**
+     * Usuwa wszystkie dane osobowe pacjentów, a dla każdego rekordu z 
+     * danymi medycznymi generuje dane osobowe pacjenta
+     * @throws SQLException 
+     */
     private void generate() throws SQLException {
         clearDB();
         Connection conn = null;
@@ -188,17 +232,32 @@ public class PatientDataGenerator {
         }
     }
     
-    public void updateDB(PatientData patient) throws SQLException{ 
+    /**
+     * Zapisuje pacjenta do bazy danych
+     * @param patient
+     * @throws SQLException 
+     */
+    private void updateDB(PatientData patient) throws SQLException{ 
             PatientController.addPatient(patient,false);
             updateStm.setInt(1, patient.getID());
             updateStm.setInt(2, patient.getMedicalData().getDbID());
             updateStm.executeUpdate();  
     }
 
+    /**
+     * Wybiera losową wartość z tablicy
+     * @param list Tablica String
+     * @return Losowa wartość z tablicy
+     */
     private String selectRandom(String[] list) {
         return list[rand.nextInt(list.length)];
     }
 
+    /**
+     * Funkcja main tworząca obiekt PatientDataGenerator i wypełniająca bazę
+     * danymi osobowymi pacjentów.
+     * @param argv 
+     */
     public static void main(String[] argv) {
         try {
             new PatientDataGenerator().generate();
@@ -208,6 +267,11 @@ public class PatientDataGenerator {
         }
     }
 
+    /**
+     * Tutaj komponenty są wypełniane najpopularniejszymi imionami i nazwiskami,
+     * większymi miastami itp.
+     */
+    
     private void initComponents() {
         rand = new Random(System.currentTimeMillis());
         maleNames = new String[]{
