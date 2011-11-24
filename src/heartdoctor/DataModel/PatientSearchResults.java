@@ -11,11 +11,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Klasa modelujaca liste pacjentow zwrocana z zapytania etc.
- * W konstrukorze na czas testow uzyta funkcja populateRecords zeby 
- * utworzyc jakies rekordy - funkcja do usuniecia gdy bedzie juz gotowa funkcjonalnosc
- * do wyszukiwania
- * @author michal
+ * Klasa reprezentujace wyniki wyszukiwania
+ * etapy wyszukiwania:
+ * 1. wyklikanie w gui (SearchPatients)
+ * 2. z gui dane ida do kontrolera PatientResultsController
+ * 3. w kontrolerze wywolywane sa odpowiednie funkcje z modelu (tej klasy)
+ *
+ * @author Qba
  */
 public class PatientSearchResults {
 
@@ -59,6 +61,7 @@ public class PatientSearchResults {
 
     /**
      * Na podstawie resultatu zapytania generuje obiekty PatientData
+     * (uzywane w metodzie search, ktora przekazuje ResultSet a potrzebuje liste pacjentow)
      * @param rs 
      * @return
      */

@@ -12,6 +12,8 @@ import heartdoctor.GUI.StatusPanel;
 import javax.swing.JPanel;
 
 /**
+ * Kontroler dla widoków admina
+ * używany m.in. w NetworkStats.kava
  *
  * @author Qba
  */

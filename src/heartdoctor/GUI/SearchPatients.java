@@ -301,12 +301,8 @@ public class SearchPatients extends javax.swing.JPanel {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
-//        domyslnie dane przekazywane kontrolerowi
         ArrayList<PatientData> patients = flowController.prepareResults(nameSearch.getSelectedItem().toString(),
                 conditionSearch.getSelectedItem().toString(), valueSearch.getText());
-//        na razie modelowi
-//        String sql = PatientSearchResults.generateSQL(nameSearch.getSelectedItem().toString(),
-//                conditionSearch.getSelectedItem().toString(), valueSearch.getText());
         resultCount.setText("Results: " + patients.size());
     }//GEN-LAST:event_searchButtonActionPerformed
 

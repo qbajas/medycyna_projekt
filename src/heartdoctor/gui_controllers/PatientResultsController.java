@@ -16,6 +16,7 @@ import java.util.logging.Logger;
  * Klasa kontrolera do zarzadzania wyswietlaniem listy pacjentow w 
  * widoku SearchPatients.
  * @author michal
+ * @author Qba
  */
 public class PatientResultsController {
 
@@ -151,6 +152,9 @@ public class PatientResultsController {
 
     /**
      * Obluga kilkniecia w diagnose z gui
+     * 1. bierzemy sobie siec neuronowa
+     * 2. wpychamy do niej dane aktywnego pacjenta
+     * 3. dostajemy wynik: chory lub nie
      */
     public void diagnose() {
         getActivePatient();

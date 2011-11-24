@@ -13,7 +13,9 @@ import heartdoctor.GUI.SearchPatients;
 import heartdoctor.GUI.StatusPanel;
 
 /**
- * klasa dostarczajaca strategie dla widokow gui
+ * Kontroler dla widoków doktora
+ * używany m.in. w SearchPatients.java
+ *
  * @author Qba
  */
 public class DoctorGuiController extends GuiController {

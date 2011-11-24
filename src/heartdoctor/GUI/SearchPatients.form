@@ -27,16 +27,16 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="diagnosisPanel1" alignment="0" pref="694" max="32767" attributes="1"/>
+                  <Component id="diagnosisPanel1" alignment="0" pref="544" max="32767" attributes="1"/>
                   <Component id="jPanel1" alignment="1" max="32767" attributes="0"/>
-                  <Component id="resultCount" alignment="0" pref="694" max="32767" attributes="0"/>
+                  <Component id="resultCount" alignment="0" pref="544" max="32767" attributes="0"/>
                   <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="prevButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="patientListBox" pref="266" max="32767" attributes="1"/>
+                              <Component id="patientListBox" pref="116" max="32767" attributes="1"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
@@ -85,7 +85,7 @@
               <Component id="diagnosisPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="43" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -202,7 +202,7 @@
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="160" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -313,7 +313,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jToggleButton1" min="-2" pref="193" max="-2" attributes="0"/>
-                  <EmptySpace pref="257" max="32767" attributes="0"/>
+                  <EmptySpace pref="107" max="32767" attributes="0"/>
                   <Component id="jButton2" min="-2" pref="224" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

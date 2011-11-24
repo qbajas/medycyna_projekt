@@ -11,6 +11,10 @@ import heartdoctor.GUI.MainPanel;
 import javax.swing.JPanel;
 
 /**
+ * Klasa abstrakcyjna
+ * klasy po niej dziedziczące są kontrolerami dla widoków (MVC)
+ * decyzja o instanizacji konkretnej klasy podejmowana jest w AppController (createGuiController)
+ * w tych klasach implementowana jest logika do widoków
  *
  * @author Qba
  */
@@ -19,13 +23,29 @@ public abstract class GuiController {
     protected MainFrame frame;
     protected MainPanel mainPanel;
     protected LeftPanel lp;
-    
+
+    /**
+     * metoda ustawiająca ekran startowy
+     * (ekran po zalogowaniu sie)
+     */
     public abstract void setStartingView();
+
+    /**
+     * przygotowywanie lewego panelu (glownego menu)
+     * menu jest rozne w zaleznosci od tego kto sie zalogowal
+     */
     public abstract void prepareLeftPanel();
 
+    /**
+     * ustawianie prawego panelu (glowny panel, z najwazaniejsza trescia)
+     * @param panel
+     */
     public void setRightPanel(JPanel panel) {
         mainPanel.setContentPanel(panel);
     }
+
+    
+//    settery i gettery
 
     public MainFrame getFrame() {
         return frame;
