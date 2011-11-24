@@ -6,6 +6,7 @@
 package heartdoctor.ann;
 
 /**
+ * Domyślne parametry sieci neuronowej.
  *
  * @author empitness
  */

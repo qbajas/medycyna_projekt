@@ -6,19 +6,35 @@
 package heartdoctor.ann;
 
 /**
+ * Klasa odpowiedzialna za wstępne przetworzenie danych medycznych
+ * przed ich podaniem do sztucznej sieci neuronowej, np. celem
+ * jej wytrenowania. Przeprowadza operacje doprowadzające te dane
+ * do formy znormalizowanej. Każdy z wyników badań charakteryzuje się
+ * różnym zakresem dopuszczalnych wartości.
  *
  * @author empitness
  */
 public class DataPreprocessor {
 
-  // poddaje dane wstepnej obrobce przed wrzuceniem do ANN
+  /*
+   * Poddaje podane dane medyczne wstępnemu przetwarzaniu (preprocessing).
+   * Modyfikowane są bezpośrednio przesłane dane, nie jest robiona ich kopia.
+   *
+   * @param data dane medyczne do obróbki
+   */
   public void preprocessData(DataSet data)
   {
 	cleanData(data);
 	normalizeData(data);
   }
 
-  // uzupelnia puste pola w probkach
+  /*
+   * Uzupełnia puste pola w próbkach medycznych, poprzez
+   * przypisanie im wartości średnich ze wszystkich innych,
+   * uzupełnionych wartości tego typu.
+   *
+   * @param data dane medyczne do uzupełnienia
+   */
   private void cleanData(DataSet data)
   {
 	double[] mean = new double[13];
@@ -60,7 +76,12 @@ public class DataPreprocessor {
 	}
   }
 
-  // normalizuje dane do odbiowiednich zakresow numerycznych
+  /*
+   * Normalizuje dane do odpowiednich przedziałów i zakresów możliwych
+   * wartości w zależności od typu każdego z badań składowych.
+   *
+   * @param data dane medyczne do znormalizowania
+   */
   private void normalizeData(DataSet data)
   {
 	/*
@@ -130,6 +151,14 @@ public class DataPreprocessor {
 	}
   }
 
+  /*
+   * Normalizuje podaną wartość w przedziale [min,max].
+   * Przykłady: linearNorm(10, 10, 20) = 0.0, linearNorm(3,2,4) = 0.5.
+   *
+   * @param val wartość do normalizacji
+   * @param min wartość minimalna przedziału normalizacji
+   * @param max wartość maksymalna przedziału normalizacji
+   */
   private double linearNorm(double val, double min, double max)
   {
 	return (val - min) / (max - min);

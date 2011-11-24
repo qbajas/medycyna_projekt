@@ -8,20 +8,53 @@ package heartdoctor.ann;
 import java.util.ArrayList;
 
 /**
+ * Klasa obliczającą metryki określające aktualną skuteczność podanej sieci
+ * neuronowej. Używana jest przede wszystkim przez NeuralNetworkTrainer
+ * na etapie treningu.
  *
  * @author empitness
  */
 public class NeuralNetworkEvaluator {
 
+  /*
+   * Sieć neuronowa poddawana ocenie
+   */
   private NeuralNetwork _network;
 
+  /*
+   * Tablica wag połączęń neuronowych
+   */
   private double[][][] _weights;
+
+  /*
+   * Tablica z wartościami gradientów błędu
+   */
   private double[][] _errorGradients;
+
+  /*
+   * Tablica z wartościami neuronów
+   */
   private double[][] _neuronValues;
 
+  /*
+   * Zwraca tablicę gradientów błędów
+   *
+   * @return tablica gradientów błędów
+   */
   public double[][] getErrorGradients() { return _errorGradients; }
+
+  /*
+   * Zwraca tablicę wartości neuronów
+   *
+   * @return tablica wartości neuronów
+   */
   public double[][] getNeuronValues() { return _neuronValues; }
 
+  /*
+   * Tworzy nową instancję ewaluatora sieci.
+   *
+   * @param network sieć neuronowa do oceny
+   */
   public NeuralNetworkEvaluator(NeuralNetwork network)
   {
 	_network = network;
@@ -44,6 +77,9 @@ public class NeuralNetworkEvaluator {
    * Uaktualnia wewnetrzne struktury potrzebne do poprawnego obliczania
    * skutecznosci sieci. Nalezy wywolac po kazdym przepuszczenie danych
    * przez siec, przed pobieraniem informacji o skutecznosci dla tych danych.
+   *
+   * @param desiredOutputValues talbica z oczekiwanymi wartościami wyjściowymi
+   * ostatniego przebiegu sieci
    */
   public void update(double[] desiredOutputValues)
   {
@@ -87,7 +123,13 @@ public class NeuralNetworkEvaluator {
 
   }
 
-  // oblicza blad sredniokwardatowy sieci na podanych danych wejsciowych
+  /*
+   * Oblicza błąd średniokwadratowy (ang. MSE - Mean Square Error) na podanym
+   * zbiorze danych medycznych.
+   *
+   * @param data kolekcja danych medycznych
+   * @return błąd średniokwadratowy sieci dla podanych danych
+   */
   public double calcDataSetMSE(DataSet data)
   {
 	double mse = 0;
@@ -108,8 +150,13 @@ public class NeuralNetworkEvaluator {
 	return mse;
   }
 
-  // oblicza procentowana skutecznosc sieci na podstanych danych wejsciowych,
-  // gdzie skutecznosc to % ilosc dobrze rozpoznanych danych
+  /*
+   * Oblicza procentową skuteczność sieci na podanych danych wejściowych,
+   * gdzie skuteczność to % liczba dobrze rozpoznanych próbek.
+   *
+   * @param data dane medyczne
+   * @return skuteczność w przedziale 0.0-100.0
+   */
   public double calcDataSetAccuracy(DataSet data)
   {
 	int incorrectResults = 0;
@@ -138,6 +185,12 @@ public class NeuralNetworkEvaluator {
 	return 100 - ((double)incorrectResults / data.entries.size() * 100);
   }
 
+  /*
+   * Zaokrągla podaną wartość wyjściową sieci do binarnego wyniku.
+   *
+   * @param x wartość do zaokrąglenia
+   * @return zaokrąglona wartość (0 - zdrowy, 1 - chory)
+   */
   public int roundOutputValue(double x)
   {
 //	if (x < 0.5) return 0;
@@ -154,6 +207,10 @@ public class NeuralNetworkEvaluator {
   /*
    * Zwraca wczesniej obliczony w update() gradient bledu dla
    * neurona w konkretnej warstwie, gdzie 0 - pierwsza warstwa ukryta.
+   *
+   * @param layer numer warstwy
+   * @param neuron numer neurona
+   * @return gradient błędu dla podanego neurona w podanej warstwie
    */
   public double getErrorGradient(int layer, int neuron)
   {
@@ -162,6 +219,10 @@ public class NeuralNetworkEvaluator {
 
   /*
    * Oblicza gradient bledu neurona wyjsciowego.
+   *
+   * @param desiredVal oczekiwana wartośc wyjściowa
+   * @param outputVal otrzymana wartość wyjściowa
+   * @return gradient błędu neurona wyjściowego
    */
   private double calcErrorGradientOutput(double desiredVal, double outputVal)
   {
@@ -170,6 +231,9 @@ public class NeuralNetworkEvaluator {
 
   /*
    * Oblicza gradient bledu neurona ostatniej warstwy ukrytej.
+   *
+   * @param neuron numer neurona
+   * @return gradient błędu
    */
   private double calcErrorGradientHiddenOutput(int neuron)
   {
@@ -183,6 +247,10 @@ public class NeuralNetworkEvaluator {
 
   /*
    * Oblicza gradient bledu neurona posredniej warstwy ukrytej.
+   *
+   * @param layer numer warstwy
+   * @param neuron numer neurona
+   * @return gradient błędu
    */
   private double calcErrorGradientHiddenHidden(int layer, int neuron)
   {
@@ -197,6 +265,11 @@ public class NeuralNetworkEvaluator {
   /*
    * Zwraca wage pomiedzy neuronem nextNeuron w warstwie nextLayer
    * a neuronem prevNeuron w warstwie wczesniejszej (nextLayer-1).
+   *
+   * @param nextLayer numer "przedniej" warstwy
+   * @param nextNeuron numer neurona w "przedniej" warstwie
+   * @param prevNeuron numer neurona w "tylnej" warstwie
+   * @return waga wybranego połączenia neuronowego
    */
   private double getWeight(int nextLayer, int nextNeuron, int prevNeuron)
   {

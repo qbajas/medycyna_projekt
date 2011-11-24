@@ -8,6 +8,7 @@ package heartdoctor.ann;
 import java.util.ArrayList;
 
 /**
+ * Klasa trenująca sieć neuronową.
  *
  * @author empitness
  */
@@ -40,25 +41,80 @@ public class NeuralNetworkTrainer {
   private ArrayList<NeuralNetworkTrainingListener> _listeners = 
           new ArrayList<NeuralNetworkTrainingListener>();
 
+  /*
+   * Ustawia tempo nauki sieci
+   *
+   * @param x tempo nauki
+   */
   public void setLearningRate(double x) { _learningRate = x; }
+  /*
+   * Ustawia dostosowanie tempa nauki sieci
+   *
+   * @param x dostosowanie tempa nauki
+   */
   public void setLearningRateAdjust(double x) { _learningRateAdjust = x; }
+  /*
+   * Ustawia współczynik pędu nauki
+   *
+   * @param x pęd nauki
+   */
   public void setMomentumConst(double x) { _momentumConst = x; }
+  /*
+   * Ustawia współczynnik zapominania sieci
+   *
+   * @param x wsp. zapominania sieci
+   */
   public void setForgettingRate(double x) { _forgettingRate = x; }
 
+  /*
+   * Zwraca skuteczność sieci dla zbioru walidacyjnego
+   *
+   * @return skuteczność sieci [0.0,100.0]
+   */
   public double getValidationSetAccuracy() { return _validationSetAccuracy; }
+  /*
+   * Zwraca błąd średniokwadratowy sieci dla zbioru walidacyjnego
+   *
+   * @return MSE zbioru walidacyjnego
+   */
   public double getValidationSetMSE() { return _validationSetMSE; }
 
+  /*
+   * Ustala oczekiwaną skuteczność sieci po nauce
+   *
+   * @param accuracy ozcekiwana skuteczność [0.0,100.0]
+   */
   public void setDesiredAccuracy(double accuracy) { _desiredAccuracy = accuracy; }
+  /*
+   * Ustala maksymalną ilość epok nauki sieci
+   *
+   * @param epochs maks. ilość epok
+   */
   public void setMaxEpochs(int epochs) { _maxEpochs = epochs; }
 
+  /*
+   * Dodaje nasłuwicza postępu nauki sieci.
+   *
+   * @param listener nasłuchiwacz
+   */
   public void addListener(NeuralNetworkTrainingListener listener) { 
       _listeners.add(listener); 
   }
-  
+
+  /*
+   * Usuwa nasłuwiacza postępu nauki sieci
+   *
+   * @param listener nasłuchiwacz do usunięcia
+   */
   public void removeListener(NeuralNetworkTrainingListener listener) { 
       _listeners.remove(listener); 
   }
 
+  /*
+   * TWorzy nową instancję trenera sieci.
+   *
+   * @param network sieć do nauki
+   */
   public NeuralNetworkTrainer(NeuralNetwork network)
   {
 	_network = network;
@@ -72,6 +128,13 @@ public class NeuralNetworkTrainer {
 		  _deltaWeights[l][n][w] = 0;
   }
 
+  /*
+   * Trenuje sieć neuronową.
+   *
+   * @param trainingSet zbiór treningowy sieci
+   * @param generalizationSet zbiór generalizacyjny sieci
+   * @param validationSet zbiór walidacyjny sieci
+   */
   public void trainNetwork(DataSet trainingSet, DataSet generalizationSet, DataSet validationSet)
   {
 	int epoch = 0;
@@ -110,6 +173,11 @@ public class NeuralNetworkTrainer {
 	System.out.printf("Gotowe! Epoch: %d, ValidAccuracy: %f, ValidMSE: %f\n", epoch, _validationSetAccuracy, _validationSetMSE);
   }
 
+  /*
+   * Przeprowadza pojedynczą iterację nauki sieci.
+   *
+   * @param trainingSet zbiór treningowy sieci
+   */
   private void runTrainingEpoch(DataSet trainingSet)
   {
 	double incorrectPatterns = 0;
@@ -152,6 +220,12 @@ public class NeuralNetworkTrainer {
 	}
   }
 
+  /*
+   * Uaktualnia wagi połączęń neuronowych po iteracji nauki sieci na podstawie
+   * obliczonych gradientów błędów.
+   *
+   * @param desiredOutputs oczekiwana wartości wyjściowe sieci
+   */
   private void backpropagate(double[] desiredOutputs)
   {
 	_evaluator.update(desiredOutputs);
@@ -162,6 +236,9 @@ public class NeuralNetworkTrainer {
 	updateWeights();
   }
 
+  /*
+   * Uaktualnia wagi połączeń neuronowych.
+   */
   private void updateWeights()
   {
 	for (int l = 0; l < _deltaWeights.length; ++l)
@@ -183,6 +260,9 @@ public class NeuralNetworkTrainer {
 	_network.setWeights(_weights);
   }
 
+  /*
+   * Przerywa ziom xD
+   */
   public void interrupt(){
       interrupt=true;
   }

@@ -8,12 +8,22 @@ package heartdoctor.ann;
 import java.util.ArrayList;
 
 /**
+ * Pojedynczy wpis medycznej bazy pacjenta.
+ * Zawiera wyniki badań przeprowadzonych na pacjencie oraz
+ * postawioną diagnozę.
  *
  * @author empitness
  */
 public class DataEntry {
 
+  /*
+   * Lista wartości będących wynikami badań pacjenta
+   */
   public ArrayList<Double> patterns = new ArrayList<Double>(14);
+  /*
+   * Lista wartości będących postawionymi przez lekarze diagnozami
+   * (w przypadku naszej aplikacji - zawsze jeden: chory lub nie)
+   */
   public ArrayList<Double> targets = new ArrayList<Double>(1);
 
     @Override

@@ -13,18 +13,35 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
+ * Klasa ładująca dane medyczne pacjentów z pliku tekstowego o regularnym formacie.
  *
  * @author empitness
  */
 public class FileDataLoader implements DataLoader {
 
+  /*
+   * Ścieżka do pliku tekstowego z danymi medycznymi
+   */
   private String _file;
 
+  /*
+   * Tworzy nową instancję klasy, zapamiętująć ścieżkę do pliku z danymi.
+   *
+   * @param file ścieżka do pliku z danymi medycznymi
+   */
   public FileDataLoader(String file)
   {
 	_file = file;
   }
 
+  /*
+   * Ładuje dane medyczne z pliku tekstowego podanego w konstruktorze.
+   * Próbki kolejnych pacjentów są oddzielone znakami nowej linii,
+   * zaś poszczególne wartości badań oraz diagnoza w obrębie jednej
+   * próbki - przecinkami.
+   *
+   * @return kolekcja próbek załadowanych z pliku
+   */
   public DataSet loadData()
   {
 	DataSet data = new DataSet();
