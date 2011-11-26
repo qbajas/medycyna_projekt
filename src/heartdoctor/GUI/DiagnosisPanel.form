@@ -83,9 +83,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="sugar" min="0" pref="0" max="32767" attributes="1"/>
                       <Component id="cholestoral" alignment="1" min="0" pref="0" max="32767" attributes="1"/>
-                      <Component id="heartRate" alignment="0" pref="23" max="32767" attributes="1"/>
-                      <Component id="bloodPressure" alignment="0" pref="23" max="32767" attributes="1"/>
-                      <Component id="oldpeak" alignment="0" pref="23" max="32767" attributes="0"/>
+                      <Component id="heartRate" alignment="0" pref="56" max="32767" attributes="1"/>
+                      <Component id="bloodPressure" alignment="0" pref="56" max="32767" attributes="1"/>
+                      <Component id="oldpeak" alignment="0" pref="56" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -370,7 +370,7 @@
                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="anginaCombo" min="-2" pref="21" max="-2" attributes="0"/>
-                  <EmptySpace pref="7" max="32767" attributes="0"/>
+                  <EmptySpace pref="40" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -421,7 +421,7 @@
                   <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="sex" min="-2" pref="88" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="43" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -486,8 +486,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="diagnosis" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="94" max="32767" attributes="0"/>
+                  <Component id="diagnosis" pref="121" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -534,7 +534,7 @@
                   <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="verifiedDiagnosis" min="-2" pref="107" max="-2" attributes="0"/>
-                  <EmptySpace pref="28" max="32767" attributes="0"/>
+                  <EmptySpace pref="61" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

@@ -7,7 +7,6 @@ package heartdoctor.gui_controllers;
 import heartdoctor.GUI.LeftPanel;
 import heartdoctor.GUI.MainFrame;
 import heartdoctor.GUI.MainPanel;
-import heartdoctor.GUI.NetworkStats;
 import heartdoctor.GUI.StatusPanel;
 import javax.swing.JPanel;
 

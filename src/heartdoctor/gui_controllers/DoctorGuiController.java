@@ -11,6 +11,7 @@ import heartdoctor.GUI.MainFrame;
 import heartdoctor.GUI.MainPanel;
 import heartdoctor.GUI.SearchPatients;
 import heartdoctor.GUI.StatusPanel;
+import javax.swing.JPanel;
 
 /**
  * Kontroler dla widoków doktora
@@ -32,8 +33,8 @@ public class DoctorGuiController extends GuiController {
         prepareLeftPanel();
         
 //        mainPanel.setContentPanel(new DiagnosisPanel(this));
-        mainPanel.setContentPanel(new SearchPatients(this,new PatientSearchResults() ));
-
+       // mainPanel.setContentPanel(new SearchPatients(this,new PatientSearchResults() ));
+        mainPanel.setContentPanel(new JPanel());
         
         mainPanel.setBounds(0, 0, MainFrame.WINDOW_WIDTH, MainFrame.WINDOW_HEIGHT - StatusPanel.PANEL_HEIGHT);
 
