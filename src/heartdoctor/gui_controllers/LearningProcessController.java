@@ -140,6 +140,8 @@ public class LearningProcessController implements NeuralNetworkTrainingListener{
         if(option==JOptionPane.YES_OPTION){
             interrupt();
             statsGUI.startButton.setText("Start learning");
+            if(bestNet!=null)
+                statsGUI.saveButton.setEnabled(true);
             AppController.getFrame().setStatus("Interrupted");
         }    
     }
