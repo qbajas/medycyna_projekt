@@ -16,6 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
+ * Klasa odpowiedzialna za wypełnianie bazy danych LearnDataSet danymi medycznymi
+ * z plików na dysku.
  *
  * @author Witek
  */
@@ -29,7 +31,13 @@ public class DataBaseFiller {
        	DataBaseFiller dbf=new DataBaseFiller();
         dbf.fillDB();
     }
-    
+    /**
+     * Otwiera okno do wyboru pliku. Wybrany plik zostaje otwarty. Wczytywane są
+     * linie z danymi, wartości -9 lub ? zostają zastąpione wartością NULL.
+     * Format lini: 14 parametrów odzielonych spacją, wartościach numerycznych
+     * dodatnich,? lub -9
+     *
+     */
     public void fillDB() {
         Connection conn = DBUtil.getConnection();
         PreparedStatement stm = null;
