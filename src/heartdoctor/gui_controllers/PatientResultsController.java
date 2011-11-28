@@ -111,7 +111,10 @@ public class PatientResultsController {
      * @return true jeśli zapis się powiódł, false w przeciwnym wypadku
      */
     public boolean saveActivePatient(MedicalData medicalData) {
-        getActivePatient().setMedicalData(medicalData);
+        PatientData patient=getActivePatient();
+        int dataID=patient.getMedicalData().getDbID();
+        patient.setMedicalData(medicalData);
+        patient.getMedicalData().setDbID(dataID);
         try {
             return PatientController.updateMedicalRecord(getActivePatient().getMedicalData());
         } catch (SQLException ex) {

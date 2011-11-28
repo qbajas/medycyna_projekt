@@ -240,6 +240,8 @@ public class MedicalData {
     }
 
     public double getThal() {
+        if(thal==null)
+            return 0;
         return thal.getValue();
     }
 
