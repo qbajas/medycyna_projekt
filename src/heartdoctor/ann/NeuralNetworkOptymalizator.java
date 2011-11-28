@@ -145,7 +145,7 @@ public class NeuralNetworkOptymalizator implements Runnable{
     }
 /**
  * Metoda ustawia w klasie LearningProcessController
- *
+ * @param controller
  */
     public void setController(LearningProcessController controller) {
         this.controller = controller;
