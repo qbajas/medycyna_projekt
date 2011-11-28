@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
+ * Klasa umiożliwiająca testowanie uczenia się sieci neuronowej dla różnych parametrów
  *
  * @author Witek
  */
@@ -38,7 +39,10 @@ public class NeuralNetworkOptymalizator implements Runnable{
     DataSet trainingSet;
     DataSet generalizationSet;
     DataSet validationSet;
-
+/**
+ * Konstruktor domyślny z ustawionymi parametrami dobranymi doświadczalnie.
+ *
+ */
     public NeuralNetworkOptymalizator(){
     // Konstruktor domyślny ustawia parametry do przetestowania
         _minNumHiddenLayers = 1;
@@ -53,6 +57,11 @@ public class NeuralNetworkOptymalizator implements Runnable{
     }
 
     @Override
+    /**
+     * Metoda testująca sieć dla różnych parametrów, ustawianych z poziomu kodu.
+     * Wczytuje dane z bazy i odpowiednio przetwarza. Następnie w pętli uruchamia
+     * uczenie się sieci i wyniki zwraca do LearningProcessController
+     */
     public void run(){
         try{
     // Wczytanie danych testowych z bazy danych i i ch podział na 3 grupy
@@ -120,19 +129,31 @@ public class NeuralNetworkOptymalizator implements Runnable{
     public void clean(){
         
     }
-    
+    /**
+     * Metoda odpowiada za możliwość przerwania testowania.
+     *
+     */
     public void interrupt(){
         breakFlag=true;
     }
-
+    /**
+     * Metoda zwraca LearningProcessController ustawiony w klasie
+     * @return LearningProcessController
+     */
     public LearningProcessController getController() {
         return controller;
     }
-
+/**
+ * Metoda ustawia w klasie LearningProcessController
+ * @param controller
+ */
     public void setController(LearningProcessController controller) {
         this.controller = controller;
     }
-
+/**
+ * Zwracanie aktualnie testowanej sieci neuronowej.
+ * @return NeuralNetwork
+ */
     public NeuralNetwork getNetwork() {
         return _network;
     }
